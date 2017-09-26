@@ -66,7 +66,7 @@ if ($_POST['key']=='login') {
         function cargarsubcategorias($conexion,$id)
     { 
      
-        $conexion->consulta("SELECT * FROM  tbl_subcategories WHERE   tbl_categorias_idtbl_categorias='".$id."'");
+        $conexion->consulta("SELECT * FROM  tbl_subcategorias WHERE   tbl_categorias_idtbl_categorias='".$id."'");
 $subcategoria= array();
 $i = 0;
 while($row = $conexion->extraer_registro()){
@@ -113,7 +113,7 @@ $row= $conexion->extraer_registro();
   $_SESSION['tipo']="user";
 echo "se ha iniciado correctamente";
 }else{
-  $result=$conexion->consulta("SELECT * FROM tbl_seller WHERE nombre_usuario='".$nombre."'   and password='".$pass."'");
+  $result=$conexion->consulta("SELECT * FROM tbl_vendedor WHERE nombre_usuario='".$nombre."'   and password='".$pass."'");
 $row= $conexion->extraer_registro();
 if($row>0)
  {
