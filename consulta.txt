@@ -1,0 +1,10 @@
+INSERT INTO `tbl_categorias` (`idtbl_categorias`, `nombre_categoria`, `descripcion`) VALUES
+(0, 'carro', 'Este aparatado es para cualquier tipo de carro que usted desee publicar.'),
+(1, 'electrodomesticos', 'En este apartado es exclusivo para publicar articulo que son del hogar .'),
+(2, 'joyas', 'Este aparatado es exclusivo para joyas y para relojes aqui cabe cualquier tipo de joyas que usted desee publicar'),
+(3, 'libro', 'este apartado es exclusivo para librerias y cualquier otro tipo de tieneda que desee publicar aqui con el fin de vender sus libros'),
+(4, 'ropa', 'apartado unicamente para ropa aqui podemos publicar articulos como camisas, zapatos, tennis y demas artiulos que tengan que ver con la categoria de ropa'),
+(5, 'tecnologia', 'apartado unicamente para tecnologia aqui podemos publicar articulos como celulares, tablet,  y demas artiulos que tengan que ver con la categoria de tecnologia'),
+(6, 'deportes', 'apartado unicamente para deporte aqui podemos publicar articulos como camisas deportivas, tennis deportivas, balones y demas artiulos que tengan que ver con la categoria de deportes'),
+(7, 'arte', 'apartado unicamente para arte aqui podemos publicar articulos como pinturas y demas artiulos que tengan que ver con la categoria de arte'),
+(8, 'juguetes', 'apartado unicamente para juguetes aqui podemos publicar articulos como legos, figuras de accion y demas artiulos que tengan que ver con la categoria de juguetes');
