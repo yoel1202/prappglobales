@@ -81,7 +81,7 @@ echo json_encode($subcategoria);
 
         function cargarcategorias($conexion)
     {
-       $conexion->consulta ("SELECT * FROM  tbl_categorias ");
+       $conexion->consulta ("SELECT * FROM  tbl_categories ");
 $categoria= array();
 $i = 0;
 while($row = $conexion->extraer_registro()){
