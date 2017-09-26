@@ -1,4 +1,5 @@
 <?php
+//prueba
   $word= $_REQUEST['word'] ;
              
   session_start();
