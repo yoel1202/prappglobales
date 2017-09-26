@@ -1,4 +1,5 @@
 <?php 
+//prueba
 session_start();
     require_once("conexion.php");
 
