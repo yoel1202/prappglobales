@@ -1,4 +1,4 @@
-INSERT INTO `tbl_categorias` (`idtbl_categorias`, `nombre_categoria`, `descripcion`) VALUES
+INSERT INTO `tbl_categories` (`idtbl_categorias`, `nombre_categoria`, `descripcion`) VALUES
 (0, 'carro', 'Este aparatado es para cualquier tipo de carro que usted desee publicar.'),
 (1, 'electrodomesticos', 'En este apartado es exclusivo para publicar articulo que son del hogar .'),
 (2, 'joyas', 'Este aparatado es exclusivo para joyas y para relojes aqui cabe cualquier tipo de joyas que usted desee publicar'),
