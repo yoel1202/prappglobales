@@ -163,119 +163,15 @@
 </div>
            </div>
     <div class="col-md-9">
-<div class="container">
-	<div class="row" >
-    	
+<div class="container" id="wordsearch">
 
 
-  		<div class="col-md-11 col-sm-6 margin50">
-    		<span class="thumbnail">
-        <a href="buy.php"><img src="img/productos/s4.jpg" alt="..."></a>
-      			
-      			<h4>S4</h4>
-      			<div class="ratings">
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                </div>
-      			<p>LLevate S4 con un precio de descuento de hasta un 10% aprovecha. </p>
-      			<hr class="line">
-      			<div class="row">
-      				<div class="col-md-6 col-sm-6">
-      					<p class="price">₡150000</p>
-      				</div>
-      				<div class="col-md-6 col-sm-6">
-      			
-      				</div>
-      				
-      			</div>
-    		</span>
-  		</div>
-  		
-      			
-  		<!-- END PRODUCTS -->
-	</div>
-	<div class="row" >
-	<div class="col-md-11 col-sm-6">
-    		<span class="thumbnail">
-      			<img src="img/productos/ps3.jpg" alt="...">
-      			<h4>Product Tittle</h4>
-      			<div class="ratings">
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                </div>
-      			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-      			<hr class="line">
-      			<div class="row">
-      				<div class="col-md-6 col-sm-6">
-      					<p class="price">$29,90</p>
-      				</div>
-      				<div class="col-md-6 col-sm-6">
-      					<button class="btn btn-success right" > BUY ITEM</button>
-      				</div>
-      				
-      			</div>
-    		</span>
-  		</div>
-  		</div>
-  			<div class="row" >
-  		<div class="col-md-11 col-sm-6">
-    		<span class="thumbnail">
-      			<img src="img/productos/smarttv.jpg" alt="...">
-      			<h4>Product Tittle</h4>
-      			<div class="ratings">
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                </div>
-      			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-      			<hr class="line">
-      			<div class="row">
-      				<div class="col-md-6 col-sm-6">
-      					<p class="price">$29,90</p>
-      				</div>
-      				<div class="col-md-6 col-sm-6">
-      					<button class="btn btn-success right" > BUY ITEM</button>
-      				</div>
-      				
-      			</div>
-    		</span>
-  		</div>
-  			</div>
-  			<div class="row" >
-  		<div class="col-md-11 col-sm-6">
-    		<span class="thumbnail">
-      			<img src="img/productos/camisa.jpg" alt="...">
-      			<h4>Product Tittle</h4>
-      			<div class="ratings">
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                </div>
-      			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-      			<hr class="line">
-      			<div class="row">
-      				<div class="col-md-6 col-sm-6">
-      					<p class="price">$29,90</p>
-      				</div>
-      				<div class="col-md-6 col-sm-6">
-      					<button class="btn btn-success right" > BUY ITEM</button>
-      				</div>
+  	
+
+  	
+
 </div>
-    		</span>
-  		</div>
-  			</div>
-
-  			      <div class="row text-center">
+          <div class="row text-center" id="hidepage">
             <div class="col-lg-12">
                 <nav aria-label="Page navigation" id="div1">
   <ul class="pager">
@@ -301,8 +197,6 @@
  
 
         <hr>
-
-</div>
 </div>
            </div>
             </div>
@@ -365,6 +259,11 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  
+find(word);
+$('#search').val(word);
+</script>
 <style type="text/css">
 .thumbnail img{
 	width: 200px;

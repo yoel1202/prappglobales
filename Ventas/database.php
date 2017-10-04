@@ -52,6 +52,28 @@ if ($_POST['key']=='login') {
      $color = $_POST['color'];
       insertproduct($conexion,$subcategoria,$vendedor,$cantidad,$tama,$price,$shipping,$weight,$width,$height,$title,$warranty,$description,$estados,$color);
     }
+        if ($_POST['key']=='busqueda') {
+         $word= $_POST['words'];
+      search($conexion,$word);
+    
+    }
+    function search($conexion,$word){
+ 
+
+ if($conexion->consulta("CALL search('$word')")){
+  $search;
+
+while($row = $conexion->extraer_registro()){
+      $search = $row;
+}
+echo json_encode($search);
+    }else{
+
+      echo "error";
+    }
+
+
+    }
 
  function insertproduct($conexion,$subcategoria,$vendedor,$cantidad,$tama,$precio,$envio,$peso,$anchura,$altura,$titulo,$garantia,$descripcion,$estados,$color){
 

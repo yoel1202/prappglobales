@@ -2,7 +2,7 @@ $( document ).ready(function() {
 cargarcategorias();
 });
 function cargarcategorias(){
-
+ 
   $.ajax({
     type: 'POST',
     url: 'database.php',
@@ -14,7 +14,7 @@ function cargarcategorias(){
 
      for (var i=0; i<data.length; i++) { 
      var id = data[i];
-
+       
       $('#categoria').append('<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">  <div  data-id1="'+id[0]+'" class="product-chooser-item " > <img src="img/categorias/'+id[1]+'.png" class="img-rounded col-xs-4 col-sm-4 col-md-12 col-lg-12" alt="Mobile and Desktop">  <div  class="col-xs-8 col-sm-8 col-md-12 col-lg-12"> <span class="title">'+id[1]+'</span>  <span class="description">'+id[2]+'</span> <input type="radio" name="product" value="mobile_desktop" checked="checked"> </div> <div class="clear"></div> </div> </div>');
              script();
       }

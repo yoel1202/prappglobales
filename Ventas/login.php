@@ -79,6 +79,9 @@
                                         <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Correo electronico" value="">
                                     </div>
                                      <div class="form-group">
+                                        <input type="password" name="password" id="passworda" tabindex="2" class="form-control" placeholder="nombre">
+                                    </div>
+                                     <div class="form-group">
                                         <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Cedula" value="">
                                     </div>
                                      <div class="form-group">
@@ -87,6 +90,7 @@
                                     <div class="form-group">
                                         <input type="password" name="password" id="passworda" tabindex="2" class="form-control" placeholder="Contraseña">
                                     </div>
+
                                     <div class="form-group">
                                         <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirmar contraseña">
                                     </div>
