@@ -1,12 +1,17 @@
 <?php
              
   session_start();
-
-                 if(isset($_SESSION['nombre'])){
-              $nombre=$_SESSION['nombre'];
-          
+                 if(isset($_SESSION['nombre'])and isset($_SESSION['tipo']) ){
+                $nombre=$_SESSION['nombre'];
+                $tipo=$_SESSION['tipo'];
+              
+          echo ("<div id=tip style='display: none;'>".$tipo."</div>");
        echo ("<div id=nam style='display: none;'> ".$nombre." </div>");
+       
      }
+
+           require_once("conexion.php"); $conexion = new Conexion();
+     $total="";
   ?>
 <!DOCTYPE html>
 <html>
@@ -125,63 +130,43 @@
                     <!--REVIEW ORDER-->
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            Review Order <div class="pull-right"><small><a class="afix-1" href="#">Edit Cart</a></small></div>
+                            Tu carrito <div class="pull-right"><small><a class="afix-1" href="#">Editar Carrito</a></small></div>
                         </div>
                         <div class="panel-body ">
-                            <div class="form-group">
+                        <?php
+                                $conexion->consulta ("SELECT * FROM  tbl_cart inner join tbl_productos on tbl_cart.id_product = tbl_productos.idtbl_productos inner join tbl_photo on tbl_photo.tbl_productos_idtbl_productos = tbl_productos.idtbl_productos inner join tbl_seller on tbl_seller.idtbl_vendedor = tbl_productos.tbl_vendedor_idtbl_vendedor where tbl_cart.id_user = ". $_SESSION['id'] );
+                        while($row = $conexion->extraer_registro()){
+                            echo '<div class="form-group">
                                 <div class="col-sm-3 col-xs-3">
-                                    <img class="img-responsive" src="//c1.staticflickr.com/1/466/19681864394_c332ae87df_t.jpg" />
+                                    <img class="img-responsive" src="'.$row['20'].'" />
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
-                                    <div class="col-xs-12">Product name</div>
-                                    <div class="col-xs-12"><small>Quantity:<span>1</span></small></div>
+                                    <div class="col-xs-12">'.$row['16'].'</div>
+                                    <div class="col-xs-12"><small>Cantidad:<span>'.$row['2'].'</span></small></div>
                                 </div>
                                 <div class="col-sm-3 col-xs-3 text-right">
-                                    <h6><span>$</span>25.00</h6>
+                                    <h6><span>₡</span>'.$row['15'].'</h6>
                                 </div>
-                            </div>
-                            <div class="form-group"><hr /></div>
-                            <div class="form-group">
-                                <div class="col-sm-3 col-xs-3">
-                                    <img class="img-responsive" src="//c1.staticflickr.com/1/466/19681864394_c332ae87df_t.jpg" />
-                                </div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <div class="col-xs-12">Product name</div>
-                                    <div class="col-xs-12"><small>Quantity:<span>1</span></small></div>
-                                </div>
-                                <div class="col-sm-3 col-xs-3 text-right">
-                                    <h6><span>$</span>25.00</h6>
-                                </div>
-                            </div>
-                            <div class="form-group"><hr /></div>
-                            <div class="form-group">
-                                <div class="col-sm-3 col-xs-3">
-                                    <img class="img-responsive" src="//c1.staticflickr.com/1/466/19681864394_c332ae87df_t.jpg" />
-                                </div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <div class="col-xs-12">Product name</div>
-                                    <div class="col-xs-12"><small>Quantity:<span>2</span></small></div>
-                                </div>
-                                <div class="col-sm-3 col-xs-3 text-right">
-                                    <h6><span>$</span>50.00</h6>
-                                </div>
-                            </div>
+                            </div>';
+                            $total = $total+$row['15'];
+                        }
+                            ?>
                             <div class="form-group"><hr /></div>
                             <div class="form-group">
                                 <div class="col-xs-12">
                                     <strong>Subtotal</strong>
-                                    <div class="pull-right"><span>$</span><span>200.00</span></div>
+                                    <div class="pull-right"><span>₡</span><span>200.00</span></div>
                                 </div>
                                 <div class="col-xs-12">
-                                    <small>Shipping</small>
+                                    <small>Envío</small>
                                     <div class="pull-right"><span>-</span></div>
                                 </div>
                             </div>
                             <div class="form-group"><hr /></div>
                             <div class="form-group">
                                 <div class="col-xs-12">
-                                    <strong>Order Total</strong>
-                                    <div class="pull-right"><span>$</span><span>150.00</span></div>
+                                    <strong>Orden Total</strong>
+                                    <div class="pull-right"><span>₡</span><span><?php echo $total;?></span></div>
                                 </div>
                             </div>
                         </div>

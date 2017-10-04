@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-09-2017 a las 00:39:08
+-- Tiempo de generación: 04-10-2017 a las 05:49:00
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -57,6 +57,26 @@ INSERT INTO `tbl_agreement` (`idtbl_agreement`, `agreement`, `help`, `tbl_page_i
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tbl_cart`
+--
+
+CREATE TABLE `tbl_cart` (
+  `id_cart` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `quantity` varchar(100) NOT NULL,
+  `id_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tbl_cart`
+--
+
+INSERT INTO `tbl_cart` (`id_cart`, `id_product`, `quantity`, `id_user`) VALUES
+(10, 1, '1', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tbl_categories`
 --
 
@@ -65,6 +85,21 @@ CREATE TABLE `tbl_categories` (
   `nombre_categoria` varchar(45) DEFAULT NULL,
   `descripcion` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tbl_categories`
+--
+
+INSERT INTO `tbl_categories` (`idtbl_categorias`, `nombre_categoria`, `descripcion`) VALUES
+(1, 'Electrodomésticos', 'En este apartado es exclusivo para publicar articulo que son del hogar .'),
+(2, 'Joyas', 'Este aparatado es exclusivo para joyas y para relojes aqui cabe cualquier tipo de joyas que usted desee publicar'),
+(3, 'Libros', 'este apartado es exclusivo para librerias y cualquier otro tipo de tieneda que desee publicar aqui con el fin de vender sus libros'),
+(4, 'Ropa', 'apartado unicamente para ropa aqui podemos publicar articulos como camisas, zapatos, tennis y demas artiulos que tengan que ver con la categoria de ropa'),
+(5, 'Tecnología', 'apartado unicamente para tecnologia aqui podemos publicar articulos como celulares, tablet,  y demas artiulos que tengan que ver con la categoria de tecnologia'),
+(6, 'Deportes', 'apartado unicamente para deporte aqui podemos publicar articulos como camisas deportivas, tennis deportivas, balones y demas artiulos que tengan que ver con la categoria de deportes'),
+(7, 'Arte', 'apartado unicamente para arte aqui podemos publicar articulos como pinturas y demas artiulos que tengan que ver con la categoria de arte'),
+(8, 'Juguetes', 'apartado unicamente para juguetes aqui podemos publicar articulos como legos, figuras de accion y demas artiulos que tengan que ver con la categoria de juguetes'),
+(10, 'Vehículos', 'Este aparatado es para cualquier tipo de carro que usted desee publicar.');
 
 -- --------------------------------------------------------
 
@@ -137,9 +172,16 @@ INSERT INTO `tbl_page` (`idtbl_page`) VALUES
 
 CREATE TABLE `tbl_photo` (
   `idtbl_photo` int(11) NOT NULL,
-  `picture_code` varchar(45) DEFAULT NULL,
+  `picture_code` varchar(200) DEFAULT NULL,
   `tbl_productos_idtbl_productos` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tbl_photo`
+--
+
+INSERT INTO `tbl_photo` (`idtbl_photo`, `picture_code`, `tbl_productos_idtbl_productos`) VALUES
+(1, 'http://www.evisionstore.com/catalogo/samsung_wa14f5l2udy.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -164,6 +206,13 @@ CREATE TABLE `tbl_productos` (
   `garantia` varchar(50) NOT NULL,
   `descripcion` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tbl_productos`
+--
+
+INSERT INTO `tbl_productos` (`idtbl_productos`, `tbl_vendedor_idtbl_vendedor`, `tbl_subcategorias_idtbl_subcategorias`, `Peso`, `color`, `ancho`, `altura`, `estado`, `price_shipping`, `cantidad`, `tama`, `precio`, `titulo`, `garantia`, `descripcion`) VALUES
+(1, 4, 1, '100', 'Blanco', '50', '75', '1', '250', 25, '0', 100000, 'Lavadora automatica', '24 meses', 'Ultima generacion de lavadoras');
 
 -- --------------------------------------------------------
 
@@ -238,6 +287,13 @@ CREATE TABLE `tbl_subcategories` (
   `tbl_categorias_idtbl_categorias` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `tbl_subcategories`
+--
+
+INSERT INTO `tbl_subcategories` (`idtbl_subcategorias`, `nombre_subcategoria`, `tbl_categorias_idtbl_categorias`) VALUES
+(1, 'samsung', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -252,11 +308,17 @@ CREATE TABLE `tbl_user` (
   `correo` varchar(45) DEFAULT NULL,
   `password` varchar(45) DEFAULT NULL,
   `telefono` int(15) NOT NULL,
-  `tipo` varchar(50) NOT NULL,
   `foto` varchar(200) NOT NULL,
   `estado` varchar(10) NOT NULL,
   `tbl_contract_idtbl_contract` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tbl_user`
+--
+
+INSERT INTO `tbl_user` (`idtbl_usuario`, `nombre_usuario`, `nombre`, `cedula`, `correo`, `password`, `telefono`, `foto`, `estado`, `tbl_contract_idtbl_contract`) VALUES
+(1, 'stevenorozco', 'steven orozco montoya', 604250344, 'steven', 'steven1', 62567388, 'nulo', '1', 1);
 
 --
 -- Índices para tablas volcadas
@@ -268,6 +330,12 @@ CREATE TABLE `tbl_user` (
 ALTER TABLE `tbl_agreement`
   ADD PRIMARY KEY (`idtbl_agreement`),
   ADD KEY `fk_tbl_agreement_tbl_page1_idx` (`tbl_page_idtbl_page`);
+
+--
+-- Indices de la tabla `tbl_cart`
+--
+ALTER TABLE `tbl_cart`
+  ADD PRIMARY KEY (`id_cart`);
 
 --
 -- Indices de la tabla `tbl_categories`
@@ -372,10 +440,15 @@ ALTER TABLE `tbl_user`
 ALTER TABLE `tbl_agreement`
   MODIFY `idtbl_agreement` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT de la tabla `tbl_cart`
+--
+ALTER TABLE `tbl_cart`
+  MODIFY `id_cart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
 -- AUTO_INCREMENT de la tabla `tbl_categories`
 --
 ALTER TABLE `tbl_categories`
-  MODIFY `idtbl_categorias` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idtbl_categorias` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `tbl_comments`
 --
@@ -400,12 +473,12 @@ ALTER TABLE `tbl_page`
 -- AUTO_INCREMENT de la tabla `tbl_photo`
 --
 ALTER TABLE `tbl_photo`
-  MODIFY `idtbl_photo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idtbl_photo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `tbl_productos`
 --
 ALTER TABLE `tbl_productos`
-  MODIFY `idtbl_productos` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idtbl_productos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `tbl_ranking`
 --
@@ -430,12 +503,12 @@ ALTER TABLE `tbl_seller`
 -- AUTO_INCREMENT de la tabla `tbl_subcategories`
 --
 ALTER TABLE `tbl_subcategories`
-  MODIFY `idtbl_subcategorias` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idtbl_subcategorias` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `idtbl_usuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idtbl_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Restricciones para tablas volcadas
 --

@@ -10,6 +10,9 @@
        echo ("<div id=nam style='display: none;'> ".$nombre." </div>");
        
      }
+
+
+      require_once("conexion.php"); $conexion = new Conexion();
   ?>
 <!DOCTYPE html>
 <html>
@@ -71,9 +74,13 @@
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="#">Ropa</a></li>
-    <li><a href="#">Electrodomesticos</a></li>
-    <li><a href="#">tecnologia</a></li>
+   <?php 
+   $conexion->consulta ("SELECT * FROM  tbl_categories");
+                while($row = $conexion->extraer_registro()){
+       echo '<li><a href="#">'.$row['1'].'</a></li>';}
+   ?>
+   
+   
     <li role="separator" class="divider"></li>
     <li><a href="#">Separated link</a></li>
   </ul>
@@ -87,7 +94,12 @@
   
   <li ><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
    <li  ><a href="login.php" class="fa fa-envelope" ></a></li>
-   <li   ><a href="login.php" class="fa fa-shopping-cart" ></a></li>  
+   <li   ><a href="checkout.php" class="fa fa-shopping-cart" >&nbsp;<span id="cantidadcarrito" class="badge"><?php       if(isset($_SESSION['id'])){
+               $conexion->consulta ("SELECT (SUM(quantity)) FROM  tbl_cart where id_user = ". $_SESSION['id']);
+                while($row = $conexion->extraer_registro()){
+                  echo $row['0'];
+                }
+      }?></span></a></li>  
                 </ul>
                         </div>
           
@@ -102,16 +114,6 @@
         </div>
 
     </nav>
-
-
-
-
-
-
-
-
-  
-
 
 
  <div class="container " id="principal">
@@ -161,108 +163,49 @@
         </div>
       
         <div class="row text-center">
+        <?php 
 
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                       <div class="row">
-                <div class="col-xs-12  col-sm-12">
-            <div id="progreso" class="progress-radial progress">
-                <div class="overlay">
-                    <img  width="256" height="256" class="img-responsive img-circle" src="img/productos/gta.jpg" alt="">
-                   
-                    <div class="clearfix"></div>
-                </div>
-           </div>
-             </div>
-      
-</div>
-                    <div class="caption">
-                        <h3>Hurley</h3>
-                        <p>Tiburon</p>
-                        <p>
-                        <a href="#" class="btn btn-primary">Comprar ahora!</a> <a href="#" class="btn btn-default">Mas Informacion </a>
-       
+               $conexion->consulta ("SELECT * FROM  tbl_productos inner join tbl_photo on tbl_photo.tbl_productos_idtbl_productos = tbl_productos.idtbl_productos inner join tbl_seller on tbl_seller.idtbl_vendedor = tbl_productos.tbl_vendedor_idtbl_vendedor");
+                while($row = $conexion->extraer_registro()){
+                      echo '<div class="col-md-3 col-sm-6 hero-feature">
+                                <div class="thumbnail">
+                                       <div class="row">
+                                <div class="col-xs-12  col-sm-12">
+                            <div id="progreso" class="progress-radial progress">
+                                <div class="overlay">
+                                    <img  width="256" height="256" class="img-responsive img-circle" src="'.$row['16'].'" alt="">
+                                   
+                                    <div class="clearfix"></div>
+                                </div>
+                           </div>
+                             </div>
+                                        </div>
+                                    <div class="caption">
+                                        <h3>'.$row['12'].'</h3>
+                                        <p>'.$row['20'].'</p>
+                                        <p>';
+                                      
+                                          if (isset($_SESSION['id'])) {
+                                            echo '<a onclick="agregarcarrito('.$row['0'].')" class="btn btn-primary">Agregar al carrito!</a> <a href="#" class="btn btn-default">Mas Informacion </a>';                                         
+                                          }
+                                          else
+                                          {
+                                            echo '<a href="login.php" class="btn btn-primary">Agregar al carrito!</a> <a href="#" class="btn btn-default">Mas Informacion </a>';
+                                          }
+                                        ?>
 
+                                        </p>
+                                    </div>
 
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                       <div class="row">
-                <div class="col-xs-12  col-sm-12">
-            <div id="progreso" class="progress-radial progress">
-                <div class="overlay">
-                    <img  width="256" height="256" class="img-responsive img-circle" src="img/productos/camisa.jpg" alt="">
-                   
-                    <div class="clearfix"></div>
-                </div>
-           </div>
-             </div>
-      
-</div>
-                    <div class="caption">
-                        <h3>Hurley</h3>
-                        <p>Tiburon</p>
-                        <p>
-                        <a href="#" class="btn btn-primary">Comprar ahora!</a> <a href="#" class="btn btn-default">Mas Informacion </a>
-       
+                                </div>
+                            </div>
+                    <?php 
+                }
 
 
-                        </p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                        <div class="row">
-                <div class="col-xs-12  col-sm-12">
-            <div id="progreso3" class="progress-radial progress">
-                <div class="overlay">
-                    <img  width="384" height="384" class="img-responsive img-circle" src="img/productos/smarttv.jpg" alt="">
-                   
-                    <div class="clearfix"></div>
-                </div>
-           </div>
-             </div>
-      
-</div>
-                    <div class="caption">
-                        <h3>Samsung smart tv</h3>
-                        <p>Grupo Villa</p>
-                        <p>
-                               <a href="#" class="btn btn-primary">Comprar ahora!</a> <a href="#" class="btn btn-default">Mas Informacion </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
+        ?>
 
-             <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                        <div class="row">
-                <div class="col-xs-12  col-sm-12">
-            <div id="progreso4" class="progress-radial progress">
-                <div class="overlay">
-                    <img  width="384" height="384" class="img-responsive img-circle" src="img/productos/PS3.jpg" alt="">
-                  
-                    <div class="clearfix"></div>
-                </div>
-           </div>
-             </div>
-      
-</div>
-                    <div class="caption">
-                        <h3>PS3</h3>
-                        <p>Gollo</p>
-                        <p>
-                                <a href="#" class="btn btn-primary">Comprar ahora!</a> <a href="#" class="btn btn-default">Mas Informacion </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
 
 
         </div>
@@ -427,7 +370,7 @@
 <div class="copyright">
   <div class="container">
     <div class="col-md-6">
-      <p>© 2017 - Todos los derechos reservados</p>
+      <p>© <?php echo date('Y');?> - Todos los derechos reservados</p>
     </div>
     <div class="col-md-6">
       <ul class="bottom_ul">

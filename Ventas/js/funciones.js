@@ -77,4 +77,24 @@ function find(word){
   }).fail(function (jqXHR, textStatus, errorThrown){
    
   })
+
+
+}
+
+function agregarcarrito(id_producto){
+ 
+ 
+  $.ajax({
+    type: 'POST',
+    url: 'database.php',
+    data: {key: 'producto', producto: id_producto}
+
+  }).done(function ( data ) {
+   $('#cantidadcarrito').html(data);
+  
+  }).fail(function (jqXHR, textStatus, errorThrown){
+   
+  })
+
+  
 }
