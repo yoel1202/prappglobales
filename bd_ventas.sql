@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-10-2017 a las 05:49:00
--- Versión del servidor: 10.1.16-MariaDB
--- Versión de PHP: 5.6.24
+-- Tiempo de generación: 06-10-2017 a las 17:56:49
+-- Versión del servidor: 10.1.10-MariaDB
+-- Versión de PHP: 7.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -30,6 +30,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar` (IN `idvendedor` INT, IN 
  INSERT INTO tbl_productos(idtbl_productos,tbl_vendedor_idtbl_vendedor,tbl_subcategorias_idtbl_subcategorias,Peso,color,ancho,altura,estado,price_shipping,cantidad,tama,precio,titulo,garantia,descripcion) VALUES('',idvendedor ,idsubcategoria,pesos,colores,anchos,alturas,estados,precio_envios,cantidades,tamas,precios,titulos,garantias,descripciones);
  
 
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `search` (`word` VARCHAR(25))  BEGIN
+ SELECT titulo,precio,descripcion,picture_code FROM tbl_productos as tp
+ INNER JOIN tbl_photo AS TPH ON TPH.tbl_productos_idtbl_productos=idtbl_productos inner join tbl_seller as ts on tp.tbl_vendedor_idtbl_vendedor=ts.idtbl_vendedor inner join tbl_ranking  tr on 
+ tr.tbl_vendedor_idtbl_vendedor =ts.idtbl_vendedor   where titulo like concat(word,'%') order by tr.value_ranking ASC;
 END$$
 
 DELIMITER ;
@@ -226,6 +232,13 @@ CREATE TABLE `tbl_ranking` (
   `value_ranking` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `tbl_ranking`
+--
+
+INSERT INTO `tbl_ranking` (`idtbl_ranking`, `tbl_vendedor_idtbl_vendedor`, `value_ranking`) VALUES
+(1, 4, '0');
+
 -- --------------------------------------------------------
 
 --
@@ -246,7 +259,8 @@ CREATE TABLE `tbl_record_seller` (
 CREATE TABLE `tbl_sales` (
   `idtbl_ventas` int(11) NOT NULL,
   `tbl_usuario_idtbl_usuario` int(11) NOT NULL,
-  `tbl_productos_idtbl_productos` int(11) NOT NULL
+  `tbl_productos_idtbl_productos` int(11) NOT NULL,
+  `id_tblshipping` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -274,6 +288,36 @@ CREATE TABLE `tbl_seller` (
 
 INSERT INTO `tbl_seller` (`idtbl_vendedor`, `tbl_contract_idtbl_contract`, `nombre`, `nombre_usuario`, `password`, `correo`, `cedula_juridica`, `estado`, `foto`, `telefono`) VALUES
 (4, 1, 'Gollo', 'gollo1', 'gollo1', 'gollo@', 123456789, 'activo', 'ld', 84915419);
+
+--
+-- Disparadores `tbl_seller`
+--
+DELIMITER $$
+CREATE TRIGGER `tbl_seller_AFTER_INSERT` AFTER INSERT ON `tbl_seller` FOR EACH ROW BEGIN
+ INSERT INTO tbl_ranking(idtbl_ranking,tbl_vendedor_idtbl_vendedor,value_ranking) VALUES('',new.idtbl_vendedor,'0');
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_shipping`
+--
+
+CREATE TABLE `tbl_shipping` (
+  `id_tblshipping` int(11) NOT NULL,
+  `name` int(11) NOT NULL,
+  `last_name` int(11) NOT NULL,
+  `firts_adress` int(11) NOT NULL,
+  `second_adress` int(11) NOT NULL,
+  `province` int(11) NOT NULL,
+  `canton` int(11) NOT NULL,
+  `district` int(11) NOT NULL,
+  `zip` int(11) NOT NULL,
+  `country` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -417,6 +461,12 @@ ALTER TABLE `tbl_seller`
   ADD KEY `fk_tbl_vendedor_tbl_contract1_idx` (`tbl_contract_idtbl_contract`);
 
 --
+-- Indices de la tabla `tbl_shipping`
+--
+ALTER TABLE `tbl_shipping`
+  ADD PRIMARY KEY (`id_tblshipping`);
+
+--
 -- Indices de la tabla `tbl_subcategories`
 --
 ALTER TABLE `tbl_subcategories`
@@ -443,7 +493,7 @@ ALTER TABLE `tbl_agreement`
 -- AUTO_INCREMENT de la tabla `tbl_cart`
 --
 ALTER TABLE `tbl_cart`
-  MODIFY `id_cart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_cart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `tbl_categories`
 --
@@ -483,7 +533,7 @@ ALTER TABLE `tbl_productos`
 -- AUTO_INCREMENT de la tabla `tbl_ranking`
 --
 ALTER TABLE `tbl_ranking`
-  MODIFY `idtbl_ranking` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idtbl_ranking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `tbl_record_seller`
 --

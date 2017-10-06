@@ -58,7 +58,7 @@ function editprofile(){
 }
 function search(){
   var busqueda = $('#search').val();
- window.location="find.php?word="+busqueda+"";
+ window.location="find.php?word="+busqueda+"&page=1";
 
 }
 function find(word){
@@ -70,16 +70,37 @@ function find(word){
     data: {key: 'busqueda',words:word}
 
   }).done(function ( data ) {
-    var obj = JSON.parse(data);
-   
-  
-   $('#wordsearch').append('<div class="row" <div class="col-md-11 col-sm-6 margin50"> <span class="thumbnail"> <a href="buy.php"><img src="img/productos/s4.jpg" alt="..."></a><h4>'+obj[i]+'</h4> <div class="ratings"> <span class="glyphicon glyphicon-star"></span>  <span class="glyphicon glyphicon-star"></span>   <span class="glyphicon glyphicon-star"></span> <span class="glyphicon glyphicon-star"></span> <span class="glyphicon glyphicon-star-empty"></span> </div><p>'+obj[2]+' </p> <hr class="line"><div class="row">  <div class="col-md-6 col-sm-6">  <p class="price">₡'+obj[1]+'</p>  </div>  <div class="col-md-6 col-sm-6">  </div> </div> </span> </div> </div>');
-    
-     
-      
-      
 
+if (data==null) {
+ $('#wordsearch').append('<div class="alert alert-info"><strong>Sesion</strong> No se ha encontrado ningun resultado</div>');
+}else{
+    var obj = JSON.parse(data);
+
+ var page = Math.trunc(obj.length/10) +1;
+  var final=9*allpages;
+  var valor=allpages-1;
+  var inicio =9 *valor;
   
+     for (var i=0; i<obj.length; i++) { 
+    
+   if( i>=inicio && i<=final){
+   $('#wordsearch').append('<div class="row" <div class="col-md-11 col-sm-6 margin50"> <span class="thumbnail"> <a href="buy.php"><img src="'+obj[i][3]+'" alt="..."></a><h4>'+obj[i][0]+'</h4> <div class="ratings"> <span class="glyphicon glyphicon-star"></span>  <span class="glyphicon glyphicon-star"></span>   <span class="glyphicon glyphicon-star"></span> <span class="glyphicon glyphicon-star"></span> <span class="glyphicon glyphicon-star-empty"></span> </div><p>'+obj[i][2]+' </p> <hr class="line"><div class="row">  <div class="col-md-6 col-sm-6">  <p class="price">₡'+obj[i][1]+'</p>  </div>  <div class="col-md-6 col-sm-6">  </div> </div> </span> </div> </div>');
+    }
+     }
+      
+      if (page>1) {
+        $('#hidepage').show();
+
+      $('#paginations').append('    <li> <a href="#" aria-label="Previous">  <span aria-hidden="true">«</span> </a></li>');
+    for (var i = 1; i < page+1; i++) {
+      
+ $('#paginations').append('<li><a href="'+'http://localhost:8080/Ventas/prappglobales/Ventas/find.php?word='+word+''+"&page="+i+""+'">'+i+'</a></li>');
+
+    }
+    $('#paginations').append(' <li> <a href="#" aria-label="Next"> <span aria-hidden="true">»</span></a></li>');
+
+  }
+}
   }).fail(function (jqXHR, textStatus, errorThrown){
    
   })

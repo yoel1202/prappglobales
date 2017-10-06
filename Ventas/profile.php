@@ -11,6 +11,7 @@
         header("location: login.php");
 
      }
+      require_once("conexion.php"); $conexion = new Conexion();
   ?>
 <!DOCTYPE html>
 <html>
@@ -167,28 +168,31 @@
       </div>
       <h3>Informacion personal</h3>
       <form class="form-horizontal" role="form">
-        <div class="form-group">
+        <?php 
+   $conexion->consulta ("SELECT  nombre,nombre_usuario, cedula, correo, password, telefono, foto from tbl_user where idtbl_usuario=". $_SESSION['id']."");
+                while($row = $conexion->extraer_registro()){
+       echo '        <div class="form-group">
           <label class="col-lg-3 control-label">Nombre:</label>
           <div class="col-lg-8">
-            <input class="form-control" value="Yoel" type="text">
+            <input class="form-control" value="'.$row['0'].'" type="text">
           </div>
         </div>
         <div class="form-group">
           <label class="col-lg-3 control-label">Nombre usuario:</label>
           <div class="col-lg-8">
-            <input class="form-control" value="Yoel1202" type="text">
+            <input class="form-control" value="'.$row['1'].'" type="text">
           </div>
         </div>
         <div class="form-group">
           <label class="col-lg-3 control-label">Cedula:</label>
           <div class="col-lg-8">
-            <input class="form-control" value="604140385" type="text">
+            <input class="form-control" value="'.$row['2'].'" type="text">
           </div>
         </div>
         <div class="form-group">
           <label class="col-lg-3 control-label">Correo:</label>
           <div class="col-lg-8">
-            <input class="form-control" value="Yoel1202@hotmail.com" type="text">
+            <input class="form-control" value="'.$row['3'].'" type="text">
           </div>
         </div>
 
@@ -196,15 +200,17 @@
         <div class="form-group">
           <label class="col-md-3 control-label">Contraeña:</label>
           <div class="col-md-8">
-            <input class="form-control" value="11111122333" type="password">
+            <input class="form-control" value="'.$row['4'].'" type="password">
           </div>
-        </div>
+        </div>  
         <div class="form-group">
           <label class="col-md-3 control-label">Confirmar Contraña:</label>
           <div class="col-md-8">
-            <input class="form-control" value="11111122333" type="password">
+            <input class="form-control" value="'.$row['4'].'" type="password">
           </div>
-        </div>
+        </div>';}
+   ?>
+      
         <div class="form-group">
           <label class="col-md-3 control-label"></label>
           <div class="col-md-8">

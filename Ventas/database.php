@@ -65,10 +65,11 @@ if ($_POST['key']=='login') {
  
 
  if($conexion->consulta("CALL search('$word')")){
-  $search;
-
+  $search=array();
+$i=0;
 while($row = $conexion->extraer_registro()){
-      $search = $row;
+      $search[$i] = $row;
+      $i++;
 }
 echo json_encode($search);
     }else{

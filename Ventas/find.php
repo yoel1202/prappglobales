@@ -1,7 +1,7 @@
 <?php
 //prueba hola
-  $word= $_REQUEST['word'] ;
-             
+  $word= $_GET['word'] ;
+              $page= $_GET['page'] ;
   session_start();
 
                  if(isset($_SESSION['nombre'])){
@@ -9,8 +9,9 @@
           
        echo ("<div id=nam style='display: none;'> ".$nombre." </div>");
      }
+
       echo "<script>\n";
-   echo "var word='".$word."' \n";
+   echo "var word='".$word."' \n var allpages='".$page."' \n ";
    echo "</script>";
   ?>
 <!DOCTYPE html>
@@ -174,22 +175,9 @@
           <div class="row text-center" id="hidepage">
             <div class="col-lg-12">
                 <nav aria-label="Page navigation" id="div1">
-  <ul class="pager">
-    <li>
-      <a href="#" aria-label="Previous">
-        <span aria-hidden="true">«</span>
-      </a>
-    </li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li>
-      <a href="#" aria-label="Next">
-        <span aria-hidden="true">»</span>
-      </a>
-    </li>
+  <ul class="pager" id="paginations">
+
+   
   </ul>
 </nav>
             </div>
