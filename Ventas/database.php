@@ -6,7 +6,7 @@ session_start();
     $conexion = new Conexion();
 
 if ($_POST['key']=='producto') {
-      agregarcarrito($_POST['producto'], $conexion);
+      agregarcarrito($_POST['producto'], $conexion, $_POST['quantity']);
     }
 
 if ($_POST['key']=='login') {
@@ -153,17 +153,17 @@ if($row>0)
 }
 }
 
-function agregarcarrito($id_producto,$conexion){
+function agregarcarrito($id_producto,$conexion, $cant){
   $id_cart="";
   $conexion->consulta ("SELECT id_cart FROM tbl_cart where id_user = ". $_SESSION['id'].' AND id_product = '. $id_producto);
                 while($row = $conexion->extraer_registro()){
                   $id_cart = $row['0'];      
                 }
 if($id_cart==""){
-  $result=$conexion->consulta("INSERT INTO tbl_cart (id_product, id_user, quantity) VALUES (".$id_producto.",".$_SESSION['id'].",'1')");
+  $result=$conexion->consulta("INSERT INTO tbl_cart (id_product, id_user, quantity) VALUES (".$id_producto.",".$_SESSION['id'].",'".$cant."')");
 }
 else{
-  $result=$conexion->consulta("UPDATE tbl_cart set quantity =(quantity+1)");
+  $result=$conexion->consulta("UPDATE tbl_cart set quantity =(quantity+".$cant.")");
 }
 
   $conexion->consulta ("SELECT (SUM(quantity)) FROM  tbl_cart where id_user = ". $_SESSION['id']);

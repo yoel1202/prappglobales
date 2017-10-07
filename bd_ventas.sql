@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-10-2017 a las 17:56:49
--- Versión del servidor: 10.1.10-MariaDB
--- Versión de PHP: 7.0.3
+-- Tiempo de generación: 07-10-2017 a las 23:40:50
+-- Versión del servidor: 10.1.16-MariaDB
+-- Versión de PHP: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -78,7 +78,7 @@ CREATE TABLE `tbl_cart` (
 --
 
 INSERT INTO `tbl_cart` (`id_cart`, `id_product`, `quantity`, `id_user`) VALUES
-(10, 1, '1', 1);
+(10, 1, '5', 1);
 
 -- --------------------------------------------------------
 
@@ -187,7 +187,9 @@ CREATE TABLE `tbl_photo` (
 --
 
 INSERT INTO `tbl_photo` (`idtbl_photo`, `picture_code`, `tbl_productos_idtbl_productos`) VALUES
-(1, 'http://www.evisionstore.com/catalogo/samsung_wa14f5l2udy.jpg', 1);
+(1, 'http://www.evisionstore.com/catalogo/samsung_wa14f5l2udy.jpg', 1),
+(2, 'https://www.tiendamonge.com/content/images/thumbs/0021337_lg-lavadora-automatica-16kg.jpg', 1),
+(3, 'https://www.calidadtelstar.com/contenido/wp-content/uploads/2016/06/TLA012510MD.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -218,7 +220,7 @@ CREATE TABLE `tbl_productos` (
 --
 
 INSERT INTO `tbl_productos` (`idtbl_productos`, `tbl_vendedor_idtbl_vendedor`, `tbl_subcategorias_idtbl_subcategorias`, `Peso`, `color`, `ancho`, `altura`, `estado`, `price_shipping`, `cantidad`, `tama`, `precio`, `titulo`, `garantia`, `descripcion`) VALUES
-(1, 4, 1, '100', 'Blanco', '50', '75', '1', '250', 25, '0', 100000, 'Lavadora automatica', '24 meses', 'Ultima generacion de lavadoras');
+(1, 4, 1, '100', 'Blanco', '50', '75', '1', '250', 25, '0', 100000, 'Lavadora automatica', '24 meses', 'Ultima generacion de lavadoras.');
 
 -- --------------------------------------------------------
 
@@ -249,6 +251,13 @@ CREATE TABLE `tbl_record_seller` (
   `idtbl_historial_vendedor` int(11) NOT NULL,
   `tbl_vendedor_idtbl_vendedor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tbl_record_seller`
+--
+
+INSERT INTO `tbl_record_seller` (`idtbl_historial_vendedor`, `tbl_vendedor_idtbl_vendedor`) VALUES
+(1, 4);
 
 -- --------------------------------------------------------
 
@@ -523,7 +532,7 @@ ALTER TABLE `tbl_page`
 -- AUTO_INCREMENT de la tabla `tbl_photo`
 --
 ALTER TABLE `tbl_photo`
-  MODIFY `idtbl_photo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idtbl_photo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tbl_productos`
 --
@@ -538,7 +547,7 @@ ALTER TABLE `tbl_ranking`
 -- AUTO_INCREMENT de la tabla `tbl_record_seller`
 --
 ALTER TABLE `tbl_record_seller`
-  MODIFY `idtbl_historial_vendedor` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idtbl_historial_vendedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `tbl_sales`
 --

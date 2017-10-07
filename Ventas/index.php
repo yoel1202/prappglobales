@@ -94,12 +94,17 @@
   
   <li ><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
    <li  ><a href="login.php" class="fa fa-envelope" ></a></li>
-   <li   ><a href="checkout.php" class="fa fa-shopping-cart" >&nbsp;<span id="cantidadcarrito" class="badge"><?php       if(isset($_SESSION['id'])){
+   <li   >
+
+   <?php       if(isset($_SESSION['id'])){
+    echo '<a href="checkout.php" class="fa fa-shopping-cart" >&nbsp;<span id="cantidadcarrito" class="badge">';
                $conexion->consulta ("SELECT (SUM(quantity)) FROM  tbl_cart where id_user = ". $_SESSION['id']);
                 while($row = $conexion->extraer_registro()){
                   echo $row['0'];
                 }
-      }?></span></a></li>  
+                echo '</span></a>';
+      }
+      else{echo '<a href="login.php" class="fa fa-shopping-cart" >&nbsp;<span id="cantidadcarrito" class="badge"></span></a>';}?></li>  
                 </ul>
                         </div>
           
@@ -165,7 +170,7 @@
         <div class="row text-center">
         <?php 
 
-               $conexion->consulta ("SELECT * FROM  tbl_productos inner join tbl_photo on tbl_photo.tbl_productos_idtbl_productos = tbl_productos.idtbl_productos inner join tbl_seller on tbl_seller.idtbl_vendedor = tbl_productos.tbl_vendedor_idtbl_vendedor");
+               $conexion->consulta ("SELECT * FROM  tbl_productos inner join tbl_photo on tbl_photo.tbl_productos_idtbl_productos = tbl_productos.idtbl_productos inner join tbl_seller on tbl_seller.idtbl_vendedor = tbl_productos.tbl_vendedor_idtbl_vendedor WHERE tbl_productos.cantidad > 0 AND tbl_productos.estado = '1' group by tbl_productos.idtbl_productos");
                 while($row = $conexion->extraer_registro()){
                       echo '<div class="col-md-3 col-sm-6 hero-feature">
                                 <div class="thumbnail">
@@ -173,7 +178,7 @@
                                 <div class="col-xs-12  col-sm-12">
                             <div id="progreso" class="progress-radial progress">
                                 <div class="overlay">
-                                    <img  width="256" height="256" class="img-responsive img-circle" src="'.$row['16'].'" alt="">
+                                    <a href="buy.php?product='.$row[0].'"><img  width="256" height="256" class="img-responsive img-circle" src="'.$row['16'].'" alt=""></a>
                                    
                                     <div class="clearfix"></div>
                                 </div>
@@ -186,11 +191,11 @@
                                         <p>';
                                       
                                           if (isset($_SESSION['id'])) {
-                                            echo '<a onclick="agregarcarrito('.$row['0'].')" class="btn btn-primary">Agregar al carrito!</a> <a href="#" class="btn btn-default">Mas Informacion </a>';                                         
+                                            echo '<a onclick="agregarcarrito('.$row['0'].',1)" class="btn btn-primary">Agregar al carrito!</a><br> <a href="buy.php?product='.$row[0].'" class="btn btn-default">Mas Informacion </a>';                                         
                                           }
                                           else
                                           {
-                                            echo '<a href="login.php" class="btn btn-primary">Agregar al carrito!</a> <a href="#" class="btn btn-default">Mas Informacion </a>';
+                                            echo '<a href="login.php" class="btn btn-primary">Agregar al carrito!</a> <br><a href="buy.php?product='.$row[0].'" class="btn btn-default">Mas Informacion </a>';
                                           }
                                         ?>
 

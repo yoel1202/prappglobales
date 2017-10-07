@@ -108,13 +108,13 @@ if (data==null) {
 
 }
 
-function agregarcarrito(id_producto){
- 
- 
+function agregarcarrito(id_producto,cantidad){
+if (cantidad == 0) {cantidad = $('#cantidadp').val();}
+
   $.ajax({
     type: 'POST',
     url: 'database.php',
-    data: {key: 'producto', producto: id_producto}
+    data: {key: 'producto', producto: id_producto, quantity: cantidad}
 
   }).done(function ( data ) {
    $('#cantidadcarrito').html(data);
@@ -124,4 +124,7 @@ function agregarcarrito(id_producto){
   })
 
   
+}
+function ponerfotoproducto(id){
+  $('#picture').attr('src',id);
 }
