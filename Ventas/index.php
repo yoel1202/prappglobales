@@ -93,7 +93,7 @@
       
   
   <li ><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
-   <li  ><a href="login.php" class="fa fa-envelope" ></a></li>
+   <li  ><a href="message.php" class="fa fa-envelope" ></a></li>
    <li   >
 
    <?php       if(isset($_SESSION['id'])){

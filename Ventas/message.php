@@ -5,40 +5,31 @@
                  if(isset($_SESSION['nombre'])and isset($_SESSION['tipo']) ){
              	$nombre=$_SESSION['nombre'];
              	$tipo=$_SESSION['tipo'];
+              
           echo ("<div id=tip style='display: none;'>".$tipo."</div>");
        echo ("<div id=nam style='display: none;'> ".$nombre." </div>");
        
      }
-  ?>
-  <!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <script src="js/jquery-2.0.3.js"></script>
-     <script src="js/bootstrap.min.js"></script>
-  <link href="css/stylemenu.css" rel="stylesheet">
-     <script src="js/funciones.js"></script>
-          <script src="js/funcionesinsert.js"></script>
-      <link rel="stylesheet" href="css/font-awesome.min.css">
-            <link rel="stylesheet" href="css/message.css">
-</head>
-<body>
 
+
+      require_once("conexion.php"); $conexion = new Conexion();
+  ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title></title>
 	  
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <script src="js/jquery-2.0.3.js"></script>
+ <link rel="stylesheet" href="css/bootstrap.min.css">
    <script src="js/funciones.js"></script>
-      <script src="js/jquery.js"></script>
- <link href="css/style.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script>
+ <link rel="stylesheet" href="css/font-awesome.min.css">
+<link href="css/stylemenu.css" rel="stylesheet">
+<link href="css/stylecontacto.css" rel="stylesheet">
 </head>
 <body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+ 
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only"></span>
@@ -53,22 +44,22 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >
 
           <div class="row" >
-            <div class="col-md-1 " id="logo" >
+          	<div class="col-md-1 " id="logo" >
 
-   <img  src="img/logo/logo.png" height="40" width="40" style="margin-top:8px">
+	 <img  src="img/logo/logo.png" height="40" width="40" style="margin-top:8px">
 </div>
-  <div class="col-md-1 " id="logotipo"  >
+	<div class="col-md-1 " id="logotipo"  >
 
-    <a  class="navbar-brand" href="index.html">Watcher   </a>
+	  <a  class="navbar-brand" href="index.html">Watcher   </a>
 </div>
 
 <div class="col-md-6 " id="buscador">
-      <div id="custom-search-input ">
+	    <div id="custom-search-input ">
                             <div class="input-group col-md-12">
 
-                                <input type="text" class="  search-query form-control" placeholder="Search" />
+                                <input type="text" id="search" class="  search-query form-control" placeholder="Search" />
                                 <span class="input-group-btn">
-                                    <button class="btn btn-danger" type="button">
+                                    <button id="find" class="btn btn-danger" type="button" ">
                                         <span class=" glyphicon glyphicon-search"></span>
                                     </button>
                                 </span>
@@ -83,24 +74,37 @@
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="#">Ropa</a></li>
-    <li><a href="#">Electrodomesticos</a></li>
-    <li><a href="#">tecnologia</a></li>
+   <?php 
+   $conexion->consulta ("SELECT * FROM  tbl_categories");
+                while($row = $conexion->extraer_registro()){
+       echo '<li><a href="#">'.$row['1'].'</a></li>';}
+   ?>
+   
+   
     <li role="separator" class="divider"></li>
     <li><a href="#">Separated link</a></li>
   </ul>
 </div>
                         </div>
-                   
+
 
                         <div class="col-md-3 move ">
                                    <ul class="nav navbar-nav" id="inicio">
       
   
   <li ><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
-   <li  ><a href="login.php" class="fa fa-envelope" ></a></li>
-   <li   ><a href="login.php" class="fa fa-shopping-cart" ></a></li>  
-              
+   <li  ><a href="message.php" class="fa fa-envelope" ></a></li>
+   <li   >
+
+   <?php       if(isset($_SESSION['id'])){
+    echo '<a href="checkout.php" class="fa fa-shopping-cart" >&nbsp;<span id="cantidadcarrito" class="badge">';
+               $conexion->consulta ("SELECT (SUM(quantity)) FROM  tbl_cart where id_user = ". $_SESSION['id']);
+                while($row = $conexion->extraer_registro()){
+                  echo $row['0'];
+                }
+                echo '</span></a>';
+      }
+      else{echo '<a href="login.php" class="fa fa-shopping-cart" >&nbsp;<span id="cantidadcarrito" class="badge"></span></a>';}?></li>  
                 </ul>
                         </div>
           
@@ -113,161 +117,107 @@
             </div>
             
         </div>
-</div>
+
     </nav>
+      <br> <br />
 
-<div class="container" id="principal">
-<div class="row inbox">
-	<div class="col-md-3">
-		<div class="panel panel-default">
-			<div class="panel-body inbox-menu">						
-				<a href="#page-inbox-compose.html" class="btn btn-danger btn-block">New Email</a>
-				<ul>
-					<li>
-						<a href="#page-inbox.html"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger">4</span></a>
-					</li>
-					<li>
-						<a href="#"><i class="fa fa-star"></i> Stared</a>
-					</li>
-					<li>
-						<a href="#"><i class="fa fa-rocket"></i> Sent</a>
-					</li>
-					<li>
-						<a href="#"><i class="fa fa-trash-o"></i> Trash</a>
-					</li>
-					<li>
-						<a href="#"><i class="fa fa-bookmark"></i> Important<span class="label label-info">5</span></a>
-					</li>
-					<li class="title">
-						Labels
-					</li>
-					<li>
-						<a href="#">Home <span class="label label-danger"></span></a>
-					</li>
-					<li>
-						<a href="#">Job <span class="label label-info"></span></a>
-					</li>
-					<li>
-						<a href="#">Clients <span class="label label-success"></span></a>
-					</li>
-					<li>
-						<a href="#">News <span class="label label-warning"></span></a>
-					</li>
-				</ul>
-			</div>	
-		</div>
-		
-		<div class="panel panel-default">
-			<div class="panel-body contacts">
-				<a href="#" class="btn btn-success btn-block"> + Contact</a>
-				<ul>
-					<li><span class="label label-danger"></span> Adam Alister</li>
-					<li><span class="label label-default"></span> Alphonse Ivo</li>
-					<li><span class="label label-success"></span> Anton Phunihel</li>
-					<li><span class="label label-success"></span> Ajith Hristijan</li>
-					<li><span class="label label-warning"></span> Bao Gaspar</li>
-					<li><span class="label label-default"></span> Bernhard Shelah</li>
-					<li><span class="label label-success"></span> Bünyamin Kasper</li>
-					<li><span class="label label-danger"></span> Carlito Roffe</li>
-					<li><span class="label label-danger"></span> Chidubem Gottlob</li>
-					<li><span class="label label-warning"></span> Dederick Mihail</li>
-					<li><span class="label label-success"></span> Felice Arseniy</li>
-					<li><span class="label label-default"></span> Grahame Miodrag</li>
-					<li><span class="label label-default"></span> Hristofor Sergio</li>
-					<li><span class="label label-danger"></span> Scottie Maximilian</li>
-					<li><span class="label label-danger"></span> Sullivan Robert</li>
-					<li><span class="label label-danger"></span> Thancmar Theophanes</li>
-					<li><span class="label label-warning"></span> Tullio Luka</li>
-					<li><span class="label label-success"></span> Walerian Khwaja</li>
-				</ul>
-			
-			</div>
-		
-		</div>			
-		
-	</div><!--/.col-->
-	
-	<div class="col-md-9">
-		<div class="panel panel-default">
-			<div class="panel-body message">
-				<p class="text-center">New Message</p>
-				<form class="form-horizontal" role="form">
-					<div class="form-group">
-				    	<label for="to" class="col-sm-1 control-label">To:</label>
-				    	<div class="col-sm-11">
-                              <input type="email" class="form-control select2-offscreen" id="to" placeholder="Type email" tabindex="-1">
-				    	</div>
-				  	</div>
-					<div class="form-group">
-				    	<label for="cc" class="col-sm-1 control-label">CC:</label>
-				    	<div class="col-sm-11">
-                              <input type="email" class="form-control select2-offscreen" id="cc" placeholder="Type email" tabindex="-1">
-				    	</div>
-				  	</div>
-					<div class="form-group">
-				    	<label for="bcc" class="col-sm-1 control-label">BCC:</label>
-				    	<div class="col-sm-11">
-                              <input type="email" class="form-control select2-offscreen" id="bcc" placeholder="Type email" tabindex="-1">
-				    	</div>
-				  	</div>
-				  
-				</form>
-				
-				<div class="col-sm-11 col-sm-offset-1">
-					
-					<div class="btn-toolbar" role="toolbar">
-						
-						<div class="btn-group">
-						  	<button class="btn btn-default"><span class="fa fa-bold"></span></button>
-						  	<button class="btn btn-default"><span class="fa fa-italic"></span></button>
-							<button class="btn btn-default"><span class="fa fa-underline"></span></button>
-						</div>
+        <br> <br />
 
-						<div class="btn-group">
-						  	<button class="btn btn-default"><span class="fa fa-align-left"></span></button>
-						  	<button class="btn btn-default"><span class="fa fa-align-right"></span></button>
-						  	<button class="btn btn-default"><span class="fa fa-align-center"></span></button>
-							<button class="btn btn-default"><span class="fa fa-align-justify"></span></button>
-						</div>
-						
-						<div class="btn-group">
-						  	<button class="btn btn-default"><span class="fa fa-indent"></span></button>
-						  	<button class="btn btn-default"><span class="fa fa-outdent"></span></button>
-						</div>
-						
-						<div class="btn-group">
-						  	<button class="btn btn-default"><span class="fa fa-list-ul"></span></button>
-						  	<button class="btn btn-default"><span class="fa fa-list-ol"></span></button>
-						</div>
-						<button class="btn btn-default"><span class="fa fa-trash-o"></span></button>	
-						<button class="btn btn-default"><span class="fa fa-paperclip"></span></button>
-						<div class="btn-group">
-							<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa fa-tags"></span> <span class="caret"></span></button>
-							<ul class="dropdown-menu">
-								<li><a href="#">add label <span class="label label-danger"> Home</span></a></li>
-								<li><a href="#">add label <span class="label label-info">Job</span></a></li>
-								<li><a href="#">add label <span class="label label-success">Clients</span></a></li>
-								<li><a href="#">add label <span class="label label-warning">News</span></a></li>
-							</ul>
-						</div>
-					</div>
-					<br>	
-					
-					<div class="form-group">
-						<textarea class="form-control" id="message" name="body" rows="12" placeholder="Click here to reply"></textarea>
-					</div>
-					
-					<div class="form-group">	
-						<button type="submit" class="btn btn-success">Send</button>
-						<button type="submit" class="btn btn-default">Draft</button>
-						<button type="submit" class="btn btn-danger">Discard</button>
-					</div>
-				</div>	
-			</div>	
-		</div>	
-	</div><!--/.col-->		
+
+          <br>
+
+           <br />
+           <div class="center"> <h3> Envianos tu consulta </h3></div>
+            <br> </div>
+<form class="contacto">
+   <div class="form-group">
+    <label for="emailEmp">Correo de la empresa a contactar:</label>
+    <input type="email" class="form-control" id="emailEmp">
+  </div>
+  <div class="form-group">
+    <label for="Nombre">Nombre:</label>
+    <input type="nombre" class="form-control" id="nombre">
+  </div>
+  <div class="form-group">
+    <label for="Apellido">Apellido:</label>
+    <input type="apellido" class="form-control" id="apellido">
+  </div>
+    <div class="form-group">
+    <label for="Correo">Correo:</label>
+    <input type="email" class="form-control" id="email">
+  </div>
+    <div class="form-group">
+    <label for="Mensaje">Mensaje:</label>
+     <textarea name="mensaje" class="form-control" required></textarea>
+  </div>
+  <div class="form-group">
+  <button type="submit" class="btn btn-default">Enviar</button>
+   </div>
+</form>
+<br />
+
+    <br> <br />
+
+<footer id="final">
+  <div class="container">
+    <div class="row" >
+      <div class="col-md-4 col-sm-6 footerleft ">
+        <div class="logofooter">Watcher</div>
+
+        <p>Somos una empresa dedicada a las ventas a nivel nacional, con el fin de que todos los clientes tengan sus productos en puerta de su casa, sin necesidad de salir de su casa o trabajo</p>
+        <p><i class="fa fa-map-pin"></i>  Osa, Ciudad Cortes, Puntarenas-61003, Costa Rica</p>
+        <p><i class="fa fa-phone"></i> Telefono (Costa Rica) : +506 87109682 : +506 83137757</p>
+        <p><i class="fa fa-envelope"></i> E-mail : yoel1202@hotmail.com</p>
+        
+      </div>
+      <div class="col-md-2 col-sm-6 paddingtop-bottom">
+        <h6 class="heading7">ENLACES GENERALES</h6>
+        <ul class="footer-ul">
+          <li><a href="#"> Centro Resoluciones</a></li>
+          <li><a href="#"> Politicas de Privacidad</a></li>
+          <li><a href="#"> Terminos & Condiciones</a></li>
+    
+          <li><a href="#"> Preguntas frecuentes</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3 col-sm-6 paddingtop-bottom">
+        <h6 class="heading7">ULTIMOS POST</h6>
+        <div class="post">
+          <p>Nuevo descuentos electrodomesticos <span>Septiembre 12,2017</span></p>
+         
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 paddingtop-bottom">
+        <div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs="timeline" data-height="300" data-small-header="false" style="margin-bottom:15px;" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+          <div class="fb-xfbml-parse-ignore">
+            <blockquote cite="https://www.facebook.com/facebook"><a href="https://www.facebook.com/facebook"><span class="fa fa-facebook-square">  Facebook</a>
+            </blockquote>
+             <blockquote cite="https://www.facebook.com/facebook"><a href="https://www.facebook.com/facebook"><span class="fa fa-instagram">  Instagram</a></blockquote>
+              <blockquote cite="https://www.facebook.com/facebook"><a href="https://www.facebook.com/facebook"><span class="fa fa-twitter">  Twitter</a></blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<div class="copyright">
+  <div class="container">
+    <div class="col-md-6">
+      <p>© <?php echo date('Y');?> - Todos los derechos reservados</p>
+    </div>
+    <div class="col-md-6">
+      <ul class="bottom_ul">
+        <li><a href="#">www.watcher.com</a></li>
+        <li><a href="#">Acerca de</a></li>
+        <li><a href="#">Contactenos</a></li>
+       
+      </ul>
+    </div>
+  </div>
 </div>
-</div>
+
 
 
 
