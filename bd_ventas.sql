@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-10-2017 a las 23:40:50
--- Versión del servidor: 10.1.16-MariaDB
--- Versión de PHP: 5.6.24
+-- Tiempo de generación: 29-10-2017 a las 20:39:05
+-- Versión del servidor: 10.1.10-MariaDB
+-- Versión de PHP: 7.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -24,6 +24,18 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Actualizarperfiluser` (`id` INT, `nombreuser` VARCHAR(20), `nom` VARCHAR(20), `ced` INT, `email` VARCHAR(20), `pass` VARCHAR(20), `tel` INT, `fot` VARCHAR(500))  BEGIN
+UPDATE tbl_user SET nombre_usuario=nombreuser,nombre=nom,cedula=ced,correo=email,password=pass,telefono=tel,foto=fot WHERE idtbl_usuario=id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Actualizarperfilusertexto` (`id` INT, `nombreuser` VARCHAR(20), `nom` VARCHAR(20), `ced` INT, `email` VARCHAR(20), `pass` VARCHAR(20), `tel` INT)  BEGIN
+UPDATE tbl_user SET nombre_usuario=nombreuser,nombre=nom,cedula=ced,correo=email,password=pass,telefono=tel WHERE idtbl_usuario=id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Actualizarshiipinguser` (`nam` VARCHAR(20), `lastnam` VARCHAR(20), `adress1` VARCHAR(50), `adress2` VARCHAR(50), `provinces` VARCHAR(20), `cantones` VARCHAR(20), `districts` VARCHAR(20), `zips` INT, `coun` VARCHAR(20), `id` INT)  BEGIN
+UPDATE tbl_shipping SET name=nam,last_name=lastnam,firts_adress=adress1,second_adress=adress2,province=provinces,canton=cantones,district=districts,zip=zips,country=coun WHERE id_tblshipping=id;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar` (IN `idvendedor` INT, IN `idsubcategoria` INT, IN `pesos` VARCHAR(5), IN `colores` VARCHAR(20), IN `anchos` VARCHAR(10), IN `alturas` VARCHAR(10), IN `estados` VARCHAR(20), IN `precio_envios` INT(15), IN `cantidades` INT(10), IN `tamas` VARCHAR(10), IN `precios` INT(15), IN `titulos` VARCHAR(100), IN `garantias` VARCHAR(20), IN `descripciones` VARCHAR(500))  BEGIN
 
 
@@ -32,10 +44,18 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar` (IN `idvendedor` INT, IN 
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertshipping` (`nam` VARCHAR(20), `lastnam` VARCHAR(20), `address1` VARCHAR(50), `address2` VARCHAR(50), `provinces` VARCHAR(20), `cantones` VARCHAR(20), `districts` VARCHAR(20), `zips` INT, `coun` VARCHAR(20), `id` INT)  BEGIN
+ INSERT INTO tbl_shipping(id_tblshipping,name,last_name,firts_adress,second_adress,province,canton,district,zip,country,id_user) VALUES('',nam,lastnam,address1,address2,provinces,cantones,districts,zips,coun,id);
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `search` (`word` VARCHAR(25))  BEGIN
- SELECT titulo,precio,descripcion,picture_code FROM tbl_productos as tp
+ SELECT titulo,precio,descripcion,picture_code,idtbl_productos FROM tbl_productos as tp
  INNER JOIN tbl_photo AS TPH ON TPH.tbl_productos_idtbl_productos=idtbl_productos inner join tbl_seller as ts on tp.tbl_vendedor_idtbl_vendedor=ts.idtbl_vendedor inner join tbl_ranking  tr on 
- tr.tbl_vendedor_idtbl_vendedor =ts.idtbl_vendedor   where titulo like concat(word,'%') order by tr.value_ranking ASC;
+ tr.tbl_vendedor_idtbl_vendedor =ts.idtbl_vendedor   where titulo like concat(word,'%') group by titulo order by tr.value_ranking ASC   ;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `verificarusershipping` (`id` INT)  BEGIN
+select id_tblshipping from  tbl_shipping where id_user=id;
 END$$
 
 DELIMITER ;
@@ -78,7 +98,7 @@ CREATE TABLE `tbl_cart` (
 --
 
 INSERT INTO `tbl_cart` (`id_cart`, `id_product`, `quantity`, `id_user`) VALUES
-(10, 1, '5', 1);
+(10, 1, '10', 1);
 
 -- --------------------------------------------------------
 
@@ -272,6 +292,13 @@ CREATE TABLE `tbl_sales` (
   `id_tblshipping` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `tbl_sales`
+--
+
+INSERT INTO `tbl_sales` (`idtbl_ventas`, `tbl_usuario_idtbl_usuario`, `tbl_productos_idtbl_productos`, `id_tblshipping`) VALUES
+(2, 1, 1, 8);
+
 -- --------------------------------------------------------
 
 --
@@ -316,17 +343,24 @@ DELIMITER ;
 
 CREATE TABLE `tbl_shipping` (
   `id_tblshipping` int(11) NOT NULL,
-  `name` int(11) NOT NULL,
-  `last_name` int(11) NOT NULL,
-  `firts_adress` int(11) NOT NULL,
-  `second_adress` int(11) NOT NULL,
-  `province` int(11) NOT NULL,
-  `canton` int(11) NOT NULL,
-  `district` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `last_name` varchar(30) NOT NULL,
+  `firts_adress` varchar(50) NOT NULL,
+  `second_adress` varchar(50) NOT NULL,
+  `province` varchar(15) NOT NULL,
+  `canton` varchar(15) NOT NULL,
+  `district` varchar(15) NOT NULL,
   `zip` int(11) NOT NULL,
-  `country` int(11) NOT NULL,
+  `country` varchar(15) NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tbl_shipping`
+--
+
+INSERT INTO `tbl_shipping` (`id_tblshipping`, `name`, `last_name`, `firts_adress`, `second_adress`, `province`, `canton`, `district`, `zip`, `country`, `id_user`) VALUES
+(8, 'yoel', 'cerdas', '200 metros norte', 'casa color roja entrada al fondo de', 'puntarenas', 'osa', 'ciudad cortes', 60501, 'costa rica', 1);
 
 -- --------------------------------------------------------
 
@@ -371,7 +405,7 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`idtbl_usuario`, `nombre_usuario`, `nombre`, `cedula`, `correo`, `password`, `telefono`, `foto`, `estado`, `tbl_contract_idtbl_contract`) VALUES
-(1, 'stevenorozco', 'steven orozco montoya', 604250344, 'steven', 'steven1', 62567388, 'nulo', '1', 1);
+(1, 'yoel1202', 'yoel cerdas', 604140385, 'yoel1202@hotmail.com', '1', 87109682, 'img/Usuario/profile111.jpeg', '1', 1);
 
 --
 -- Índices para tablas volcadas
@@ -459,6 +493,7 @@ ALTER TABLE `tbl_record_seller`
 --
 ALTER TABLE `tbl_sales`
   ADD PRIMARY KEY (`idtbl_ventas`),
+  ADD UNIQUE KEY `tbl_productos_idtbl_productos` (`tbl_productos_idtbl_productos`),
   ADD KEY `fk_tbl_ventas_tbl_usuario1_idx` (`tbl_usuario_idtbl_usuario`),
   ADD KEY `fk_tbl_ventas_tbl_productos1_idx` (`tbl_productos_idtbl_productos`);
 
@@ -552,12 +587,17 @@ ALTER TABLE `tbl_record_seller`
 -- AUTO_INCREMENT de la tabla `tbl_sales`
 --
 ALTER TABLE `tbl_sales`
-  MODIFY `idtbl_ventas` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idtbl_ventas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `tbl_seller`
 --
 ALTER TABLE `tbl_seller`
   MODIFY `idtbl_vendedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `tbl_shipping`
+--
+ALTER TABLE `tbl_shipping`
+  MODIFY `id_tblshipping` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `tbl_subcategories`
 --

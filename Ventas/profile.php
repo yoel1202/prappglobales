@@ -7,6 +7,7 @@
                     $tipo=$_SESSION['tipo'];
              echo ("<div id=tip style='display: none;'>".$tipo."</div>");
        echo ("<div id=nam style='display: none;'> ".$nombre." </div>");
+        echo ("<div id=tip style='display: none;'>".$tipo."</div>");
      }else{
         header("location: login.php");
 
@@ -47,7 +48,7 @@
 </div>
   <div class="col-md-1 " id="logotipo"  >
 
-    <a  class="navbar-brand" href="index.html">Watcher   </a>
+    <a  class="navbar-brand" href="index.php">Watcher   </a>
 </div>
 
 <div class="col-md-6 " id="buscador">
@@ -110,7 +111,7 @@
         <ul class="nav nav-pills nav-stacked nav-email shadow mb-20">
             <li class="active">
                 <a href="#mail-inbox.html">
-                    <i class="fa fa-user "></i>Perfil <span class="label pull-right">7</span>
+                    <i class="fa fa-user "></i>Perfil <span class="label pull-right"></span>
                 </a>
             </li>
             <li>
@@ -121,7 +122,18 @@
             </li>
             <li>
                 <a href="#">
-                    <i class="fa fa-shopping-cart"></i>Listas<span class="label label-info pull-right inbox-notification">35</span>
+                   <?php 
+                    $conexion->consulta ("select distinct( idtbl_productos) from tbl_sales ts inner join tbl_productos  on  ts.tbl_productos_idtbl_productos=idtbl_productos
+ inner join tbl_user on tbl_usuario_idtbl_usuario='". $_SESSION['id']."' inner join tbl_photo tph on tph.tbl_productos_idtbl_productos=idtbl_productos group by idtbl_productos");
+                    if(!$row = $conexion->extraer_registro()) {
+ echo ' <i class="fa fa-shopping-cart"></i>Listas<span class="label label-info pull-right inbox-notification">0</span> ';
+   }else{
+ 
+                 
+                echo ' <i class="fa fa-shopping-cart"></i>Listas<span class="label label-info pull-right inbox-notification">'.$row['0'].'</span> ';
+              
+     }
+                    ?>
                 </a>
             </li>
            
@@ -151,56 +163,65 @@
                       <article class="row">
                         <h1 class="page-header">Editar perfl</h1>
   <div class="row">
-    <!-- left column -->
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="text-center">
-        <img src="img/usuario/profile.jpeg" class="avatar img-circle img-thumbnail" alt="avatar">
-        <h6>Subir Foto...</h6>
-        <input type="file" class="text-center center-block well well-sm">
-      </div>
-    </div>
-    <!-- edit form column -->
-    <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
-      <div class="alert alert-info alert-dismissable">
-        <a class="panel-close close" data-dismiss="alert">×</a> 
-        <i class="fa fa-coffee"></i>
-        This is an <strong>.alert</strong>. Use this to show important messages to the user.
-      </div>
-      <h3>Informacion personal</h3>
-      <form class="form-horizontal" role="form">
+    <!-- 
+    left column -->
+   
+      
         <?php 
    $conexion->consulta ("SELECT  nombre,nombre_usuario, cedula, correo, password, telefono, foto from tbl_user where idtbl_usuario=". $_SESSION['id']."");
-                while($row = $conexion->extraer_registro()){
-       echo '        <div class="form-group">
+                while($row = $conexion->extraer_registro()){ 
+
+    echo'<form class="form-horizontal"  action="subirimagen.php" method="post" enctype="multipart/form-data" id="form">
+    <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="text-center">
+        <img src="'.$row['6'].'" class="avatar img-circle img-thumbnail" alt="avatar">
+        <h6>Subir Foto...</h6>
+        <input type="file" class="text-center center-block well well-sm"  name="archivo" id="file-5" class="inputfile inputfile-4">
+        
+      </div>
+    </div>
+    <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+    <!--     <div class="alert alert-info alert-dismissable">
+        <a class="panel-close close" data-dismiss="alert">×</a> 
+        <i class="fa fa-coffee"></i>
+      
+      </div> -->
+      <h3>Informacion personal</h3>
+               <div class="form-group">
           <label class="col-lg-3 control-label">Nombre:</label>
           <div class="col-lg-8">
-            <input class="form-control" value="'.$row['0'].'" type="text">
+            <input class="form-control" name="nombre" value="'.$row['0'].'" type="text">
           </div>
         </div>
         <div class="form-group">
           <label class="col-lg-3 control-label">Nombre usuario:</label>
           <div class="col-lg-8">
-            <input class="form-control" value="'.$row['1'].'" type="text">
+            <input class="form-control" name="usuario" value="'.$row['1'].'" type="text">
           </div>
         </div>
         <div class="form-group">
           <label class="col-lg-3 control-label">Cedula:</label>
           <div class="col-lg-8">
-            <input class="form-control" value="'.$row['2'].'" type="text">
+            <input class="form-control" name="cedula" value="'.$row['2'].'" type="text">
           </div>
         </div>
         <div class="form-group">
           <label class="col-lg-3 control-label">Correo:</label>
           <div class="col-lg-8">
-            <input class="form-control" value="'.$row['3'].'" type="text">
+            <input class="form-control" name="correo" value="'.$row['3'].'" type="text">
           </div>
         </div>
 
-       
+           <div class="form-group">
+          <label class="col-lg-3 control-label">Telefono:</label>
+          <div class="col-lg-8">
+            <input class="form-control" name="telefono" value="'.$row['5'].'" type="text">
+          </div>
+        </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Contraeña:</label>
           <div class="col-md-8">
-            <input class="form-control" value="'.$row['4'].'" type="password">
+            <input class="form-control" name="pass" value="'.$row['4'].'" type="password">
           </div>
         </div>  
         <div class="form-group">
@@ -208,18 +229,22 @@
           <div class="col-md-8">
             <input class="form-control" value="'.$row['4'].'" type="password">
           </div>
-        </div>';}
-   ?>
-      
-        <div class="form-group">
+        </div>
+
+         <div class="form-group">
           <label class="col-md-3 control-label"></label>
           <div class="col-md-8">
-            <input class="btn btn-primary" value="Guardar cambios" type="button">
+            <input class="btn btn-primary" value="Guardar cambios" type="submit">
             <span></span>
-            <input class="btn btn-default" value="Cancel" type="reset">
+           
           </div>
         </div>
-      </form>
+      </form>';
+
+      }
+   ?>
+      
+       
     </div>
   </div>
                       </article>      
@@ -233,24 +258,33 @@
                     
 
                      <div class="row">
-        <form action="#">
-            <div class="col-xs-6">
+                     <div class="alert alert-info alert-dismissable">
+        <a class="panel-close close" data-dismiss="alert">×</a> 
+        <i class="fa fa-coffee"></i>
+      <div id="mensaje">Puede modificar su direccion de envio de los paquetes</div>
+      </div> 
+                       <?php
+                      $conexion->consulta (" SELECT name, last_name, firts_adress, second_adress, province, canton, district, zip, country FROM 
+ tbl_shipping inner join  tbl_user on idtbl_usuario=id_user where id_user=". $_SESSION['id']."");
+                      $row= $conexion->extraer_registro();
+                      if ($row<=0) {
+                        echo '<div class="col-xs-6">
                 <div class="form-group">
                     <label for="firstname">Nombre</label>
-                    <input type="text" class="form-control" id="firstname" placeholder="Nombre" required="">
+                    <input type="text" class="form-control" id="firstname" placeholder="Nombre" required="" >
                 </div>
                 <div class="form-group">
                     <label for="lastname">Apellido</label>
-                    <input type="text" class="form-control" id="lastname" placeholder="Apellidos" required="">
+                    <input type="text" class="form-control" id="lastname" placeholder="Apellidos" required="" >
                 </div>
                 
                                 <div class="form-group">
                     <label for="AddressLine1">Primera direccion </label>
-                    <input type="text" class="form-control" id="AddressLine1" placeholder="Primera Direccion" required="">
+                    <input type="text" class="form-control" id="AddressLine1" placeholder="Primera Direccion" required="" >
                 </div>
                 <div class="form-group">
                     <label for="Address Line 1">Segunda direccion 2</label>
-                    <input type="text" class="form-control" id="AddressLine2" placeholder="Segunda Direccion" required="">
+                    <input type="text" class="form-control" id="AddressLine2" placeholder="Segunda Direccion" required="" >
                 </div>
                 
             
@@ -258,34 +292,98 @@
             <div class="col-xs-6">
                 <div class="form-group">
                     <label for="city">Provincia</label>
-                    <input type="text" class="form-control" id="city" placeholder="Provincia" required="">
+                    <input type="text" class="form-control" id="city" placeholder="Provincia" required="" >
                 </div>
                 <div class="form-group">
                     <label for="State">Canton</label>
-                    <input type="text" class="form-control" id="state" placeholder="Canton" required="">
+                    <input type="text" class="form-control" id="state" placeholder="Canton" required="" >
                 </div>   <div class="form-group">
 
                     <label for="State">Distrito</label>
-                    <input type="text" class="form-control" id="state" placeholder="Distrito" required="">
+                    <input type="text" class="form-control" id="district" placeholder="Distrito" required="" >
                 </div>
 
                 
                  <div class="form-group">
                     <label for="zip">Zip / Codigo Postal</label>
-                    <input type="text" class="form-control" id="zip" placeholder="Codigo Postal" required="">
+                    <input type="text" class="form-control" id="zip" placeholder="Codigo Postal" required="" >
                 </div>
                 <div class="form-group">
-                    <label for="Country">Country</label>
-                    <select id="country" name="country" autocomplete="country" class="form-control">
-                    <option value="" selected="selected">(selecione el pais)</option>
-            
-                    <option value="CR">Costa Rica</option>
-                    
-                  
-                </select>
+                <label for="pais">Pais</label>
+                    <input type="text" class="form-control" id="country" placeholder="pais" required="" >
                 </div> 
+                    <div class="col-md-12">
+            <input class="btn btn-primary"  value="Guardar cambios" onclick="guardardireccion('.$_SESSION['id'].')" type="submit">
+            <span></span>
+             <input class="btn btn-default" value="Actualizar cambios" type="reset">
+           
+          </div>
+
             </div>
-        </form>
+        ';
+                      }
+                while($row){ 
+       
+     echo' 
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="firstname">Nombre</label>
+                    <input type="text" class="form-control" id="firstname" placeholder="Nombre" required="" value="'.$row['0'].'">
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Apellido</label>
+                    <input type="text" class="form-control" id="lastname" placeholder="Apellidos" required="" value="'.$row['1'].'">
+                </div>
+                
+                                <div class="form-group">
+                    <label for="AddressLine1">Primera direccion </label>
+                    <input type="text" class="form-control" id="AddressLine1" placeholder="Primera Direccion" required="" value="'.$row['2'].'">
+                </div>
+                <div class="form-group">
+                    <label for="Address Line 1">Segunda direccion 2</label>
+                    <input type="text" class="form-control" id="AddressLine2" placeholder="Segunda Direccion" required="" value="'.$row['3'].'">
+                </div>
+                
+            
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="city">Provincia</label>
+                    <input type="text" class="form-control" id="city" placeholder="Provincia" required="" value="'.$row['4'].'">
+                </div>
+                <div class="form-group">
+                    <label for="State">Canton</label>
+                    <input type="text" class="form-control" id="state" placeholder="Canton" required="" value="'.$row['5'].'">
+                </div>   <div class="form-group">
+
+                    <label for="State">Distrito</label>
+                    <input type="text" class="form-control" id="district" placeholder="Distrito" required="" value="'.$row['6'].'">
+                </div>
+
+                
+                 <div class="form-group">
+                    <label for="zip">Zip / Codigo Postal</label>
+                    <input type="text" class="form-control" id="zip" placeholder="Codigo Postal" required="" value="'.$row['7'].'">
+                </div>
+                <div class="form-group">
+                <label for="pais">Pais</label>
+                    <input type="text" class="form-control" id="country" placeholder="Codigo Postal" required="" value="'.$row['8'].'">
+                </div> 
+                    <div class="col-md-12">
+            <input class="btn btn-primary"  value="Guardar cambios" onclick="guardardireccion('.$_SESSION['id'].')" type="submit">
+            <span></span>
+            
+           
+          </div>
+
+            </div>
+        ';
+  if ($row>1) {
+            $row=false;
+         }
+               }
+   ?>
+
     </div>
                 </div>
 

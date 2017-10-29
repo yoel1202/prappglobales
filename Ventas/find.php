@@ -1,7 +1,6 @@
 <?php
 //prueba hola
-  $word= $_GET['word'] ;
-              $page= $_GET['page'] ;
+ 
   session_start();
 
                  if(isset($_SESSION['nombre'])){
@@ -9,10 +8,13 @@
           
        echo ("<div id=nam style='display: none;'> ".$nombre." </div>");
      }
-
+     if(isset( $_GET['word']) and isset($_GET['page'] )){
+ $word= $_GET['word'] ;
+              $page= $_GET['page'] ;
       echo "<script>\n";
    echo "var word='".$word."' \n var allpages='".$page."' \n ";
    echo "</script>";
+ }
   ?>
 <!DOCTYPE html>
 <html>
@@ -47,7 +49,7 @@
 </div>
   <div class="col-md-1 " id="logotipo"  >
 
-    <a  class="navbar-brand" href="index.html">Watcher   </a>
+    <a  class="navbar-brand" href="index.php">Watcher   </a>
 </div>
 
 <div class="col-md-6 " id="buscador">

@@ -84,7 +84,7 @@ if (data==null) {
      for (var i=0; i<obj.length; i++) { 
     
    if( i>=inicio && i<=final){
-   $('#wordsearch').append('<div class="row" <div class="col-md-11 col-sm-6 margin50"> <span class="thumbnail"> <a href="buy.php"><img src="'+obj[i][3]+'" alt="..."></a><h4>'+obj[i][0]+'</h4> <div class="ratings"> <span class="glyphicon glyphicon-star"></span>  <span class="glyphicon glyphicon-star"></span>   <span class="glyphicon glyphicon-star"></span> <span class="glyphicon glyphicon-star"></span> <span class="glyphicon glyphicon-star-empty"></span> </div><p>'+obj[i][2]+' </p> <hr class="line"><div class="row">  <div class="col-md-6 col-sm-6">  <p class="price">₡'+obj[i][1]+'</p>  </div>  <div class="col-md-6 col-sm-6">  </div> </div> </span> </div> </div>');
+   $('#wordsearch').append('<div class="row" <div class="col-md-11 col-sm-6 margin50"> <span class="thumbnail"> <a href="buy.php?product='+obj[i][4]+'"><img src="'+obj[i][3]+'" alt="..."></a><h4>'+obj[i][0]+'</h4> <div class="ratings"> <span class="glyphicon glyphicon-star"></span>  <span class="glyphicon glyphicon-star"></span>   <span class="glyphicon glyphicon-star"></span> <span class="glyphicon glyphicon-star"></span> <span class="glyphicon glyphicon-star-empty"></span> </div><p>'+obj[i][2]+' </p> <hr class="line"><div class="row">  <div class="col-md-6 col-sm-6">  <p class="price">₡'+obj[i][1]+'</p>  </div>  <div class="col-md-6 col-sm-6">  </div> </div> </span> </div> </div>');
     }
      }
       
@@ -125,6 +125,26 @@ if (cantidad == 0) {cantidad = $('#cantidadp').val();}
 
   
 }
+function guardardireccion(user){
+
+
+  $.ajax({
+    type: 'POST',
+    url: 'database.php',
+    data: {key: 'insertshipping', firstname: $('#firstname').val(), lastname:  $('#lastname').val(),address1:$('#AddressLine1').val(),address2:$('#AddressLine2').val()
+    ,city:$('#city').val(),state:$('#state').val(),district:$('#district').val(),zip:$('#zip').val(),country:$('#country').val(),users:user}
+
+  }).done(function ( data ) {
+ 
+  $('#mensaje').html(data);
+  
+  }).fail(function (jqXHR, textStatus, errorThrown){
+   
+  })
+
+  
+}
+
 function ponerfotoproducto(id){
   $('#picture').attr('src',id);
 }

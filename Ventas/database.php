@@ -61,6 +61,46 @@ if ($_POST['key']=='login') {
       search($conexion,$word);
     
     }
+
+  if ($_POST['key']=='insertshipping') {
+        
+         $firstname = $_POST['firstname'];
+         $lastname= $_POST['lastname'];
+         $address1 = $_POST['address1'];
+         $address2 = $_POST['address2'];  
+         $city = $_POST['city'];   
+         $state = $_POST['state'];   
+         $district= $_POST['district'];   
+         $zip = $_POST['zip'];  
+         $country = $_POST['country'];   
+         $users = $_POST['users']; 
+      insertshipping($conexion,$firstname,$lastname,$address1,$address2,$city,$state,$district,$zip,$country,$users);
+    }
+
+
+function insertshipping($conexion,$firstname,$lastname,$address1,$address2,$city,$state,$district,$zip,$country,$users){
+$conexion->consulta("select * from  tbl_shipping where id_user='$users'");
+$row= $conexion->extraer_registro();
+   if($row>0){
+if($conexion->consulta("CALL Actualizarshiipinguser('$firstname','$lastname','$address1','$address2','$city','$state','$district','$zip','$country','".$row['0']."')")){
+
+      echo "Se ha efectuado los cambios correctamente";
+    }else{
+      echo "error ha efectuar cambios";
+    }
+  
+   }else{
+   if($conexion->consulta("CALL insertshipping('$firstname','$lastname','$address1','$address2','$city','$state','$district','$zip','$country','$users')")){
+
+      echo "Se ha efectuado los cambios correctamente";
+    }else{
+      echo "error ha efectuar cambios";
+    }
+  }
+}
+
+
+
     function search($conexion,$word){
  
 
@@ -84,7 +124,7 @@ echo json_encode($search);
 
     if($conexion->consulta("CALL insertar('$vendedor','$subcategoria','$peso','$color','$anchura','$altura','$estados','$envio','$cantidad','$tama','$precio','$titulo','$garantia','$descripcion')")){
 
-      echo "ok";
+      echo "Se ha efectuado los cambios correctamente";
     }
 
    

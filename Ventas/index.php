@@ -50,7 +50,7 @@
 </div>
 	<div class="col-md-1 " id="logotipo"  >
 
-	  <a  class="navbar-brand" href="index.html">Watcher   </a>
+	  <a  class="navbar-brand" href="index.php">Watcher   </a>
 </div>
 
 <div class="col-md-6 " id="buscador">
@@ -217,111 +217,7 @@
       
 
         <hr>
-  <div class="row text-center">
 
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                                        
-               <div class="row">
-                <div class="col-xs-12  col-sm-12">
-            <div id="progreso0" class="progress-radial progress">
-                <div class="overlay">
-                    <img  width="384" height="384" class="img-responsive img-circle" src="img/productos/gta.jpg" alt="">
-                    
-                    <div class="clearfix"></div>
-                </div>
-           </div>
-             </div>
-      
-</div>
-                    <div class="caption">
-                        <h3>Gta 5 </h3>
-                        <p>Gamesstone</p>
-                        <p>
-                            <a href="#" class="btn btn-primary">Comprar ahora!</a> <a href="#" class="btn btn-default">Mas Informacion </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                       <div class="row">
-                <div class="col-xs-12  col-sm-12">
-            <div id="progreso" class="progress-radial progress">
-                <div class="overlay">
-                    <img  width="256" height="256" class="img-responsive img-circle" src="img/productos/camisa.jpg" alt="">
-                   
-                    <div class="clearfix"></div>
-                </div>
-           </div>
-             </div>
-      
-</div>
-                    <div class="caption">
-                        <h3>Hurley</h3>
-                        <p>Tiburon</p>
-                        <p>
-                        <a href="#" class="btn btn-primary">Comprar ahora!</a> <a href="#" class="btn btn-default">Mas Informacion </a>
-       
-
-
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                        <div class="row">
-                <div class="col-xs-12  col-sm-12">
-            <div id="progreso3" class="progress-radial progress">
-                <div class="overlay">
-                    <img  width="384" height="384" class="img-responsive img-circle" src="img/productos/smarttv.jpg" alt="">
-                   
-                    <div class="clearfix"></div>
-                </div>
-           </div>
-             </div>
-      
-</div>
-                    <div class="caption">
-                        <h3>Samsung smart tv</h3>
-                        <p>Grupo Villa</p>
-                        <p>
-                               <a href="#" class="btn btn-primary">Comprar ahora!</a> <a href="#" class="btn btn-default">Mas Informacion </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-             <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                        <div class="row">
-                <div class="col-xs-12  col-sm-12">
-            <div id="progreso4" class="progress-radial progress">
-                <div class="overlay">
-                    <img  width="384" height="384" class="img-responsive img-circle" src="img/productos/PS3.jpg" alt="">
-                  
-                    <div class="clearfix"></div>
-                </div>
-           </div>
-             </div>
-      
-</div>
-                    <div class="caption">
-                        <h3>PS3</h3>
-                        <p>Gollo</p>
-                        <p>
-                                <a href="#" class="btn btn-primary">Comprar ahora!</a> <a href="#" class="btn btn-default">Mas Informacion </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-       
       
 
     </div>

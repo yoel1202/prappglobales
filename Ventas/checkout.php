@@ -50,7 +50,7 @@
 </div>
   <div class="col-md-1 " id="logotipo"  >
 
-    <a  class="navbar-brand" href="index.html">Watcher   </a>
+    <a  class="navbar-brand" href="index.php">Watcher   </a>
 </div>
 
 <div class="col-md-6 " id="buscador">
