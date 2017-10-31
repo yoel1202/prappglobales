@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-10-2017 a las 20:39:05
--- Versión del servidor: 10.1.10-MariaDB
--- Versión de PHP: 7.0.3
+-- Tiempo de generación: 31-10-2017 a las 16:53:22
+-- Versión del servidor: 10.1.16-MariaDB
+-- Versión de PHP: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -24,16 +24,24 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Actualizarperfiluser` (`id` INT, `nombreuser` VARCHAR(20), `nom` VARCHAR(20), `ced` INT, `email` VARCHAR(20), `pass` VARCHAR(20), `tel` INT, `fot` VARCHAR(500))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Actualizarconfotovendedor` (`id` INT, `nombreuser` VARCHAR(20), `nom` VARCHAR(50), `ced` INT, `email` VARCHAR(20), `pass` VARCHAR(20), `tel` INT, `fot` VARCHAR(500))  BEGIN
+UPDATE tbl_seller SET nombre=nom, nombre_usuario=nombreuser,password=pass,correo=email,cedula_juridica=ced,foto=fot,telefono=tel WHERE idtbl_vendedor=id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Actualizarperfiluser` (`id` INT, `nombreuser` VARCHAR(20), `nom` VARCHAR(50), `ced` INT, `email` VARCHAR(20), `pass` VARCHAR(20), `tel` INT, `fot` VARCHAR(500))  BEGIN
 UPDATE tbl_user SET nombre_usuario=nombreuser,nombre=nom,cedula=ced,correo=email,password=pass,telefono=tel,foto=fot WHERE idtbl_usuario=id;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Actualizarperfilusertexto` (`id` INT, `nombreuser` VARCHAR(20), `nom` VARCHAR(20), `ced` INT, `email` VARCHAR(20), `pass` VARCHAR(20), `tel` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Actualizarperfilusertexto` (`id` INT, `nombreuser` VARCHAR(20), `nom` VARCHAR(50), `ced` INT, `email` VARCHAR(20), `pass` VARCHAR(20), `tel` INT)  BEGIN
 UPDATE tbl_user SET nombre_usuario=nombreuser,nombre=nom,cedula=ced,correo=email,password=pass,telefono=tel WHERE idtbl_usuario=id;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Actualizarshiipinguser` (`nam` VARCHAR(20), `lastnam` VARCHAR(20), `adress1` VARCHAR(50), `adress2` VARCHAR(50), `provinces` VARCHAR(20), `cantones` VARCHAR(20), `districts` VARCHAR(20), `zips` INT, `coun` VARCHAR(20), `id` INT)  BEGIN
 UPDATE tbl_shipping SET name=nam,last_name=lastnam,firts_adress=adress1,second_adress=adress2,province=provinces,canton=cantones,district=districts,zip=zips,country=coun WHERE id_tblshipping=id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Actualizarvendedortexto` (`id` INT, `nombreuser` VARCHAR(20), `nom` VARCHAR(50), `ced` INT, `email` VARCHAR(20), `pass` VARCHAR(20), `tel` INT)  BEGIN
+UPDATE tbl_seller SET nombre=nom, nombre_usuario=nombreuser,password=pass,correo=email,cedula_juridica=ced,telefono=tel WHERE idtbl_vendedor=id;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar` (IN `idvendedor` INT, IN `idsubcategoria` INT, IN `pesos` VARCHAR(5), IN `colores` VARCHAR(20), IN `anchos` VARCHAR(10), IN `alturas` VARCHAR(10), IN `estados` VARCHAR(20), IN `precio_envios` INT(15), IN `cantidades` INT(10), IN `tamas` VARCHAR(10), IN `precios` INT(15), IN `titulos` VARCHAR(100), IN `garantias` VARCHAR(20), IN `descripciones` VARCHAR(500))  BEGIN
@@ -240,7 +248,7 @@ CREATE TABLE `tbl_productos` (
 --
 
 INSERT INTO `tbl_productos` (`idtbl_productos`, `tbl_vendedor_idtbl_vendedor`, `tbl_subcategorias_idtbl_subcategorias`, `Peso`, `color`, `ancho`, `altura`, `estado`, `price_shipping`, `cantidad`, `tama`, `precio`, `titulo`, `garantia`, `descripcion`) VALUES
-(1, 4, 1, '100', 'Blanco', '50', '75', '1', '250', 25, '0', 100000, 'Lavadora automatica', '24 meses', 'Ultima generacion de lavadoras.');
+(1, 4, 1, '100', 'Blanco', '50', '75', '1', '2500', 25, '0', 100000, 'Lavadora automatica', '24 meses', 'Ultima generacion de lavadoras.');
 
 -- --------------------------------------------------------
 
@@ -289,6 +297,7 @@ CREATE TABLE `tbl_sales` (
   `idtbl_ventas` int(11) NOT NULL,
   `tbl_usuario_idtbl_usuario` int(11) NOT NULL,
   `tbl_productos_idtbl_productos` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
   `id_tblshipping` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -296,8 +305,8 @@ CREATE TABLE `tbl_sales` (
 -- Volcado de datos para la tabla `tbl_sales`
 --
 
-INSERT INTO `tbl_sales` (`idtbl_ventas`, `tbl_usuario_idtbl_usuario`, `tbl_productos_idtbl_productos`, `id_tblshipping`) VALUES
-(2, 1, 1, 8);
+INSERT INTO `tbl_sales` (`idtbl_ventas`, `tbl_usuario_idtbl_usuario`, `tbl_productos_idtbl_productos`, `cantidad`, `id_tblshipping`) VALUES
+(2, 1, 1, 8, 8);
 
 -- --------------------------------------------------------
 
@@ -323,7 +332,7 @@ CREATE TABLE `tbl_seller` (
 --
 
 INSERT INTO `tbl_seller` (`idtbl_vendedor`, `tbl_contract_idtbl_contract`, `nombre`, `nombre_usuario`, `password`, `correo`, `cedula_juridica`, `estado`, `foto`, `telefono`) VALUES
-(4, 1, 'Gollo', 'gollo1', 'gollo1', 'gollo@', 123456789, 'activo', 'ld', 84915419);
+(4, 1, 'Gollo', 'gollo1', 'gollo1', 'gollo@gollo.com', 111112, 'activo', 'img/Vendedor/Grand-Theft-Auto-V-4K-10.jpg', 849154194);
 
 --
 -- Disparadores `tbl_seller`
@@ -360,7 +369,7 @@ CREATE TABLE `tbl_shipping` (
 --
 
 INSERT INTO `tbl_shipping` (`id_tblshipping`, `name`, `last_name`, `firts_adress`, `second_adress`, `province`, `canton`, `district`, `zip`, `country`, `id_user`) VALUES
-(8, 'yoel', 'cerdas', '200 metros norte', 'casa color roja entrada al fondo de', 'puntarenas', 'osa', 'ciudad cortes', 60501, 'costa rica', 1);
+(8, 'yoel', 'cerdas', '200 metros norte ciudad cortes', 'casa color roja entrada al fondo de', 'puntarenas', 'osa', 'ciudad cortes', 60501, 'costa rica', 1);
 
 -- --------------------------------------------------------
 
@@ -405,7 +414,7 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`idtbl_usuario`, `nombre_usuario`, `nombre`, `cedula`, `correo`, `password`, `telefono`, `foto`, `estado`, `tbl_contract_idtbl_contract`) VALUES
-(1, 'yoel1202', 'yoel cerdas', 604140385, 'yoel1202@hotmail.com', '1', 87109682, 'img/Usuario/profile111.jpeg', '1', 1);
+(1, 'yoel1202', 'yoel cerdas villalob', 604140385, 'yoel1202@hotmail.com', '1', 87109682, 'img/Usuario/profile111.jpeg', '1', 1);
 
 --
 -- Índices para tablas volcadas
@@ -587,7 +596,7 @@ ALTER TABLE `tbl_record_seller`
 -- AUTO_INCREMENT de la tabla `tbl_sales`
 --
 ALTER TABLE `tbl_sales`
-  MODIFY `idtbl_ventas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idtbl_ventas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tbl_seller`
 --

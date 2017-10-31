@@ -1,5 +1,25 @@
 <?php
          $Categoria= $_REQUEST['categoria'] ;
+         require_once("conexion.php"); $conexion = new Conexion();
+
+         if (isset($_GET['id_producto'])) {
+
+           $conexion->consulta ("select * FROM tbl_productos WHERE idtbl_productos = ". $_GET['id_producto']);
+           while($row = $conexion->extraer_registro()){
+             $subcategoria = $row['2'];
+             $cantidad = $row['9'];
+             $color = $row['4'];
+             $tamano = $row['10'];
+             $precio = $row['11'];
+             $peso = $row['3'];
+             $titulo = $row['12'];
+             $garantia = $row['13'];
+             $descripcion = $row['14'];
+             $ancho = $row['5'];
+             $alto = $row['6'];
+             $precioenvio = $row['8'];
+           }
+         }
 
   session_start();
 
@@ -151,7 +171,7 @@
         <div class="col-lg-12 form-group ">
       <label class="col-lg-2"  for="Name">Cantidad disponible</label>
       <div class="col-lg-4">
-        <input type="text" id="quantity" name="Name" placeholder="" class="form-control name">
+        <input type="text" id="quantity" name="Name" placeholder="" class="form-control name" value="<?php if (isset($_GET['id_producto'])) {echo $cantidad;}?>">
       </div>
     </div>
    
@@ -161,13 +181,13 @@
       <div class="col-lg-12 form-group">
       <label class="col-lg-2" for="ColorOptionPrompt">Color</label>
       <div class="col-lg-4">
-        <input type="text" id="color" name="ColorOptionPrompt" placeholder="" class="form-control color-option-prompt">
+        <input type="text" id="color" name="ColorOptionPrompt" placeholder="" class="form-control color-option-prompt" value="<?php if (isset($_GET['id_producto'])) {echo $color;}?>">
       </div>
     </div>
     <div class="col-lg-12 form-group">
       <label class="col-lg-2" for="SizeOptionPrompt">Tamaño</label>
       <div class="col-lg-4">
-        <input type="text" id="size" name="SizeOptionPrompt" placeholder="" class="form-control size-option-prompt">
+        <input type="text" id="size" name="SizeOptionPrompt" placeholder="" class="form-control size-option-prompt" value="<?php if (isset($_GET['id_producto'])) {echo $tamano;}?>">
       </div>
     </div>
      
@@ -177,35 +197,35 @@
      <div class="col-lg-12 form-group">
       <label class="col-lg-2" for="Price">Precio</label>
       <div class="col-lg-4">
-        <input type="text" id="price" name="Price" placeholder="" class="form-control price">
+        <input type="text" id="price" name="Price" placeholder="" class="form-control price" value="<?php if (isset($_GET['id_producto'])) {echo $precio;}?>">
       </div>
     </div>
         <div class="col-lg-12 form-group">
       <label class="col-lg-2"  for="RequiresTextField">Envio incluido</label>
       <div class="col-lg-4">
-        <input id="opcion2" type="radio"  name="RequiresTextField" checked class="input-xlarge"><span>No</span>
-         <input id="opcion" type="radio"  name="RequiresTextField"  class="input-xlarge"><span>Si</span>
+        <input id="opcion2" type="radio"  name="RequiresTextField" class="input-xlarge" <?php if (isset($_GET['id_producto'])) {if($precioenvio=='0'){echo "checked";}}?>><span>No</span>
+         <input id="opcion" type="radio"  name="RequiresTextField"  class="input-xlarge" <?php if (isset($_GET['id_producto'])) {if($precioenvio!='0'){echo "checked";}}?>><span>Si</span>
       
       </div>
 
     </div>
-      <div id="ocultar" class="col-lg-12 form-group hidden ">
+      <div id="ocultar" class="col-lg-12 form-group  <?php if (isset($_GET['id_producto'])) {if($precioenvio=='0'){echo "hidden";}}else{echo "hidden";}?> ">
       <label class="col-lg-2" for="ColorOptionPrompt">Precio de envio</label>
       <div class="col-lg-4">
-        <input type="text" id="shipping" name="ColorOptionPrompt" placeholder="" class="form-control color-option-prompt">
+        <input type="text" id="shipping" name="ColorOptionPrompt" placeholder="" class="form-control color-option-prompt" value="<?php if (isset($_GET['id_producto'])) {if($precioenvio!='0'){echo $precioenvio;}}?>">
       </div>
     </div>
     <div class="col-lg-12 form-group">
       <label class="col-lg-2" for="Weight">Peso</label>
       <div class="col-lg-4">
-        <input type="text" id="weight" name="Weight" placeholder="" class="form-control weight">
+        <input type="text" id="weight" name="Weight" placeholder="" class="form-control weight" value="<?php if (isset($_GET['id_producto'])) {echo $peso;}?>">
       </div>
     </div>
     <div class="col-lg-12 form-group">
-      <label class="col-lg-2" for="Dimentions">Dimensiones(ancho x alto )</label>
+      <label class="col-lg-2" for="Dimentions">Dimensiones(ancho x alto en centímetros)</label>
       <div class="col-lg-10">
-        <div class="col-lg-3"><input type="text" id="width" name="DimentionsWidth" placeholder="" class="form-control dimentions-width">  Ancho</div>
-        <div class="col-lg-3"><input type="text" id="height" name="DimentionsHeight" placeholder="" class="form-control dimentions-height"> Altura</div>
+        <div class="col-lg-3"><input type="text" id="width" name="DimentionsWidth" placeholder="" class="form-control dimentions-width" value="<?php if (isset($_GET['id_producto'])) {echo $ancho;}?>">  Ancho</div>
+        <div class="col-lg-3"><input type="text" id="height" name="DimentionsHeight" placeholder="" class="form-control dimentions-height" value="<?php if (isset($_GET['id_producto'])) {echo $alto;}?>"> Altura</div>
        
       </div>
     </div>
@@ -267,7 +287,7 @@
              <div class="col-lg-12 form-group margin50">
       <label class="col-lg-2" for="SizeOptionPrompt">Titulo</label>
       <div class="col-lg-4">
-        <input type="text" id="title" name="SizeOptionPrompt" placeholder="" class="form-control size-option-prompt">
+        <input type="text" id="title" name="SizeOptionPrompt" placeholder="" class="form-control size-option-prompt" value="<?php if (isset($_GET['id_producto'])) {echo $titulo;}?>">
       </div>
     </div>
 
@@ -275,7 +295,7 @@
     <div class=" col-lg-12 form-group">
       <label class="col-lg-2" for="ProductType">Garantia</label>
       <div class="col-lg-4">
-        <input type="text" id="warranty" name="SizeOptionPrompt" placeholder="" class="form-control size-option-prompt">
+        <input type="text" id="warranty" name="SizeOptionPrompt" placeholder="" class="form-control size-option-prompt" value="<?php if (isset($_GET['id_producto'])) {echo $garantia;}?>">
       </div>
     </div>
 
@@ -284,7 +304,7 @@
 
     <div class="col-sm-6">
 
-     <textarea class="form-control description" id="description" name="Description" rows="4" cols="50" ></textarea>
+     <textarea class="form-control description" id="description" name="Description" rows="4" cols="50" ><?php if (isset($_GET['id_producto'])) {echo $descripcion;}?></textarea>
     </div>
 
   </div>

@@ -110,7 +110,7 @@
         <a href="mail-compose.html" class="btn btn-danger btn-block btn-compose-email">Actividades</a>
         <ul class="nav nav-pills nav-stacked nav-email shadow mb-20">
             <li >
-                <a href="perfil.php">
+                <a href="profileadmi.php">
                     <i class="fa fa-user "></i>Perfil <span class="label pull-right">7</span>
                 </a>
             </li>
@@ -120,18 +120,42 @@
             <li>
                 <a href="#"><i class="fa fa-envelope"></i>Mensajes</a>
             </li>
-            <li class="active">
-                <a href="#">
+                        <li class="">
+                <a href="categories.php">
+                 <i class="fa fa-shopping-cart"></i> Vender
+                 
+                     
+                </a>
+            </li>
+            <li class="">
+                <a href="productseller.php">
                   <?php 
    $conexion->consulta ("select distinct( idtbl_productos) from tbl_sales ts inner join tbl_productos  on  ts.tbl_productos_idtbl_productos=idtbl_productos
- inner join tbl_user on tbl_usuario_idtbl_usuario='". $_SESSION['id']."' inner join tbl_photo tph on tph.tbl_productos_idtbl_productos=idtbl_productos group by idtbl_productos");
+ inner join tbl_seller on tbl_vendedor_idtbl_vendedor='". $_SESSION['id']."' inner join tbl_photo tph on tph.tbl_productos_idtbl_productos=idtbl_productos group by idtbl_productos");
    
   if(!$row = $conexion->extraer_registro()) {
- echo ' <i class="fa fa-shopping-cart"></i>Listas<span class="label label-info pull-right inbox-notification">0</span> ';
+ echo ' <i class="fa fa-shopping-cart"></i>Productos Vendidos<span class="label label-info pull-right inbox-notification">0</span> ';
    }else{
  
                  
-                echo ' <i class="fa fa-shopping-cart"></i>Listas<span class="label label-info pull-right inbox-notification">'.$row['0'].'</span> ';
+                echo ' <i class="fa fa-shopping-cart"></i>Productos Vendidos<span class="label label-info pull-right inbox-notification">'.$row['0'].'</span> ';
+              
+     }
+                 
+                     ?>
+                </a>
+            </li>
+            <li class="active">
+                <a href="#">
+                  <?php 
+   $conexion->consulta ("select distinct(idtbl_productos) from tbl_productos inner join tbl_seller on tbl_vendedor_idtbl_vendedor='". $_SESSION['id']."' inner join tbl_photo tph on tph.tbl_productos_idtbl_productos=idtbl_productos group by idtbl_productos");
+   
+  if(!$row = $conexion->extraer_registro()) {
+ echo ' <i class="fa fa-shopping-cart"></i>Productos en Venta<span class="label label-info pull-right inbox-notification">0</span> ';
+   }else{
+ 
+                 
+                echo ' <i class="fa fa-shopping-cart"></i>Productos en Venta<span class="label label-info pull-right inbox-notification">'.$row['0'].'</span> ';
               
      }
                  
@@ -170,8 +194,7 @@
         <div class="panel-body">
 
         <?php 
-   $conexion->consulta ("select  titulo, precio, ts.cantidad, descripcion,picture_code from tbl_sales ts inner join tbl_productos  on  ts.tbl_productos_idtbl_productos=idtbl_productos
- inner join tbl_user on tbl_usuario_idtbl_usuario='". $_SESSION['id']."' inner join tbl_photo tph on tph.tbl_productos_idtbl_productos=idtbl_productos group by idtbl_productos");
+   $conexion->consulta ("select  titulo, precio, cantidad, tbl_productos.descripcion,picture_code, idtbl_categorias, idtbl_productos from tbl_productos inner join tbl_subcategories on tbl_subcategories.idtbl_subcategorias = tbl_productos.tbl_subcategorias_idtbl_subcategorias inner join tbl_categories on tbl_subcategories.tbl_categorias_idtbl_categorias = tbl_categories.idtbl_categorias inner join tbl_seller on   tbl_vendedor_idtbl_vendedor='". $_SESSION['id']."' inner join tbl_photo tph on tph.tbl_productos_idtbl_productos=idtbl_productos group by idtbl_productos");
                 while($row = $conexion->extraer_registro()){ 
         echo '  <div class="row">
             <div class="col-xs-2"><img class="img-responsive" src="'.$row['4'].'">
@@ -181,15 +204,13 @@
             </div>
             <div class="col-xs-6">
               <div class="col-xs-6 text-right">
-                <h6><strong>₡ '.$row['1'].' <span class="text-muted">x</span></strong></h6>
+                <h6><strong>Precio: ₡ '.$row['1'].' <span class="text-muted"></span></strong></h6>
               </div>
               <div class="col-xs-4">
-              <h6><strong>'.$row['2'].'<span class="text-muted"></span></strong></h6>
+              <h6><strong>Cantidad: '.$row['2'].'<span class="text-muted"></span></strong></h6>
               </div>
               <div class="col-xs-2">
-                <button type="button" class="btn btn-link btn-xs">
-                 
-                </button>
+               <a style="color:blue" href="insertproduct.php?categoria='.$row['5'].'&id_producto='.$row['5'].'">Editar</a>
               </div>
             </div>
           </div>

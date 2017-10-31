@@ -18,7 +18,7 @@
                     <div class='row'>
                         <div class='col-sm-4'>
                             <div class='form-group'>
-                                <label for='fname'>First Name</label>
+                                <label for='fname'>Primer Nombre</label>
                                 <input type='text' name='fname' class='form-control' />
                             </div>
                             <div class='form-group'>
