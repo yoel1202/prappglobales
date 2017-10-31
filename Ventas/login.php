@@ -17,7 +17,7 @@
   <script src="js/jquery-2.0.3.js"></script>
      <script src="js/bootstrap.min.js"></script>
   <link href="css/stylemenu.css" rel="stylesheet">
-  <link href="css/stylebuy.css" rel="stylesheet">
+
      <script src="js/funciones.js"></script>
         <script src="js/funcioneslogin.js"></script>
       
@@ -72,32 +72,39 @@
                                     </div>
                                 </form>
                                 <form id="register-form" action="" method="post" role="form" style="display: none;">
+                           
                                     <div class="form-group">
-                                        <input type="text" name="username" id="usernamea" tabindex="1" class="form-control" placeholder="Nombre usuario" value="">
+                                        <input type="text" name="user" id="user" tabindex="1" class="form-control" placeholder="Nombre usuario" value="">
                                     </div>
                                     <div class="form-group">
                                         <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Correo electronico" value="">
                                     </div>
                                      <div class="form-group">
-                                        <input type="password" name="password" id="passworda" tabindex="2" class="form-control" placeholder="nombre">
+                                        <input  name="pass" id="nom" tabindex="2" class="form-control" placeholder="Nombre">
                                     </div>
                                      <div class="form-group">
-                                        <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Cedula" value="">
+                                        <input  name="email" id="ced" tabindex="1" class="form-control" placeholder="Cedula" value="">
                                     </div>
                                      <div class="form-group">
-                                        <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Telefono" value="">
+                                        <input  name="email" id="tel" tabindex="1" class="form-control" placeholder="Telefono" value="">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="password" id="passworda" tabindex="2" class="form-control" placeholder="Contraseña">
+                                        <input type="password" name="password" id="pass" tabindex="2" class="form-control" placeholder="Contraseña">
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirmar contraseña">
+                                        <input type="password" name="confirm-password" id="confirmpass" tabindex="2" class="form-control" placeholder="Confirmar contraseña">
                                     </div>
+                                       <div  class="form-group"  class="checkbox checkbox-success checkbox-inline">
+                        <label class="btn btn-success active">
+                <input id="term" type="checkbox" autocomplete="off" >
+                <span class="glyphicon glyphicon-ok"> </span>Acepta todos los terminos de  la empresa
+            </label>
+                    </div>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6 col-sm-offset-3">
-                                                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Registrar ahora">
+                                                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" onclick="registrar()" value="Registrar ahora">
                                             </div>
                                         </div>
                                     </div>
@@ -109,7 +116,39 @@
             </div>
         </div>
     </div>
-
+       <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="text-danger fa fa-times"></i></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="text-muted fa fa-shopping-cart"></i> <strong>02051</strong>Contrato de watcher </h4>
+                  </div>
+                  <div class="modal-body">
+                  
+                    <table class="pull-left col-md-8 ">
+                          <p >En el siguiente contrato se estipula que los usuarios que compren en el sistema deben comprender que cuando se efectue una transccion de cualquier tipo la empresa queda bajo ninguna reposibilidad. La empresa se compromete a seguir cualquier transcion que no se efectue de manera correcta una ves entendido los terminos puede cerrar la pestaña muchas gracias por usar nuestro sitio</p>
+                    </table>
+                             
+                         
+                   
+                    
+                    <div class="clearfix"></div>
+                 
+                  </div>
+                    
+                  <div class="modal-footer">       
+                      
+                    <div class="text-right pull-right col-md-3">
+                        Watcher: <br/> 
+                        <span class="h3 text-muted"><strong> Terminos de contrato</strong></span></span> 
+                    </div> 
+                      
+                  
+                     
+                </div>
+              </div>
+            </div>
+            </div>
     <style type="text/css">
         
         body {

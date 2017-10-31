@@ -77,6 +77,25 @@ if ($_POST['key']=='login') {
       insertshipping($conexion,$firstname,$lastname,$address1,$address2,$city,$state,$district,$zip,$country,$users);
     }
 
+if ($_POST['key']=='registrar') {
+        
+         $user = $_POST['user'];
+         $email= $_POST['email'];
+         $nom = $_POST['nom'];
+         $tel = $_POST['tel'];  
+         $pass = $_POST['pass'];   
+         $ced = $_POST['ced'];
+      registrar($conexion,$user,$email,$nom,$tel,$pass,$ced);
+    }
+function registrar($conexion,$user,$email,$nom,$tel,$pass,$ced){
+if($conexion->consulta(" INSERT INTO tbl_user(idtbl_usuario,nombre_usuario,nombre,cedula,correo,password,telefono,foto,estado,tbl_contract_idtbl_contract) VALUES('','$user','$nom','$ced','$email','$pass','$tel','1','img/Usuario/profile.png','1')")){
+
+      echo "se ha  registrado correctamente";
+    }else{
+      echo "error ha efectuar cambios posiblemente correo ya existe o nombre el nombre de usuario";
+    }
+
+}
 
 function insertshipping($conexion,$firstname,$lastname,$address1,$address2,$city,$state,$district,$zip,$country,$users){
 $conexion->consulta("select * from  tbl_shipping where id_user='$users'");
