@@ -1,12 +1,17 @@
 <?php
-         $Categoria= $_REQUEST['categoria'] ;
+        
          require_once("conexion.php"); $conexion = new Conexion();
+   if (isset($_GET['categoria'])) {
+ $Categoria= $_REQUEST['categoria'] ; $subcategoria=0;  $idproducto=0;
 
+   }
          if (isset($_GET['id_producto'])) {
-
+          $idproducto=$_GET['id_producto'];
+      
            $conexion->consulta ("select * FROM tbl_productos WHERE idtbl_productos = ". $_GET['id_producto']);
            while($row = $conexion->extraer_registro()){
              $subcategoria = $row['2'];
+            
              $cantidad = $row['9'];
              $color = $row['4'];
              $tamano = $row['10'];
@@ -20,6 +25,8 @@
              $precioenvio = $row['8'];
            }
          }
+
+              echo ("<div id=idproducto style='display: none;'> ".$idproducto." </div>");
 
   session_start();
 
@@ -43,7 +50,10 @@
      }
    echo "<script>\n";
    echo "categoria='".$Categoria."' \n";
-   echo "</script>";
+   echo " sub='".$subcategoria."'";
+    echo "</script>";
+   
+   
   ?>
 <!DOCTYPE html>
 <html>
@@ -79,7 +89,7 @@
 </div>
   <div class="col-md-1 " id="logotipo"  >
 
-    <a  class="navbar-brand" href="index.html">Watcher   </a>
+    <a  class="navbar-brand" href="index.php">Watcher   </a>
 </div>
 
 <div class="col-md-6 " id="buscador">
@@ -236,31 +246,31 @@
 
             <div id="Product_Images" class="tab-pane"><div class="col-lg-12 form-group margin50">
   
-   
+   <form  action="subirproduct.php" method="post" enctype="multipart/form-data" name="formulario" id="formimagenes">
   </div>
               <div class="col-lg-12 form-group">
-                <label class="col-sm-2" for="exampleInputFile">Imagen</label>
+                <label class="col-sm-2"  for="exampleInputFile">Imagen</label>
                 <div class="col-sm-4">
-                <input type="file" id="small">
+                <input name="foto[]" type="file"  id="file-5" class="inputfile inputfile-4>">
               </div>
               </div>
               
               <div class="col-lg-12 form-group">
                 <label class="col-sm-2" for="exampleInputFile">Imagen</label>
                 <div class="col-sm-4">
-                <input type="file" id="medium">
+                <input name="foto[]" type="file" id="medium">
               </div>
               </div>
                 <div class="col-lg-12 form-group">
                 <label class="col-sm-2" for="exampleInputFile">Imagen</label>
                 <div class="col-sm-4">
-                <input type="file" id="medium">
+                <input name="foto[]" type="file" id="medium">
               </div>
               </div>
                 <div class="col-lg-12 form-group">
                 <label class="col-sm-2" for="exampleInputFile">Imagen</label>
                 <div class="col-sm-4">
-                <input type="file" id="medium">
+                <input name="foto[]" type="file" id="medium">
               </div>
               </div>
 
@@ -278,9 +288,9 @@
               </div>
               </div>
               
-              
+    </form>           
     </div>
-  
+ 
 
   <br>
             <div id="Product_Desc" class="tab-pane">
@@ -375,7 +385,7 @@
     <div class="col-md-6">
       <ul class="bottom_ul">
         <li><a href="#">www.watcher.com</a></li>
-        <li><a href="#">Acerca de</a></li>
+        <li><a  data-toggle="modal" data-target="#squarespaceModal" class="btn btn-primary center-block" >Acerca de</a></li>
         <li><a href="#">Contactenos</a></li>
        
       </ul>
@@ -391,7 +401,7 @@
 </script>
 <script type="text/javascript">
   
-cargarsubcategorias(categoria);
+cargarsubcategorias(categoria,sub);
 </script>
 </body>
 </html>

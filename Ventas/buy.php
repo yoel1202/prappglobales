@@ -1,14 +1,30 @@
 <?php
              
   session_start();
+  $record_ventas = "0";
+    
+   
 
                  if(isset($_SESSION['nombre'])){
               $nombre=$_SESSION['nombre'];
           
        echo ("<div id=nam style='display: none;'> ".$nombre." </div>");
      }
-     $record_ventas = "0";
+     if (isset($_GET['product'])) {
       require_once("conexion.php"); $conexion = new Conexion();
+       
+      $conexion->consulta (" SELECT id_tbl_see FROM  tbl_see where id_tbl_productos='".$_GET['product']."'");
+      $row2 = $conexion->extraer_registro();
+      if ($row2>0) {
+        $conexion->consulta (" SELECT MAX(visitas) FROM  tbl_see where id_tbl_productos='".$_GET['product']."'");
+     $row = $conexion->extraer_registro();
+     $count=$row[0]+1;
+      $conexion->consulta (" UPDATE tbl_see SET visitas='".$count."' WHERE id_tbl_see='".$row2[0]."' ");
+      }else{
+     $conexion->consulta (" INSERT INTO tbl_see(visitas,id_tbl_productos) VALUES('1','".$_GET['product']."')");
+    }
+     $record_ventas = "0";
+     
      $conexion->consulta ("SELECT * FROM  tbl_productos inner join tbl_photo on tbl_photo.tbl_productos_idtbl_productos = tbl_productos.idtbl_productos inner join tbl_seller on tbl_seller.idtbl_vendedor = tbl_productos.tbl_vendedor_idtbl_vendedor WHERE tbl_productos.idtbl_productos = " . $_GET['product'] .' group by tbl_photo.idtbl_photo DESC');
                 while($row = $conexion->extraer_registro()){
                   //datos del producto
@@ -32,7 +48,9 @@
                 while($row = $conexion->extraer_registro()){
                   //datos del producto
                   $record_ventas = $row['0'];    
-                }
+                } 
+
+              }
   ?>  
 <!DOCTYPE html>
 <html>

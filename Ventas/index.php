@@ -60,7 +60,7 @@
                                 <input type="text" id="search" class="  search-query form-control" placeholder="Search" />
                                 <span class="input-group-btn">
                                     <button id="find" class="btn btn-danger" type="button" ">
-                                        <span class=" glyphicon glyphicon-search"></span>
+                                        <span class="fa fa-search"></span>
                                     </button>
                                 </span>
                             </div>
@@ -81,8 +81,7 @@
    ?>
    
    
-    <li role="separator" class="divider"></li>
-    <li><a href="#">Separated link</a></li>
+ 
   </ul>
 </div>
                         </div>
@@ -124,7 +123,10 @@
  <div class="container " id="principal">
 
           <div class="row">
-
+     <div class="col-lg-12">
+                <h3 id="titulo">Articulos mas vistos</h3>
+            </div>
+        </div>
   
             <div class="col-md-12">
 
@@ -137,16 +139,30 @@
                                 <li data-target="#carousel-example-generic" data-slide-to="1"></li>
                                 <li data-target="#carousel-example-generic" data-slide-to="2"></li>
                             </ol>
+                            <div class="row">
+       
                             <div class="carousel-inner">
-                                <div class="item active">
-                                    <img class="slide-image" src="img/productos/xbox360.jpg" alt="">
+                             <?php 
+
+   $conexion->consulta ("SELECT idtbl_productos,picture_code FROM `tbl_productos` INNER join tbl_photo on idtbl_productos=tbl_productos_idtbl_productos inner join tbl_see on idtbl_productos=  id_tbl_productos GROUP by idtbl_productos ORDER BY  visitas DESC LIMIT 4 ");
+   $i=0;
+                while($row = $conexion->extraer_registro()){
+ if($i==0){
+       echo ' <div class="item active">
+                                    <img class="slide-image" src="'.$row[1].'" alt="">
                                 </div>
-                                <div class="item">
-                                    <img class="slide-image" src="img/productos/xbox360.jpg" alt="">
+                                ';
+}else{
+ echo ' <div class="item ">
+                                    <img class="slide-image" src="'.$row[1].'" alt="">
                                 </div>
-                                <div class="item">
-                                    <img class="slide-image" src="img/productos/xbox360.jpg" alt="">
-                                </div>
+                                ';
+}
+$i++;
+                              }
+   ?>
+                               
+                               
                             </div>
                             <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
                                 <span class="glyphicon glyphicon-chevron-left"></span>
@@ -170,7 +186,7 @@
         <div class="row text-center">
         <?php 
 
-               $conexion->consulta ("SELECT * FROM  tbl_productos inner join tbl_photo on tbl_photo.tbl_productos_idtbl_productos = tbl_productos.idtbl_productos inner join tbl_seller on tbl_seller.idtbl_vendedor = tbl_productos.tbl_vendedor_idtbl_vendedor WHERE tbl_productos.cantidad > 0 AND tbl_productos.estado = '1' group by tbl_productos.idtbl_productos");
+               $conexion->consulta ("SELECT * FROM  tbl_productos inner join tbl_photo on tbl_photo.tbl_productos_idtbl_productos = tbl_productos.idtbl_productos inner join tbl_seller on tbl_seller.idtbl_vendedor = tbl_productos.tbl_vendedor_idtbl_vendedor WHERE tbl_productos.cantidad > 0 AND tbl_productos.estado = 'activo' group by tbl_productos.idtbl_productos  order by tbl_productos.idtbl_productos DESC LIMIT 8");
                 while($row = $conexion->extraer_registro()){
                       echo '<div class="col-md-3 col-sm-6 hero-feature">
                                 <div class="thumbnail">
@@ -239,17 +255,17 @@
       <div class="col-md-2 col-sm-6 paddingtop-bottom">
         <h6 class="heading7">ENLACES GENERALES</h6>
         <ul class="footer-ul">
-          <li><a href="#"> Centro Resoluciones</a></li>
+         <!--  <li><a href="#"> Centro Resoluciones</a></li> -->
           <li><a href="#"> Politicas de Privacidad</a></li>
-          <li><a href="#"> Terminos & Condiciones</a></li>
+          <li><a href="term.php"> Terminos & Condiciones</a></li>
     
-          <li><a href="#"> Preguntas frecuentes</a></li>
+         <!--  <li><a href="#"> Preguntas frecuentes</a></li> -->
         </ul>
       </div>
       <div class="col-md-3 col-sm-6 paddingtop-bottom">
         <h6 class="heading7">ULTIMOS POST</h6>
         <div class="post">
-          <p>Nuevo descuentos electrodomesticos <span>Septiembre 12,2017</span></p>
+          <p>Nuevo descuentos electrodomesticos <span><?php echo date("M");  ?>, <?php echo date("d");  ?>, <?php echo date("Y");  ?></span></p>
          
         </div>
       </div>
@@ -276,16 +292,145 @@
     <div class="col-md-6">
       <ul class="bottom_ul">
         <li><a href="#">www.watcher.com</a></li>
-        <li><a href="#">Acerca de</a></li>
-        <li><a href="#">Contactenos</a></li>
-       
+        <li><a data-toggle="modal" data-target="#Acerca">Acerca de</a></li>
+        <li><a  data-toggle="modal" data-target="#Contactenos" >Contactenos</a></li>
+          <li><a  data-toggle="modal" data-target="#Ayuda"  >Ayuda</a></li>
       </ul>
     </div>
   </div>
 </div>
 
+<div class="modal fade" id="Ayuda" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+             <img  src="img/logo/logo.png" height="40" width="40" style="margin-top:8px">
+            <h3 class="modal-title" id="lineModalLabel">Ayuda Watcher</h3>
+        </div>
+        <div class="modal-body">
+            
+            <!-- content goes here -->
+            <form>
+            <h4>Busqueda de productos</h4>
+             <p>
+               Si usted desea buscar un producto debe irse en la parte superior de la pagina ingresar el producto que desea buscar
+               los productos que busque van a estar sujetos segun los que vendan los vendedores registrados puede presentar que no se encuentre el producto que usted desea.
+             </p>
+              <h4>Pagar productos</h4>
+             <p>
+               Para pagar los productos solo necesitas poseer una tarjeta de tipo mastercard o visa la cual te permita hacer compras.
+               Una vez seleccionado el producto y teniendo el requisito de la tarjeta debes agregar los que va comprar al carrito, ahi directamente
+               compras el producto y debes esperar que vendedor te lo envie.
+             </p>
+             <h4>Envios</h4>
+             <p>
+               Cuando se realize la compra el vendedor porpocionara una fecha de envio la cual usted tendra que esperar para poder hacer un reclamo una vez
+               que se cumpla la fecha y el vendedor no ha enviado el producto debera enviarle un mensaje y el vendedor tendra 48 horas para responderle,
+               en caso que el vendedor no se ponga en contacto con usted usted debera enviar un mensaje al servicio tecnico para resolver su problema.
+             </p>
+            </form>
 
+        </div>
+        <div class="modal-footer">
+            <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Cerrar</button>
+                </div>
+              
+             
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="Contactenos" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+             <img  src="img/logo/logo.png" height="40" width="40" style="margin-top:8px">
+            <h3 class="modal-title" id="lineModalLabel">Contactar Watcher</h3>
+        </div>
+        <div class="modal-body">
+            
+            <!-- content goes here -->
+            <form accept-charset="UTF-8" action="messagemanager.php" method="POST">
+            <h4>Contactenos</h4>
+             <p>
+               Si usted desea desea informacion  acerca de nuestra pagina  puede contactarnos.
+                gracias por usar nuestro sitio web.
+             </p>
+       
+         
+              <div class="row">
+    <div class="col-sm-4 col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">                
+                    <form accept-charset="UTF-8">
+                     <input type="email"  name="email" placeholder="Correo electronico" class="form-control name" >
+                     <hr>
+                        <textarea class="form-control counted" name="mensaje" placeholder="Escriba su mensaje" rows="5" style="margin-bottom:10px;"></textarea>
+                       
 
+                        <h6 class="pull-right" id="counter">320 Caracteres maximos</h6>
+                        <button class="btn btn-info" type="submit">Envia mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+  </div>
+            </form>
+
+        </div>
+        <div class="modal-footer">
+            <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Cerrar</button>
+                </div>
+              
+             
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="Acerca" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+             <img  src="img/logo/logo.png" height="40" width="40" style="margin-top:8px">
+            <h3 class="modal-title" id="lineModalLabel">Acerca de Watcher</h3>
+        </div>
+        <div class="modal-body">
+            
+            <!-- content goes here -->
+            <form>
+            <h4>Acerca de</h4>
+             <p>
+               Watcher es una aplicacion web la cual permite que usuario compre articulos asi mismo que los vendores pueden publicar su productos y estos ser 
+               vendidos.Nuestro objetivo como tienda online es que cliente se sienta complacido con las compras que realiza en nuestro sitio, dandole seguridad y confianza.
+             </p>
+       
+         
+     
+            </form>
+
+        </div>
+        <div class="modal-footer">
+            <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Cerrar</button>
+                </div>
+              
+             
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

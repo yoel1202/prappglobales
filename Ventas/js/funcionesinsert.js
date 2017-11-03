@@ -6,7 +6,7 @@ $(document).ready(function(){
 	$('#save').click(function() {
 insertproduct();
 });
-	
+
   $('#opcion').click(function() {
  $("#ocultar").removeClass("hidden");
 });
@@ -25,18 +25,24 @@ function insertproduct(){
     url: 'database.php',
     data: {key: 'insertproduct',subcategoria:$('#subcategoria').find(':selected').data("id2"),vendedor:$('#vendedor').text(),cantidad:$('#quantity').val(),
     tama:$('#size').val(),price:$('#price').val(),shipping:$('#shipping').val(),weight:$('#weight').val(),width:$('#width').val(),height:$('#height').val(),
-    title:$('#title').val(),warranty:$('#warranty').val(),description:$('#description').val(),estado:'activo',color:$('#color').val()
+    title:$('#title').val(),warranty:$('#warranty').val(),description:$('#description').val(),estado:'activo',color:$('#color').val(),idproduct:$('#idproducto').text()
 }
 
   }).done(function ( data ) {
+ 
+  if (data.trim()=="se ha insertado correctamente") {
+    document.all["formimagenes"].submit();  
+     alert(data);
+ 
 
-  if (data.trim()=="ok") {
- $('#alert').html('<div class="alert alert-info"><strong>Insertar:</strong> Se ha insertado correctamente el producto solicitado espere unos 5 segundos sera redirecionado si desea subir algun otro producto</div>'); 
+ 
+  }else{
+    if (data.trim()=="Se actualizado correctamente") {
+alert(data);
+    }else{
+alert(data);
+}
 
-  sleep(5000).then(() => {
-location.reload();
-      
-    });
   }
 
           
@@ -47,7 +53,7 @@ location.reload();
   })
 }
 
-function cargarsubcategorias(categoria){
+function cargarsubcategorias(categoria,sub){
   $.ajax({
     type: 'POST',
     url: 'database.php',
@@ -60,9 +66,11 @@ function cargarsubcategorias(categoria){
     for (var i=0; i<data.length; i++) { 
      var id = data[i];
          
-         $('#subcategoria').append('<option data-id2='+id[0]+'>'+id[1]+'</option>').fadeIn();
+         $('#subcategoria').append('<option value='+id[0]+' data-id2='+id[0]+'>'+id[1]+'</option>').fadeIn();
      }
-      
+     if(sub!=0){
+     $('#subcategoria').val(sub);
+    }
 
   }).fail(function (jqXHR, textStatus, errorThrown){
    

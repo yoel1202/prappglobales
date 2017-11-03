@@ -121,7 +121,7 @@
                     <div style="display: table; margin: auto;">
                         <span class="step step_complete"> <a href="#" class="check-bc">Cart</a> <span class="step_line step_complete"> </span> <span class="step_line backline"> </span> </span>
                         <span class="step step_complete"> <a href="#" class="check-bc">Checkout</a> <span class="step_line "> </span> <span class="step_line step_complete"> </span> </span>
-                        <span class="step_thankyou check-bc step_complete">Thank you</span>
+                        <span class="step_thankyou check-bc step_complete">Gracias</span>
                     </div>
                 </div>
                 <div class="row">
@@ -190,64 +190,137 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-pull-6 col-sm-pull-6">
                     <!--SHIPPING METHOD-->
                     <div class="panel panel-info">
-                        <div class="panel-heading">Address 
+                        <div class="panel-heading">Direccion de envio
                         <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span></div>
 
                         <div  id="close"  class="panel-body panel-collapsed" >
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <h4>Shipping Address</h4>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12"><strong>Country:</strong></div>
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control" name="country" value="" />
-                                </div>
-                            </div>
+                               <?php
+                      $conexion->consulta (" SELECT name, last_name, firts_adress, second_adress, province, canton, district, zip, country,telefono FROM 
+ tbl_shipping inner join  tbl_user on idtbl_usuario=id_user where id_user=". $_SESSION['id']."");
+                      $row= $conexion->extraer_registro();
+
+                      if ($row<=0) {
+                        echo '
                             <div class="form-group">
                                 <div class="col-md-6 col-xs-12">
-                                    <strong>First Name:</strong>
+                                    <strong>Nombre:</strong>
                                     <input type="text" name="first_name" class="form-control" value="" />
                                 </div>
                                 <div class="span1"></div>
                                 <div class="col-md-6 col-xs-12">
-                                    <strong>Last Name:</strong>
+                                    <strong>Appelido:</strong>
                                     <input type="text" name="last_name" class="form-control" value="" />
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-12"><strong>Address:</strong></div>
+                             <div class="form-group">
+                                <div class="col-md-12"><strong>Primera direccion</strong></div>
                                 <div class="col-md-12">
                                     <input type="text" name="address" class="form-control" value="" />
                                 </div>
                             </div>
+                         
                             <div class="form-group">
-                                <div class="col-md-12"><strong>City:</strong></div>
+                                <div class="col-md-12"><strong>Segunda direccion</strong></div>
+                                <div class="col-md-12">
+                                    <input type="text" name="address" class="form-control" value="" />
+                                </div>
+                            </div>
+                           
+                            <div class="form-group">
+                                <div class="col-md-12"><strong>Provincia:</strong></div>
+                                <div class="col-md-12">
+                                    <input type="text" name="state" class="form-control" value="" />
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <div class="col-md-12"><strong>Canton:</strong></div>
+                                <div class="col-md-12">
+                                    <input type="text" name="city" class="form-control" value="" />
+                                </div>
+                            </div>
+                              <div class="form-group">
+                                <div class="col-md-12"><strong>Distrito:</strong></div>
                                 <div class="col-md-12">
                                     <input type="text" name="city" class="form-control" value="" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-12"><strong>State:</strong></div>
-                                <div class="col-md-12">
-                                    <input type="text" name="state" class="form-control" value="" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12"><strong>Zip / Postal Code:</strong></div>
+                                <div class="col-md-12"><strong>Zip / Codigo postal:</strong></div>
                                 <div class="col-md-12">
                                     <input type="text" name="zip_code" class="form-control" value="" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-12"><strong>Phone Number:</strong></div>
+                                <div class="col-md-12"><strong>Numero telefono:</strong></div>
                                 <div class="col-md-12"><input type="text" name="phone_number" class="form-control" value="" /></div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-12"><strong>Email Address:</strong></div>
+                                <div class="col-md-12"><strong>Pais:</strong></div>
                                 <div class="col-md-12"><input type="text" name="email_address" class="form-control" value="" /></div>
+                            </div>';
+                      }else{
+
+                        echo '
+                            <div class="form-group">
+                                <div class="col-md-6 col-xs-12">
+                                    <strong>Nombre:</strong>
+                                    <input type="text" name="first_name" class="form-control" value="'.$row[0].'" />
+                                </div>
+                                <div class="span1"></div>
+                                <div class="col-md-6 col-xs-12">
+                                    <strong>Apelido:</strong>
+                                    <input type="text" name="last_name" class="form-control" value="'.$row[1].'" />
+                                </div>
                             </div>
+                             <div class="form-group">
+                                <div class="col-md-12"><strong>Primera direccion</strong></div>
+                                <div class="col-md-12">
+                                    <input type="text" name="address" class="form-control" value="'.$row[2].'" />
+                                </div>
+                            </div>
+                         
+                            <div class="form-group">
+                                <div class="col-md-12"><strong>Segunda direccion</strong></div>
+                                <div class="col-md-12">
+                                    <input type="text" name="address" class="form-control" value="'.$row[3].'" />
+                                </div>
+                            </div>
+                           
+                            <div class="form-group">
+                                <div class="col-md-12"><strong>Provincia:</strong></div>
+                                <div class="col-md-12">
+                                    <input type="text" name="state" class="form-control" value="'.$row[4].'" />
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <div class="col-md-12"><strong>Canton:</strong></div>
+                                <div class="col-md-12">
+                                    <input type="text" name="city" class="form-control" value="'.$row[5].'" />
+                                </div>
+                            </div>
+                              <div class="form-group">
+                                <div class="col-md-12"><strong>Distrito:</strong></div>
+                                <div class="col-md-12">
+                                    <input type="text" name="city" class="form-control" value="'.$row[6].'" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12"><strong>Zip / Codigo postal:</strong></div>
+                                <div class="col-md-12">
+                                    <input type="text" name="zip_code" class="form-control" value="'.$row[7].'" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12"><strong>Numero telefono:</strong></div>
+                                <div class="col-md-12"><input type="text" name="phone_number" class="form-control" value="'.$row[9].'" /></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12"><strong>Pais:</strong></div>
+                                <div class="col-md-12"><input type="text" name="email_address" class="form-control" value="'.$row[8].'" /></div>
+                            </div>';
+                      }
+                       ?>
+                            
                         </div>
                     </div>
                     <!--SHIPPING METHOD END-->
@@ -366,7 +439,7 @@
       <div class="col-md-3 col-sm-6 paddingtop-bottom">
         <h6 class="heading7">ULTIMOS POST</h6>
         <div class="post">
-          <p>Nuevo descuentos electrodomesticos <span>Septiembre 12,2017</span></p>
+          <p>Nuevo descuentos electrodomesticos <span>Septiembre , <?php echo date("Y");  ?> </span></p>
          
         </div>
       </div>
@@ -388,7 +461,7 @@
 <div class="copyright">
   <div class="container">
     <div class="col-md-6">
-      <p>© 2017 - Todos los derechos reservados</p>
+      <p>© <?php echo date("Y"); ?> - Todos los derechos reservados</p>
     </div>
     <div class="col-md-6">
       <ul class="bottom_ul">

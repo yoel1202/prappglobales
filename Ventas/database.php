@@ -54,7 +54,13 @@ if ($_POST['key']=='login') {
            $description = $_POST['description'];
            $estados = $_POST['estado'];
      $color = $_POST['color'];
+   $id=$_POST['idproduct'];
+        if ($id!='0') {
+       
+ updateproduct($conexion,$id,$subcategoria,$cantidad,$tama,$price,$shipping,$weight,$width,$height,$title,$warranty,$description,$color);
+        }else{
       insertproduct($conexion,$subcategoria,$vendedor,$cantidad,$tama,$price,$shipping,$weight,$width,$height,$title,$warranty,$description,$estados,$color);
+    }
     }
         if ($_POST['key']=='busqueda') {
          $word= $_POST['words'];
@@ -92,7 +98,7 @@ if($conexion->consulta(" INSERT INTO tbl_user(idtbl_usuario,nombre_usuario,nombr
 
       echo "se ha  registrado correctamente";
     }else{
-      echo "error ha efectuar cambios posiblemente correo ya existe o nombre el nombre de usuario";
+      echo "error ha efectuar cambios posiblemente correo ya existe o nombre el nombre de u suario";
     }
 
 }
@@ -143,7 +149,16 @@ echo json_encode($search);
 
     if($conexion->consulta("CALL insertar('$vendedor','$subcategoria','$peso','$color','$anchura','$altura','$estados','$envio','$cantidad','$tama','$precio','$titulo','$garantia','$descripcion')")){
 
-      echo "Se ha efectuado los cambios correctamente";
+      echo "se ha insertado correctamente";
+    }
+
+   
+   }
+   function updateproduct($conexion,$id,$subcategoria,$cantidad,$tama,$precio,$envio,$peso,$anchura,$altura,$titulo,$garantia,$descripcion,$color){
+
+    if($conexion->consulta("CALL Actualizarproducto('$id','$subcategoria','$peso','$color','$anchura','$altura','$envio','$cantidad','$tama','$precio','$titulo','$garantia','$descripcion')")){
+
+      echo "Se actualizado correctamente";
     }
 
    
