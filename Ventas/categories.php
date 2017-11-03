@@ -48,13 +48,11 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >
 
           <div class="row" >
-            <div class="col-md-1 " id="logo" >
 
-   <img  src="img/logo/logo.png" height="40" width="40" style="margin-top:8px">
-</div>
   <div class="col-md-1 " id="logotipo"  >
 
-    <a  class="navbar-brand" href="index.html">Watcher   </a>
+   
+        <a  class="navbar-brand" href="index.php"><img  src="img/logo/logo.png" height="80" width="120" style="margin-top:-23px; margin-left: -30px;"></a>
 </div>
 
 <div class="col-md-6 " id="buscador">
@@ -71,21 +69,7 @@
                         </div>
                          </div>
 
-                        <div class="col-md-1  " id="cb">
-                                       <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Categorias
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="#">Ropa</a></li>
-    <li><a href="#">Electrodomesticos</a></li>
-    <li><a href="#">tecnologia</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a href="#">Separated link</a></li>
-  </ul>
-</div>
-                        </div>
+
 
 
                         <div class="col-md-3 move ">

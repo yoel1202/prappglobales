@@ -5,6 +5,10 @@ session_start();
     
     $conexion = new Conexion();
 
+    if ($_POST['key']=='quitarproducto') {
+      eliminardelcarrito($_POST['producto'], $conexion);
+    }
+
 if ($_POST['key']=='producto') {
       agregarcarrito($_POST['producto'], $conexion, $_POST['quantity']);
     }
@@ -237,13 +241,20 @@ if($id_cart==""){
   $result=$conexion->consulta("INSERT INTO tbl_cart (id_product, id_user, quantity) VALUES (".$id_producto.",".$_SESSION['id'].",'".$cant."')");
 }
 else{
-  $result=$conexion->consulta("UPDATE tbl_cart set quantity =(quantity+".$cant.")");
+  $result=$conexion->consulta("UPDATE tbl_cart set quantity =(quantity+".$cant.") WHERE tbl_cart.id_product= ".$id_producto);
 }
 
   $conexion->consulta ("SELECT (SUM(quantity)) FROM  tbl_cart where id_user = ". $_SESSION['id']);
                 while($row = $conexion->extraer_registro()){
                   echo $row['0'];
                 }
+}
+
+function eliminardelcarrito($id_producto,$conexion){
+
+  $result=$conexion->consulta("DELETE FROM tbl_cart WHERE tbl_cart.id_product= ".$id_producto);
+
+
 }
 
 

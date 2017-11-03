@@ -236,3 +236,17 @@ function guardardireccion(user){
 function ponerfotoproducto(id){
   $('#picture').attr('src',id);
 }
+
+function eliminardelcarrito(id_producto)
+{
+  $.ajax({
+    type: 'POST',
+    url: 'database.php',
+    data: {key: 'quitarproducto', producto: id_producto}
+
+  }).done(function ( data ) {
+  location.href ="checkout.php";
+  }).fail(function (jqXHR, textStatus, errorThrown){
+   
+  })
+}

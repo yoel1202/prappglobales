@@ -42,44 +42,25 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >
 
           <div class="row" >
-            <div class="col-md-1 " id="logo" >
-
-   <img  src="img/logo/logo.png" height="40" width="40" style="margin-top:8px">
-</div>
   <div class="col-md-1 " id="logotipo"  >
 
-    <a  class="navbar-brand" href="index.php">Watcher   </a>
+        <a  class="navbar-brand" href="index.php"><img  src="img/logo/logo.png" height="80" width="120" style="margin-top:-23px; margin-left: -30px;"></a>
 </div>
 
 <div class="col-md-6 " id="buscador">
       <div id="custom-search-input ">
                             <div class="input-group col-md-12">
 
-                                <input type="text" class="  search-query form-control" placeholder="Search" />
+                               <input type="text" id="search" class="  search-query form-control" placeholder="Buscar" />
                                 <span class="input-group-btn">
-                                    <button class="btn btn-danger" type="button" onclick="window.location.href='find.php'">
-                                        <span class=" glyphicon glyphicon-search"></span>
+                                    <button id="find" class="btn btn-danger" type="button" ">
+                                        <span class="fa fa-search"></span>
                                     </button>
                                 </span>
                             </div>
                         </div>
                          </div>
 
-                        <div class="col-md-1  " id="cb">
-                                       <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Categorias
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="#">Ropa</a></li>
-    <li><a href="#">Electrodomesticos</a></li>
-    <li><a href="#">tecnologia</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a href="#">Separated link</a></li>
-  </ul>
-</div>
-                        </div>
 
 
                         <div class="col-md-3 move ">
@@ -107,10 +88,10 @@
 <div class="container"  id="principal">
 <div class="row">
     <div class="col-sm-3">
-        <a href="mail-compose.html" class="btn btn-danger btn-block btn-compose-email">Actividades</a>
+        <a href="" class="btn btn-danger btn-block btn-compose-email">Actividades</a>
         <ul class="nav nav-pills nav-stacked nav-email shadow mb-20">
             <li class="active">
-                <a href="#mail-inbox.html">
+                <a>
                     <i class="fa fa-user "></i>Perfil <span class="label pull-right"></span>
                 </a>
             </li>
@@ -121,16 +102,16 @@
                 <a href="#"><i class="fa fa-envelope"></i>Mensajes</a>
             </li>
             <li>
-                <a href="#">
+                <a href="productbuy.php">
                    <?php 
                     $conexion->consulta ("select distinct( idtbl_productos) from tbl_sales ts inner join tbl_productos  on  ts.tbl_productos_idtbl_productos=idtbl_productos
  inner join tbl_user on tbl_usuario_idtbl_usuario='". $_SESSION['id']."' inner join tbl_photo tph on tph.tbl_productos_idtbl_productos=idtbl_productos group by idtbl_productos");
                     if(!$row = $conexion->extraer_registro()) {
- echo ' <i class="fa fa-shopping-cart"></i>Listas<span class="label label-info pull-right inbox-notification">0</span> ';
+ echo ' <i class="fa fa-shopping-cart"></i>Historial de compra<span class="label label-info pull-right inbox-notification">0</span> ';
    }else{
  
                  
-                echo ' <i class="fa fa-shopping-cart"></i>Listas<span class="label label-info pull-right inbox-notification">'.$row['0'].'</span> ';
+                echo ' <i class="fa fa-shopping-cart"></i>Historial de compra<span class="label label-info pull-right inbox-notification">'.$row['0'].'</span> ';
               
      }
                     ?>
@@ -161,7 +142,7 @@
                     <section class="comment-list">
                       <!-- First Comment -->
                       <article class="row">
-                        <h1 class="page-header">Editar perfl</h1>
+                        <h1 class="page-header">Editar mi perfil</h1>
   <div class="row">
     <!-- 
     left column -->
@@ -219,13 +200,13 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-3 control-label">Contraeña:</label>
+          <label class="col-md-3 control-label">Contraseña:</label>
           <div class="col-md-8">
             <input class="form-control" name="pass" value="'.$row['4'].'" type="password">
           </div>
         </div>  
         <div class="form-group">
-          <label class="col-md-3 control-label">Confirmar Contraña:</label>
+          <label class="col-md-3 control-label">Confirmar Contraseña:</label>
           <div class="col-md-8">
             <input class="form-control" value="'.$row['4'].'" type="password">
           </div>

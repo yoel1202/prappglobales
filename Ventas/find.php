@@ -43,20 +43,17 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >
 
           <div class="row" >
-            <div class="col-md-1 " id="logo" >
 
-   <img  src="img/logo/logo.png" height="40" width="40" style="margin-top:8px">
-</div>
   <div class="col-md-1 " id="logotipo"  >
 
-    <a  class="navbar-brand" href="index.php">Watcher   </a>
+    <a  class="navbar-brand" href="index.php"><img  src="img/logo/logo.png" height="80" width="120" style="margin-top:-23px; margin-left: -30px;"></a>
 </div>
 
 <div class="col-md-6 " id="buscador">
       <div id="custom-search-input ">
                             <div class="input-group col-md-12">
 
-                                <input type="text"  id="search" class="search-query form-control" placeholder="Search" />
+                                <input type="text"  id="search" class="search-query form-control" placeholder="Buscar" />
                                 <span class="input-group-btn">
                                     <button  id="find" class="btn btn-danger" type="button">
                                         <span class=" glyphicon glyphicon-search"></span>
@@ -66,28 +63,13 @@
                         </div>
                          </div>
 
-                        <div class="col-md-1  " id="cb">
-                                       <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Categorias
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="#">Ropa</a></li>
-    <li><a href="#">Electrodomesticos</a></li>
-    <li><a href="#">tecnologia</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a href="#">Separated link</a></li>
-  </ul>
-</div>
-                        </div>
                    
 
                         <div class="col-md-3 move ">
                                    <ul class="nav navbar-nav" id="inicio">
       
   
-  <li ><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
+    <li ><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
    <li  ><a href="login.php" class="fa fa-envelope" ></a></li>
    <li   ><a href="login.php" class="fa fa-shopping-cart" ></a></li>  
               
@@ -110,61 +92,7 @@
     <div class="container" id="principal">
 
           <div class="row">
-       <div class="col-md-3">
- <div class="container">
-  <div class="row">
-    <div class="col-lg-3 col-md-6 col-md-offset-3 col-lg-offset-0">
-      <div class="well">
-      <h3 align="center">Filtros de busqueda</h3>
-        <form class="form-horizontal">
-          <div class="form-group">
-            <label for="location1" class="control-label">Localizacion</label>
-            <select class="form-control" name="" id="location1">
-              <option value="">Cualquiera</option>
-              <option value="">Puntarenas</option>
-              <option value="">San Jose</option>
-               <option value="">Heredia</option>
-                <option value="">Alajuela</option>
-                 <option value="">Guanacaste</option>
-                  <option value="">Limon</option>
-            </select>
-          </div>
-        <div class="form-group">
-            <label for="pricefrom" class="control-label">Canton</label>
-            <div class="input-group">
-              <div class="input-group-addon" id="basic-addon1"></div>
-              <input type="text" class="form-control" id="pricefrom" aria-describedby="basic-addon1">
-            </div>
-          </div>
-           <div class="form-group">
-            <label for="pricefrom" class="control-label">Empresa</label>
-            <div class="input-group">
-              <div class="input-group-addon" id="basic-addon1"></div>
-              <input type="text" class="form-control" id="pricefrom" aria-describedby="basic-addon1">
-            </div>
-          </div>
 
-          <div class="form-group">
-            <label for="pricefrom" class="control-label">Minimo Precio</label>
-            <div class="input-group">
-              <div class="input-group-addon" id="basic-addon1">₡</div>
-              <input type="text" class="form-control" id="pricefrom" aria-describedby="basic-addon1">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="priceto" class="control-label">Maximo Precio</label>
-            <div class="input-group">
-              <div class="input-group-addon" id="basic-addon2">₡</div>
-              <input type="text" class="form-control" id="priceto" aria-describedby="basic-addon1">
-            </div>
-          </div>
-          <p class="text-center"><a href="#" class="btn btn-danger glyphicon glyphicon-search" role="button"></a></p>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-           </div>
     <div class="col-md-9">
 <div class="container" id="wordsearch">
 

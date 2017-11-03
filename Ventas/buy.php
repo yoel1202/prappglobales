@@ -66,7 +66,8 @@
          <link rel="stylesheet" href="css/font-awesome.min.css">
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only"></span>
@@ -81,56 +82,31 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >
 
           <div class="row" >
-            <div class="col-md-1 " id="logo" >
 
-   <img  src="img/logo/logo.png" height="40" width="40" style="margin-top:8px">
-</div>
   <div class="col-md-1 " id="logotipo"  >
 
-    <a  class="navbar-brand" href="index.html">Watcher   </a>
+    <a  class="navbar-brand" href="index.php"><img  src="img/logo/logo.png" height="80" width="120" style="margin-top:-23px; margin-left: -30px;"></a>
 </div>
 
 <div class="col-md-6 " id="buscador">
       <div id="custom-search-input ">
                             <div class="input-group col-md-12">
 
-                                <input type="text" id="search" class="  search-query form-control" placeholder="Search" />
+                                <input type="text" id="search" class="  search-query form-control" placeholder="Buscar" />
                                 <span class="input-group-btn">
                                     <button id="find" class="btn btn-danger" type="button" ">
-                                        <span class=" glyphicon glyphicon-search"></span>
+                                        <span class="fa fa-search"></span>
                                     </button>
                                 </span>
                             </div>
                         </div>
                          </div>
-
-                        <div class="col-md-1  " id="cb">
-                                       <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Categorias
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-   <?php 
-   $conexion->consulta ("SELECT * FROM  tbl_categories");
-                while($row = $conexion->extraer_registro()){
-       echo '<li><a href="#">'.$row['1'].'</a></li>';}
-   ?>
-   
-   
-    <li role="separator" class="divider"></li>
-    <li><a href="#">Separated link</a></li>
-  </ul>
-</div>
-                        </div>
-
-
                         <div class="col-md-3 move ">
                                    <ul class="nav navbar-nav" id="inicio">
       
   
   <li ><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
-   <li  ><a href="login.php" class="fa fa-envelope" ></a></li>
+   <li  ><a href="message.php" class="fa fa-envelope" ></a></li>
    <li   >
 
    <?php       if(isset($_SESSION['id'])){
@@ -156,7 +132,7 @@
         </div>
 
     </nav>
-   
+   <br>
 
      <div class="container" id="principal">
           <div class="row">
@@ -177,6 +153,7 @@ echo '<div class="col-5 "><img id="picture" height="300px" width="350px;" src="'
                     <!-- Datos del vendedor y titulo del producto -->
                     <h3><?php echo $nombre_producto;?></h3>    
                     <h5 style="color:#337ab7">Vendido por <a style="color:#337ab7" href="#"><?php echo $nombre_vendedor;?></a> · <small style="color:#337ab7">(<?php echo $record_ventas;?> ventas exitosas)</small></h5>
+                    <img height="100" width="100" src="<?php echo $foto_vendedor;?>">
         
                     <!-- Precios -->
                     <h6 class="title-price"><small>PRECIO OFERTA</small></h6>
@@ -201,7 +178,7 @@ echo '<div class="col-5 "><img id="picture" height="300px" width="350px;" src="'
                         <h6 class="title-attr"><small>CANTIDAD</small></h6>                   
                         <div>
                             <div class="btn-minus"><span class="glyphicon glyphicon-minus"></span></div>
-                            <input id="cantidadp" value="1" max/>
+                            <input id="cantidadp" value="1" max="10"/>
                             <div class="btn-plus"><span class="glyphicon glyphicon-plus"></span></div>
                         </div>
                     </div>                
@@ -231,39 +208,48 @@ echo '<div class="col-5 "><img id="picture" height="300px" width="350px;" src="'
                     <div class="tab-content">
                     <div style="width:100%;border-top:1px solid silver" id="menu1" class="tab-pane fade in active">
                        <p style="padding:15px;">
-                            <small>
+                            <p>
                               <?php echo $descripcion_producto;?>
-                            </small>
+                            </p>
                         </p>
                      </div>
                       <div style="width:100%;border-top:1px solid silver" id="menu2" class="tab-pane fade">
                        <p style="padding:15px;">
-                            <small>
+                            <p>
                             Queremos que compres en Watcher con seguridad y certeza. Por ello, nos aseguraremos de que recuperas tu dinero si el artículo que has pedido no te llega, si es muy distinto de su descripción o si tienes algún problema con el reembolso de la devolución. Recuerda que la Garantía al cliente de Watcher solo cubre las compras realizadas a través de PayPal.
                               <?php echo "El tiempo establecido para la garantía de este producto es de: <strong>" . $garantia_producto.'.</strong>';?>
-                            </small>
+                            </p>
                         </p>
                      </div>
                       <div style="width:100%;border-top:1px solid silver" id="menu3" class="tab-pane fade">
                        <p style="padding:15px;">
-                            <small>
-                              <ul>
-                                <li>Nombre del vendedor: &nbsp;&nbsp;&nbsp;<?php echo $nombre_vendedor;?></li>
-                                <li>Cédula jurídica:  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $cedulaj_vendedor;?></li>
-                                <li>Correo electrónico: &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $correo_vendedor;?></li>
-                                <li>Teléfono:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $telefono_vendedor;?></li>
+                            <div class="row">
+                              <div class="col-md-3">
+                                <img height="100" width="100" src="<?php echo $foto_vendedor;?>">
+                              </div>
+                              <div class="col-md-9">
+                                 <p>
+                                  <ul>
+                                    <li>Nombre del vendedor: &nbsp;&nbsp;&nbsp;<?php echo $nombre_vendedor;?></li>
+                                    <li>Cédula jurídica:  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $cedulaj_vendedor;?></li>
+                                    <li>Correo electrónico: &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $correo_vendedor;?></li>
+                                    <li>Teléfono:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $telefono_vendedor;?></li>
 
-                              </ul>
-                            </small>
+                                  </ul>
+                                </p>
+                              </div>
+                            </div>
+                       
+                           
                         </p>
                      </div>
                       <div style="width:100%;border-top:1px solid silver" id="menu4" class="tab-pane fade">
                        <p style="padding:15px;">
-                            <small>
+                            <p>
                             Cuando el vendedor haya enviado nuestro pedido, este pasará a la lista de pedidos enviados, y el vendedor adjuntará un número de seguimiento que podremos ver en el detalle del pedido. 
 
                             El precio de envío para este producto a cualquier parte del país de Costa Rica es de: ₡ <?php echo '<strong class="">'.$precio_envio.'</strong>';?>
-                            </small>
+                            </p>
                         </p>
                      </div>
                      </div>

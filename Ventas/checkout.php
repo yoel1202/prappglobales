@@ -44,48 +44,26 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >
 
           <div class="row" >
-            <div class="col-md-1 " id="logo" >
 
-   <img  src="img/logo/logo.png" height="40" width="40" style="margin-top:8px">
-</div>
   <div class="col-md-1 " id="logotipo"  >
 
-    <a  class="navbar-brand" href="index.php">Watcher   </a>
+      <a  class="navbar-brand" href="index.php"><img  src="img/logo/logo.png" height="80" width="120" style="margin-top:-23px; margin-left: -30px;"></a>
 </div>
 
 <div class="col-md-6 " id="buscador">
       <div id="custom-search-input ">
                             <div class="input-group col-md-12">
 
-                                <input type="text" id="search" class="  search-query form-control" placeholder="Search" />
+                                <input type="text" id="search" class="  search-query form-control" placeholder="Buscar" />
                                 <span class="input-group-btn">
                                     <button id="find" class="btn btn-danger" type="button" ">
-                                        <span class=" glyphicon glyphicon-search"></span>
+                                        <span class="fa fa-search"></span>
                                     </button>
                                 </span>
                             </div>
                         </div>
                          </div>
 
-                        <div class="col-md-1  " id="cb">
-                                       <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Categorias
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-   <?php 
-   $conexion->consulta ("SELECT * FROM  tbl_categories");
-                while($row = $conexion->extraer_registro()){
-       echo '<li><a href="#">'.$row['1'].'</a></li>';}
-   ?>
-   
-   
-    <li role="separator" class="divider"></li>
-    <li><a href="#">Separated link</a></li>
-  </ul>
-</div>
-                        </div>
 
 
                         <div class="col-md-3 move ">
@@ -112,23 +90,7 @@
    
 
 <div class="container wrapper" id="principal">
-            <div class="row cart-head">
-                <div class="container">
-                <div class="row">
-                    <p></p>
-                </div>
-                <div class="row">
-                    <div style="display: table; margin: auto;">
-                        <span class="step step_complete"> <a href="#" class="check-bc">Cart</a> <span class="step_line step_complete"> </span> <span class="step_line backline"> </span> </span>
-                        <span class="step step_complete"> <a href="#" class="check-bc">Checkout</a> <span class="step_line "> </span> <span class="step_line step_complete"> </span> </span>
-                        <span class="step_thankyou check-bc step_complete">Gracias</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <p></p>
-                </div>
-                </div>
-            </div>    
+    
             <div class="row cart-body">
                 <form class="form-horizontal" method="post" action="">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-push-6 col-sm-push-6">
@@ -139,41 +101,58 @@
                         </div>
                         <div class="panel-body ">
                         <?php
-                                $conexion->consulta ("SELECT * FROM  tbl_cart inner join tbl_productos on tbl_cart.id_product = tbl_productos.idtbl_productos inner join tbl_photo on tbl_photo.tbl_productos_idtbl_productos = tbl_productos.idtbl_productos inner join tbl_seller on tbl_seller.idtbl_vendedor = tbl_productos.tbl_vendedor_idtbl_vendedor where tbl_cart.id_user = ". $_SESSION['id'] . ' group by tbl_productos.idtbl_productos ');
+                                $conexion->consulta ("SELECT * FROM  tbl_cart inner join tbl_productos on tbl_cart.id_product = tbl_productos.idtbl_productos inner join tbl_photo on tbl_photo.tbl_productos_idtbl_productos = tbl_productos.idtbl_productos inner join tbl_seller on tbl_seller.idtbl_vendedor = tbl_productos.tbl_vendedor_idtbl_vendedor where tbl_cart.id_user = ". $_SESSION['id'] . ' group by id_cart DESC');
                         while($row = $conexion->extraer_registro()){
                             echo '<div class="form-group">
                                 <div class="col-sm-3 col-xs-3">
-                                    <img class="img-responsive" src="'.$row['20'].'" />
+                                    <a href="buy.php?product='.$row['1'].'"><img class="img-responsive" src="'.$row['20'].'" /></a>
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
-                                    <div class="col-xs-12">'.$row['16'].'</div>
+                                    <a style="color:black" href="buy.php?product='.$row['1'].'"><div class="col-xs-12">'.$row['16'].'</div></a>
                                     <div class="col-xs-12"><small><div class="section" style="background-color:transparent">
                                         <h6 class=" title-attr"><small>CANTIDAD</small></h6>                   
-                                        <div>
-                                            <div class="btn-minus"><span class="glyphicon glyphicon-minus"></span></div>
-                                            <input id="cantidadp" value="'.$row['2'].'" max/>
-                                            <div class="btn-plus"><span class="glyphicon glyphicon-plus"></span></div>
-                                        </div>
+            
+                                            <input type="number" min="1" max="'.$row['13'].'" value="'.$row['2'].'">
+                                       
                                     </div></small></div>
                                 </div>
                                 <div class="col-sm-3 col-xs-3 text-right">
                                     <h6><span>₡</span>'.$row['15'].'</h6>
+                                     <a data-toggle="modal" data-target="#quitar'.$row['1'].'" style="color:black;cursor:pointer">Quitar del carrito</a>
+                                    
                                 </div>
                             </div>';
                             $total = $total+$row['15'];
+                            echo '<div class="modal fade" id="quitar'.$row['1'].'" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                            <h3 class="modal-title" id="lineModalLabel">Seguro que desea quitar este producto del carrito?</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                                                <div class="btn-group" role="group">
+                                                    <button onclick="eliminardelcarrito('.$row['1'].')" type="button" class="btn btn-default"  role="button">Quitar</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Cancelar</button>
+                                                </div>
+                                              
+                                             
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>';
                         }
                             ?>
 
                             <div class="form-group"><hr /></div>
                             <div class="form-group">
                                 <div class="col-xs-12">
-
-                                    <strong>Subtotal</strong>
-                                    <div class="pull-right"><span>₡</span><span>200.00</span></div>
-                                </div>
-                                <div class="col-xs-12">
                                     <small>Envío</small>
-                                    <div class="pull-right"><span>-</span></div>
+                                    <div class="pull-right"><small>En los primeros 3 meses de suscripción, no se cobrará costos de envío.</small></div>
                                 </div>
                             </div>
                             <div class="form-group"><hr /></div>
@@ -187,6 +166,7 @@
                     </div>
                     <!--REVIEW ORDER END-->
                 </div>
+
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-pull-6 col-sm-pull-6">
                     <!--SHIPPING METHOD-->
                     <div class="panel panel-info">
@@ -326,10 +306,10 @@
                     <!--SHIPPING METHOD END-->
                     <!--CREDIT CART PAYMENT-->
                     <div class="panel panel-info">
-                        <div class="panel-heading"><span><i class="glyphicon glyphicon-lock"></i></span> Secure Payment</div>
+                        <div class="panel-heading"><span><i class="glyphicon glyphicon-lock"></i></span> Pago seguro</div>
                         <div class="panel-body">
                             <div class="form-group">
-                                <div class="col-md-12"><strong>Card Type:</strong></div>
+                                <div class="col-md-12"><strong>Tipo de tarjeta:</strong></div>
                                 <div class="col-md-12">
                                     <select id="CreditCardType" name="CreditCardType" class="form-control">
                                         <option value="5">Visa</option>
@@ -340,20 +320,20 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-12"><strong>Credit Card Number:</strong></div>
+                                <div class="col-md-12"><strong>Número de tarjeta:</strong></div>
                                 <div class="col-md-12"><input type="text" class="form-control" name="car_number" value="" /></div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-12"><strong>Card CVV:</strong></div>
+                                <div class="col-md-12"><strong>Número CVV:</strong></div>
                                 <div class="col-md-12"><input type="text" class="form-control" name="car_code" value="" /></div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <strong>Expiration Date</strong>
+                                    <strong>Fecha de expiración</strong>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <select class="form-control" name="">
-                                        <option value="">Month</option>
+                                        <option value="">Mes</option>
                                         <option value="01">01</option>
                                         <option value="02">02</option>
                                         <option value="03">03</option>
@@ -370,7 +350,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <select class="form-control" name="">
-                                        <option value="">Year</option>
+                                        <option value="">Año</option>
                                         <option value="2015">2015</option>
                                         <option value="2016">2016</option>
                                         <option value="2017">2017</option>
@@ -387,7 +367,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <span>Pay secure using your credit card.</span>
+                                    <span>Pago seguro utilizando tu tarjeta:</span>
                                 </div>
                                 <div class="col-md-12">
                                     <ul class="cards">
@@ -400,7 +380,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <button type="submit" class="btn btn-primary btn-submit-fix">Place Order</button>
+                                    <button type="submit" class="btn btn-primary btn-submit-fix">Realizar pago</button>
                                 </div>
                             </div>
                         </div>

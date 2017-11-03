@@ -44,20 +44,17 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >
 
           <div class="row" >
-          	<div class="col-md-1 " id="logo" >
 
-	 <img  src="img/logo/logo.png" height="40" width="40" style="margin-top:8px">
-</div>
 	<div class="col-md-1 " id="logotipo"  >
 
-	  <a  class="navbar-brand" href="index.php">Watcher   </a>
+	  <a  class="navbar-brand" href="index.php"><img  src="img/logo/logo.png" height="80" width="120" style="margin-top:-23px; margin-left: -30px;"></a>
 </div>
 
 <div class="col-md-6 " id="buscador">
 	    <div id="custom-search-input ">
                             <div class="input-group col-md-12">
 
-                                <input type="text" id="search" class="  search-query form-control" placeholder="Search" />
+                                <input type="text" id="search" class="  search-query form-control" placeholder="Buscar" />
                                 <span class="input-group-btn">
                                     <button id="find" class="btn btn-danger" type="button" ">
                                         <span class="fa fa-search"></span>
@@ -66,27 +63,6 @@
                             </div>
                         </div>
                          </div>
-
-                        <div class="col-md-1  " id="cb">
-                                       <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Categorias
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-   <?php 
-   $conexion->consulta ("SELECT * FROM  tbl_categories");
-                while($row = $conexion->extraer_registro()){
-       echo '<li><a href="#">'.$row['1'].'</a></li>';}
-   ?>
-   
-   
- 
-  </ul>
-</div>
-                        </div>
-
-
                         <div class="col-md-3 move ">
                                    <ul class="nav navbar-nav" id="inicio">
       
@@ -186,7 +162,7 @@ $i++;
         <div class="row text-center">
         <?php 
 
-               $conexion->consulta ("SELECT * FROM  tbl_productos inner join tbl_photo on tbl_photo.tbl_productos_idtbl_productos = tbl_productos.idtbl_productos inner join tbl_seller on tbl_seller.idtbl_vendedor = tbl_productos.tbl_vendedor_idtbl_vendedor WHERE tbl_productos.cantidad > 0 AND tbl_productos.estado = 'activo' group by tbl_productos.idtbl_productos  order by tbl_productos.idtbl_productos DESC LIMIT 8");
+               $conexion->consulta ("SELECT * FROM  tbl_productos inner join tbl_photo on tbl_photo.tbl_productos_idtbl_productos = tbl_productos.idtbl_productos inner join tbl_seller on tbl_seller.idtbl_vendedor = tbl_productos.tbl_vendedor_idtbl_vendedor WHERE tbl_productos.cantidad > 0 AND tbl_productos.estado = 'activo' order by tbl_productos.idtbl_productos DESC LIMIT 8");
                 while($row = $conexion->extraer_registro()){
                       echo '<div class="col-md-3 col-sm-6 hero-feature">
                                 <div class="thumbnail">
