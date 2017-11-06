@@ -30,7 +30,7 @@ function insertproduct(){
 
   }).done(function ( data ) {
  
-  if (data.trim()=="se ha insertado correctamente") {
+  if (data.trim()=="Se ha insertado correctamente") {
     document.all["formimagenes"].submit();  
      alert(data);
  
@@ -38,9 +38,10 @@ function insertproduct(){
  
   }else{
     if (data.trim()=="Se actualizado correctamente") {
-alert(data);
-    }else{
-alert(data);
+      document.all["formimagenes"].submit();  
+        alert(data);
+            }else{
+        alert(data);
 }
 
   }
@@ -92,4 +93,14 @@ var formData = new FormData($("#formUpload")[0]);
   processData: false
   });
 
+}
+
+function cargarimagen(id, archivo)
+{
+  foto = new Image();
+  foto.src = URL.createObjectURL(archivo.files[0]);
+  if (id == "pickphoto1") {$("#foto1").attr("src",foto.src);}
+  if (id == "pickphoto2") {$("#foto2").attr("src",foto.src);}
+  if (id == "pickphoto3") {$("#foto3").attr("src",foto.src);}
+  if (id == "pickphoto4") {$("#foto4").attr("src",foto.src);}
 }

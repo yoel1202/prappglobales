@@ -196,20 +196,26 @@ if (data==null) {
 
 }
 
-function agregarcarrito(id_producto,cantidad){
-if (cantidad == 0) {cantidad = $('#cantidadp').val();}
+function agregarcarrito(id_producto,cantidad,idsesion,idvendedor){
+  if (idsesion == idvendedor) {
+    alert('Esta acción es imposible! Este producto es distribuido por usted mismo!');
+  }
+  else
+  {
+    if (cantidad == 0) {cantidad = $('#cantidadp').val();}
 
-  $.ajax({
-    type: 'POST',
-    url: 'database.php',
-    data: {key: 'producto', producto: id_producto, quantity: cantidad}
+    $.ajax({
+      type: 'POST',
+      url: 'database.php',
+      data: {key: 'producto', producto: id_producto, quantity: cantidad}
 
-  }).done(function ( data ) {
-   $('#cantidadcarrito').html(data);
-  
-  }).fail(function (jqXHR, textStatus, errorThrown){
-   
-  })
+    }).done(function ( data ) {
+     $('#cantidadcarrito').html(data);
+    
+    }).fail(function (jqXHR, textStatus, errorThrown){
+     
+    })
+  }
 
   
 }

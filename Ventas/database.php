@@ -59,11 +59,11 @@ if ($_POST['key']=='login') {
            $estados = $_POST['estado'];
      $color = $_POST['color'];
    $id=$_POST['idproduct'];
-        if ($id!='0') {
-       
- updateproduct($conexion,$id,$subcategoria,$cantidad,$tama,$price,$shipping,$weight,$width,$height,$title,$warranty,$description,$color);
+
+        if ($id != 0) {
+       updateproduct($conexion,$id,$subcategoria,$cantidad,$tama,$price,$shipping,$weight,$width,$height,$title,$warranty,$description,$color);
         }else{
-      insertproduct($conexion,$subcategoria,$vendedor,$cantidad,$tama,$price,$shipping,$weight,$width,$height,$title,$warranty,$description,$estados,$color);
+       insertproduct($conexion,$subcategoria,$vendedor,$cantidad,$tama,$price,$shipping,$weight,$width,$height,$title,$warranty,$description,$estados,$color);
     }
     }
         if ($_POST['key']=='busqueda') {
@@ -115,7 +115,7 @@ if($conexion->consulta("CALL Actualizarshiipinguser('$firstname','$lastname','$a
 
       echo "Se ha efectuado los cambios correctamente";
     }else{
-      echo "error ha efectuar cambios";
+      echo "error a efectuar cambios";
     }
   
    }else{
@@ -153,17 +153,17 @@ echo json_encode($search);
 
     if($conexion->consulta("CALL insertar('$vendedor','$subcategoria','$peso','$color','$anchura','$altura','$estados','$envio','$cantidad','$tama','$precio','$titulo','$garantia','$descripcion')")){
 
-      echo "se ha insertado correctamente";
+      echo "Se ha insertado correctamente";
     }
 
    
    }
    function updateproduct($conexion,$id,$subcategoria,$cantidad,$tama,$precio,$envio,$peso,$anchura,$altura,$titulo,$garantia,$descripcion,$color){
 
-    if($conexion->consulta("CALL Actualizarproducto('$id','$subcategoria','$peso','$color','$anchura','$altura','$envio','$cantidad','$tama','$precio','$titulo','$garantia','$descripcion')")){
+    // if($conexion->consulta("CALL Actualizarproducto('$id','$subcategoria','$peso','$color','$anchura','$altura','$envio','$cantidad','$tama','$precio','$titulo','$garantia','$descripcion')")){
 
       echo "Se actualizado correctamente";
-    }
+    // }
 
    
    }

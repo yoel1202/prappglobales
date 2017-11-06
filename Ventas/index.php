@@ -56,7 +56,7 @@
 
                                 <input type="text" id="search" class="  search-query form-control" placeholder="Buscar" />
                                 <span class="input-group-btn">
-                                    <button id="find" class="btn btn-danger" type="button" ">
+                                    <button id="find" class="btn btn-primary" type="button" ">
                                         <span class="fa fa-search"></span>
                                     </button>
                                 </span>
@@ -100,7 +100,7 @@
 
           <div class="row">
      <div class="col-lg-12">
-                <h3 id="titulo">Articulos mas vistos</h3>
+                <h3 id="titulo">&nbsp;&nbsp;Artículos más vistos</h3>
             </div>
         </div>
   
@@ -114,6 +114,7 @@
                                 <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                                 <li data-target="#carousel-example-generic" data-slide-to="1"></li>
                                 <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="3"></li>
                             </ol>
                             <div class="row">
        
@@ -125,12 +126,12 @@
                 while($row = $conexion->extraer_registro()){
  if($i==0){
        echo ' <div class="item active">
-                                    <img class="slide-image" src="'.$row[1].'" alt="">
+                                    <a href="buy.php?product='.$row[0].'"><img class="slide-image center-block" src="'.$row[1].'" alt=""></a>
                                 </div>
                                 ';
 }else{
  echo ' <div class="item ">
-                                    <img class="slide-image" src="'.$row[1].'" alt="">
+                                    <a href="buy.php?product='.$row[0].'"><img class="slide-image center-block" src="'.$row[1].'" alt=""></a>
                                 </div>
                                 ';
 }
@@ -150,19 +151,20 @@ $i++;
                     </div>
 
                 </div>
-        <hr>
-
+            
+        
         <!-- Title -->
         <div class="row">
             <div class="col-lg-12">
-                <h3 id="titulo">Articulos recientes</h3>
+            <h1 style="background-color: #1AB188; width: 100%; color: white; padding: 20px;">Te damos la bienvenida a Watcher, donde podrás encontrar los productos que más anhelas en un increíble precio!</h1> 
+            <hr>
+                <h3 id="titulo">Artículos recientes</h3>
             </div>
         </div>
       
         <div class="row text-center">
         <?php 
-
-               $conexion->consulta ("SELECT * FROM  tbl_productos inner join tbl_photo on tbl_photo.tbl_productos_idtbl_productos = tbl_productos.idtbl_productos inner join tbl_seller on tbl_seller.idtbl_vendedor = tbl_productos.tbl_vendedor_idtbl_vendedor WHERE tbl_productos.cantidad > 0 AND tbl_productos.estado = 'activo' order by tbl_productos.idtbl_productos DESC LIMIT 8");
+               $conexion->consulta ("SELECT * FROM  tbl_productos inner join tbl_photo on tbl_photo.tbl_productos_idtbl_productos = tbl_productos.idtbl_productos inner join tbl_seller on tbl_seller.idtbl_vendedor = tbl_productos.tbl_vendedor_idtbl_vendedor WHERE tbl_productos.cantidad > 0 AND tbl_productos.estado = 'activo' group by tbl_productos.idtbl_productos DESC LIMIT 8");
                 while($row = $conexion->extraer_registro()){
                       echo '<div class="col-md-3 col-sm-6 hero-feature">
                                 <div class="thumbnail">
@@ -170,7 +172,7 @@ $i++;
                                 <div class="col-xs-12  col-sm-12">
                             <div id="progreso" class="progress-radial progress">
                                 <div class="overlay">
-                                    <a href="buy.php?product='.$row[0].'"><img  width="256" height="256" class="img-responsive img-circle" src="'.$row['16'].'" alt=""></a>
+                                    <a href="buy.php?product='.$row[0].'"><img  width="260" height="260" class="img-responsive img-circle" src="'.$row['16'].'" alt=""></a>
                                    
                                     <div class="clearfix"></div>
                                 </div>
@@ -183,7 +185,7 @@ $i++;
                                         <p>';
                                       
                                           if (isset($_SESSION['id'])) {
-                                            echo '<a onclick="agregarcarrito('.$row['0'].',1)" class="btn btn-primary">Agregar al carrito!</a><br> <a href="buy.php?product='.$row[0].'" class="btn btn-default">Mas Informacion </a>';                                         
+                                            echo '<a onclick="agregarcarrito('.$row['0'].',1,'.$_SESSION['id'].', '.$row['1'].')" class="btn btn-primary">Agregar al carrito!</a><br> <a href="buy.php?product='.$row[0].'" class="btn btn-default">Mas Informacion </a>';                                         
                                           }
                                           else
                                           {
@@ -233,7 +235,7 @@ $i++;
         <ul class="footer-ul">
          <!--  <li><a href="#"> Centro Resoluciones</a></li> -->
           <li><a href="#"> Politicas de Privacidad</a></li>
-          <li><a href="term.php"> Terminos & Condiciones</a></li>
+          <li><a href="" data-toggle="modal" data-target="#terminos"  > Terminos & Condiciones</a></li>
     
          <!--  <li><a href="#"> Preguntas frecuentes</a></li> -->
         </ul>
@@ -267,10 +269,10 @@ $i++;
     </div>
     <div class="col-md-6">
       <ul class="bottom_ul">
-        <li><a href="#">www.watcher.com</a></li>
-        <li><a data-toggle="modal" data-target="#Acerca">Acerca de</a></li>
-        <li><a  data-toggle="modal" data-target="#Contactenos" >Contactenos</a></li>
-          <li><a  data-toggle="modal" data-target="#Ayuda"  >Ayuda</a></li>
+        <li><a style="cursor:pointer" href="#">www.watcher.com</a></li>
+        <li><a style="cursor:pointer" data-toggle="modal" data-target="#Acerca">Acerca de</a></li>
+        <li><a style="cursor:pointer" data-toggle="modal" data-target="#Contactenos" >Contáctenos</a></li>
+          <li><a style="cursor:pointer" data-toggle="modal" data-target="#Ayuda"  >Ayuda</a></li>
       </ul>
     </div>
   </div>
@@ -281,14 +283,14 @@ $i++;
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-             <img  src="img/logo/logo.png" height="40" width="40" style="margin-top:8px">
+             
             <h3 class="modal-title" id="lineModalLabel">Ayuda Watcher</h3>
         </div>
         <div class="modal-body">
             
             <!-- content goes here -->
             <form>
-            <h4>Busqueda de productos</h4>
+            <h4>Búsqueda de productos</h4>
              <p>
                Si usted desea buscar un producto debe irse en la parte superior de la pagina ingresar el producto que desea buscar
                los productos que busque van a estar sujetos segun los que vendan los vendedores registrados puede presentar que no se encuentre el producto que usted desea.
@@ -299,7 +301,7 @@ $i++;
                Una vez seleccionado el producto y teniendo el requisito de la tarjeta debes agregar los que va comprar al carrito, ahi directamente
                compras el producto y debes esperar que vendedor te lo envie.
              </p>
-             <h4>Envios</h4>
+             <h4>Envíos</h4>
              <p>
                Cuando se realize la compra el vendedor porpocionara una fecha de envio la cual usted tendra que esperar para poder hacer un reclamo una vez
                que se cumpla la fecha y el vendedor no ha enviado el producto debera enviarle un mensaje y el vendedor tendra 48 horas para responderle,
@@ -325,17 +327,16 @@ $i++;
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-             <img  src="img/logo/logo.png" height="40" width="40" style="margin-top:8px">
             <h3 class="modal-title" id="lineModalLabel">Contactar Watcher</h3>
         </div>
         <div class="modal-body">
             
             <!-- content goes here -->
             <form accept-charset="UTF-8" action="messagemanager.php" method="POST">
-            <h4>Contactenos</h4>
+            <h4>Contáctenos</h4>
              <p>
-               Si usted desea desea informacion  acerca de nuestra pagina  puede contactarnos.
-                gracias por usar nuestro sitio web.
+               Si usted desea hacer alguna consulta acerca de nuestra aplicaión puede contactarnos.
+               Gracias por preferirnos.
              </p>
        
          
@@ -350,7 +351,7 @@ $i++;
                        
 
                         <h6 class="pull-right" id="counter">320 Caracteres maximos</h6>
-                        <button class="btn btn-info" type="submit">Envia mensaje</button>
+                        <button class="btn btn-primary" type="submit">Envia mensaje</button>
                     </form>
                 </div>
             </div>
@@ -377,7 +378,6 @@ $i++;
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-             <img  src="img/logo/logo.png" height="40" width="40" style="margin-top:8px">
             <h3 class="modal-title" id="lineModalLabel">Acerca de Watcher</h3>
         </div>
         <div class="modal-body">
@@ -386,12 +386,52 @@ $i++;
             <form>
             <h4>Acerca de</h4>
              <p>
-               Watcher es una aplicacion web la cual permite que usuario compre articulos asi mismo que los vendores pueden publicar su productos y estos ser 
-               vendidos.Nuestro objetivo como tienda online es que cliente se sienta complacido con las compras que realiza en nuestro sitio, dandole seguridad y confianza.
+               Watcher es una aplicación web la cual permite que usuario compre artículos asi mismo que los vendores pueden publicar su productos y estos ser 
+               vendidos. Nuestro objetivo como tienda online es que cliente se sienta complacido con las compras que realiza en nuestro sitio, dandole seguridad y confianza.
              </p>
        
          
      
+            </form>
+
+        </div>
+        <div class="modal-footer">
+            <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Cerrar</button>
+                </div>
+              
+             
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="terminos" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h3 class="modal-title" id="lineModalLabel">Acerca de Watcher</h3>
+        </div>
+        <div class="modal-body">
+            
+            <!-- content goes here -->
+                        <form>
+            <h3>Términos y condiciones</h3>
+            <?php echo nl2br(" Los siguientes términos del uso de sofware  según lo estipulado por watcher, y según lo permitan estas Condiciones de uso y los Términos del servicio. No puede incorporar ninguna porción del Software de Watcher en otros programas ni compilar ninguna parte de él en combinación con otros programas, ni copiar de otro modo (excepto para ejercer los derechos otorgados en esta sección), modificar, crear trabajos derivados de, distribuir, asignar ningún derechos de, o licencia del software de Watcher en su totalidad o en parte. Todo el software utilizado en cualquier Servicio de Watcher es propiedad de Watcher o sus proveedores de software y está protegido por las leyes de derechos de autor de los Estados Unidos e internacionales.
+
+Uso de servicios de terceros. Cuando utiliza el software de Watcher, también puede estar utilizando los servicios de uno o más terceros, como un operador inalámbrico o un proveedor de software móvil. Su uso de estos servicios de terceros puede estar sujeto a las políticas, términos de uso y tarifas de estos terceros.
+
+Sin ingeniería inversa. No puede realizar ingeniería inversa, descompilar o desensamblar, manipular o eludir ninguna seguridad asociada con el Software de Watcher, ya sea en su totalidad o en parte.
+
+Actualizaciones Podemos ofrecerle actualizaciones automáticas o manuales del Software de Watcher en cualquier momento y sin previo aviso.
+Usuarios finales del gobierno. Si usted es un usuario final del gobierno de los EE. UU., Le otorgamos la licencia del Software de Watcher como 'Artículo comercial', tal como se define en el Código de Regulaciones Federales de los EE. UU. (Ver 48 CFR § 2.101) y los derechos que le otorgamos. el Software de Watcher es el mismo que los derechos que otorgamos a todos los demás en virtud de estas Condiciones de uso.
+
+Conflictos En caso de conflicto entre estas Condiciones de uso y cualquier otro término de Watcher o de terceros aplicable a cualquier parte del Software de Watcher, como los términos de la licencia de código abierto, dichos términos controlarán la parte del Software de Watcher y en la medida del conflicto.");?>
+           
+            
             </form>
 
         </div>

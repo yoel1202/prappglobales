@@ -1,8 +1,7 @@
 <?php
-        
          require_once("conexion.php"); $conexion = new Conexion();
    if (isset($_GET['categoria'])) {
- $Categoria= $_REQUEST['categoria'] ; $subcategoria=0;  $idproducto=0;
+ $Categoria= $_REQUEST['categoria'] ; $subcategoria=0;  $idproducto="0";
 
    }
          if (isset($_GET['id_producto'])) {
@@ -96,7 +95,7 @@
 
                                 <input type="text" id="search" class="  search-query form-control" placeholder="Search" />
                                 <span class="input-group-btn">
-                                    <button class="btn btn-danger" type="button">
+                                    <button class="btn btn-primary" type="button">
                                         <span class=" glyphicon glyphicon-search"></span>
                                     </button>
                                 </span>
@@ -228,47 +227,65 @@
 
             <div id="Product_Images" class="tab-pane"><div class="col-lg-12 form-group margin50">
   
-   <form  action="subirproduct.php" method="post" enctype="multipart/form-data" name="formulario" id="formimagenes">
+   
   </div>
-              <div class="col-lg-12 form-group">
-                <label class="col-sm-2"  for="exampleInputFile">Imagen</label>
-                <div class="col-sm-4">
-                <input name="foto[]" type="file"  id="file-5" class="inputfile inputfile-4>">
-              </div>
-              </div>
-              
-              <div class="col-lg-12 form-group">
-                <label class="col-sm-2" for="exampleInputFile">Imagen</label>
-                <div class="col-sm-4">
-                <input name="foto[]" type="file" id="medium">
-              </div>
-              </div>
-                <div class="col-lg-12 form-group">
-                <label class="col-sm-2" for="exampleInputFile">Imagen</label>
-                <div class="col-sm-4">
-                <input name="foto[]" type="file" id="medium">
-              </div>
-              </div>
-                <div class="col-lg-12 form-group">
-                <label class="col-sm-2" for="exampleInputFile">Imagen</label>
-                <div class="col-sm-4">
-                <input name="foto[]" type="file" id="medium">
-              </div>
-              </div>
+  <form  action="<?php if (isset($_GET['id_producto'])) {echo 'actualizarfotos.php';}else{echo 'subirproduct.php';}?>" method="post" enctype="multipart/form-data" name="formulario" id="formimagenes">
+                  <div class="row">
+                              <div class="col-md-5">
+                                  <div class="col-lg-12 form-group">
+                                  <label class="col-sm-3"  for="exampleInputFile">Imagen 1</label>
+                                  <div class="col-sm-3">
+                                  <input  onchange="cargarimagen(this.id, this)" name="foto[]" type="file"  id="pickphoto1" class="inputfile inputfile-4>">
+                                </div>
+                                </div>
+                                
+                                <div class="col-lg-12 form-group">
+                                  <label class="col-sm-3" for="exampleInputFile">Imagen 2</label>
+                                  <div class="col-sm-3">
+                                  <input onchange="cargarimagen(this.id, this)" name="foto[]" type="file" id="pickphoto2">
+                                </div>
+                                </div>
+                                  <div class="col-lg-12 form-group">
+                                  <label class="col-sm-3" for="exampleInputFile">Imagen 3</label>
+                                  <div class="col-sm-3">
+                                  <input onchange="cargarimagen(this.id, this)" name="foto[]" type="file" id="pickphoto3" value="hola">
+                                </div>
+                                </div>
+                                  <div class="col-lg-12 form-group">
+                                  <label class="col-sm-3" for="exampleInputFile">Imagen 4</label>
+                                  <div class="col-sm-3">
+                                  <input onchange="cargarimagen(this.id, this)" name="foto[]" type="file" id="pickphoto4">
+                                </div>
+                                </div>
+                              </div>
+                              <div class="col-md-7">
+                              <?php 
+                              $foto = array();
+                                if (isset($_GET['id_producto'])) {
+                                  $conexion->consulta ("select * FROM tbl_photo WHERE tbl_productos_idtbl_productos = ". $_GET['id_producto']);
+                                  $contador = 0;
+                                   while($row = $conexion->extraer_registro()){
+                                     $foto[0][$contador] = $row[1];
+                                     $foto[1][$contador] = $row[0];
+                                     $contador++;
+                                   }
+                                 }
+                                
+                                 
+                              ?>  
+                                  <input type="hidden" name="iddelproducto" value="<?php if (isset($_GET['id_producto'])) {echo $idproducto;}else{echo "";}?>"/>
+                                  <img alt="Imagen 1" style="border:1px solid gray;" id="foto1" name="foto1" src="<?php if (isset($_GET['id_producto'])) {if(isset($foto[0][0])){echo $foto[0][0];}else{echo "img/previewproduct.png";}}else{echo "img/previewproduct.png";}?>" width="150" height="150">
+                                  <input type="hidden" name="srcfoto1" value="<?php if (isset($_GET['id_producto'])) {if(isset($foto[0][0])){echo $foto[1][0];}else{echo "";}}else{echo "";}?>"/>
+                                  <img style="border:1px solid gray;" id="foto2" src="<?php if (isset($_GET['id_producto'])) {if(isset($foto[0][1])){echo $foto[0][1];}else{echo "img/previewproduct.png";}}else{echo "img/previewproduct.png";}?>" width="150" height="150">
+                                  <input type="hidden" name="srcfoto2" value="<?php if (isset($_GET['id_producto'])) {if(isset($foto[0][1])){echo $foto[1][1];}else{echo "";}}else{echo "";}?>"/>
+                                  <img style="border:1px solid gray;" id="foto3" src="<?php if (isset($_GET['id_producto'])) {if(isset($foto[0][2])){echo $foto[0][2];}else{echo "img/previewproduct.png";}}else{echo "img/previewproduct.png";}?>" width="150" height="150">
+                                  <input type="hidden" name="srcfoto3" value="<?php if (isset($_GET['id_producto'])) {if(isset($foto[0][2])){echo $foto[1][2];}else{echo "";}}else{echo "";}?>"/>
+                                  <img style="border:1px solid gray;" id="foto4" src="<?php if (isset($_GET['id_producto'])) {if(isset($foto[0][3])){echo $foto[0][3];}else{echo "img/previewproduct.png";}}else{echo "img/previewproduct.png";}?>" width="150" height="150">
+                                  <input type="hidden" name="srcfoto4" value="<?php if (isset($_GET['id_producto'])) {if(isset($foto[0][3])){echo $foto[1][3];}else{echo "";}}else{echo "";}?>"/>
+      
+                              </div>
+                            </div>
 
-                <div class="col-lg-12 form-group">
-                <label class="col-sm-2" for="exampleInputFile">Imagen</label>
-                <div class="col-sm-4">
-                <input type="file" id="medium">
-              </div>
-              </div>
-              
-              <div class="col-lg-12 form-group">
-                <label class="col-sm-2" for="exampleInputFile">Imagen</label>
-                <div class="col-sm-4">
-                <input type="file" id="large">
-              </div>
-              </div>
               
     </form>           
     </div>
@@ -302,7 +319,7 @@
   </div>
      <div id="alert"  class="col-lg-6 form-group"> </div>
   <div class="col-sm-6 col-sm-offset-3" >
-    <a id="save" class="btn btn-primary btn-lg " role="button">Guardar</a>
+    <a id="save" class="btn btn-primary btn-lg " role="button"><?php if (isset($_GET['id_producto'])) {echo "Actualizar";}else{echo "Guardar";}?></a>
 
 
   </div>

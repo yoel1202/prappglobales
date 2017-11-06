@@ -1,19 +1,17 @@
 <?php
- 
-
 foreach ($_FILES["foto"]["error"] as $key => $error) {
-   if ($error == UPLOAD_ERR_OK) {
+   if ($_FILES['foto']['name'][$key]!="") {
        
        
         $temporal = $_FILES['foto']['tmp_name'][$key];
         $nombre = $_FILES['foto']['name'][$key];
         $tipo = $_FILES['foto']['type'][$key];
-       subirimagen($nombre,$temporal,$tipo);
+        subirimagen($nombre,$temporal,$tipo);
    }
 }
 
 
-   header("location: productstosell.php");
+   // header("location: productstosell.php");
 
 
 
@@ -35,7 +33,7 @@ if($tipo=='image/jpeg'){
   $original = imagecreatefrompng($temporal);
 }else
 {
-  die("no se puedo subir archivo extentension incompatible");
+  die("No se puedo subir archivo formato incompatible");
 }
 
 $ancho_original = imagesx($original);

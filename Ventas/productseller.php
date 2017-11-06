@@ -187,6 +187,7 @@
             <div class="col-xs-4">
               <h4 class="product-name"><strong>'.$row['0'].'</strong></h4><h4><small>'.$row['3'].'</small></h4>
             </div>
+            
             <div class="col-xs-6">
               <div class="col-xs-6 text-right">
                 <h6><strong>₡ '.$row['1'].' <span class="text-muted">x</span></strong></h6>
@@ -201,7 +202,7 @@
               </div>
             </div>
           </div>
-          <hr>';
+          <hr>Comprado por: Steven Orozco Montoya el 10 de octubre del 2017.';
    }
    ?>
           <hr>
