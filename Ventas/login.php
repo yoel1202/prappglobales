@@ -29,7 +29,7 @@
             <div class="col-md-6 col-md-offset-3">
                 <div class="panel panel-login">
                     <div class="panel-heading">
-                        <div class="row">
+                        <div id class="row">
                             <div class="col-xs-6">
                                 <a href="#" class="active" id="login-form-link">Iniciar Sesion</a>
                             </div>
@@ -74,37 +74,37 @@
                                 <form id="register-form" action="" method="post" role="form" style="display: none;">
                            
                                     <div class="form-group">
-                                        <input type="text" name="user" id="user" tabindex="1" class="form-control" placeholder="Nombre usuario" value="">
+                                        <input type="text" name="user" id="user" class="form-control" placeholder="Nombre usuario" value="">
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Correo electronico" value="">
+                                        <input type="email" name="email" id="email" class="form-control" placeholder="Correo electronico" value="">
                                     </div>
                                      <div class="form-group">
-                                        <input  name="pass" id="nom" tabindex="2" class="form-control" placeholder="Nombre">
+                                        <input  name="pass" id="nom" class="form-control" placeholder="Nombre">
                                     </div>
                                      <div class="form-group">
-                                        <input  name="email" id="ced" tabindex="1" class="form-control" placeholder="Cedula" value="">
+                                        <input  name="email" id="ced" class="form-control" placeholder="Cedula" value="">
                                     </div>
                                      <div class="form-group">
-                                        <input  name="email" id="tel" tabindex="1" class="form-control" placeholder="Telefono" value="">
+                                        <input  name="email" id="tel" class="form-control" placeholder="Telefono" value="">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="password" id="pass" tabindex="2" class="form-control" placeholder="Contraseña">
+                                        <input type="password" name="password" id="pass" class="form-control" placeholder="Contraseña">
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="password" name="confirm-password" id="confirmpass" tabindex="2" class="form-control" placeholder="Confirmar contraseña">
+                                        <input type="password" name="confirm-password" id="confirmpass" class="form-control" placeholder="Confirmar contraseña">
                                     </div>
                                        <div  class="form-group"  class="checkbox checkbox-success checkbox-inline">
                         <label class="btn btn-success active">
                 <input id="term" type="checkbox" autocomplete="off" >
-                <span class="glyphicon glyphicon-ok"> </span>Acepta todos los terminos de  la empresa
+                <span class="glyphicon glyphicon-ok"> </span>Acepta todos los términos de  la empresa
             </label>
                     </div>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6 col-sm-offset-3">
-                                                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" onclick="registrar()" value="Registrar ahora">
+                                                <input type="button" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" onclick="registrar()" value="Registrar ahora">
                                             </div>
                                         </div>
                                     </div>

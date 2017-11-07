@@ -108,7 +108,7 @@ if($conexion->consulta(" INSERT INTO tbl_user(idtbl_usuario,nombre_usuario,nombr
 }
 
 function insertshipping($conexion,$firstname,$lastname,$address1,$address2,$city,$state,$district,$zip,$country,$users){
-$conexion->consulta("select * from  tbl_shipping where id_user='$users'");
+$conexion->consulta("select * from  tbl_shipping where id_user='".$users."'");
 $row= $conexion->extraer_registro();
    if($row>0){
 if($conexion->consulta("CALL Actualizarshiipinguser('$firstname','$lastname','$address1','$address2','$city','$state','$district','$zip','$country','".$row['0']."')")){
@@ -119,7 +119,7 @@ if($conexion->consulta("CALL Actualizarshiipinguser('$firstname','$lastname','$a
     }
   
    }else{
-   if($conexion->consulta("CALL insertshipping('$firstname','$lastname','$address1','$address2','$city','$state','$district','$zip','$country','$users')")){
+   if($conexion->consulta("CALL insertshipping('$firstname','$lastname','$address1','$address2','$city','$state','$district','$zip','$country','".$users."')")){
 
       echo "Se ha efectuado los cambios correctamente";
     }else{

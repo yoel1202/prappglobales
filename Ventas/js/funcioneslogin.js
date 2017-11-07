@@ -58,33 +58,47 @@ $.ajax({
  function registrar()
  {
 
-     if ($('#pass').val()==$('#confirmpass').val() && $('#term').is(":checked") && caracteresCorreoValido($('#email').val(),'#email')) {
-$.ajax({
-    type: 'POST',
-    url: 'database.php',
+  if ($('#user').val()!="" && $('#email').val() !="" && $('#nom').val()!="" && $('#tel').val()!="" && $('#pass').val()!="" && $('#ced').val() != "" && $('#pass').val()!="" && $('#confirmpass').val()!="") 
+  {
+      if ($('#pass').val()==$('#confirmpass').val()) {
+    if ($('#term').is(":checked")) {
+          alert('Todo correcto');
+          $.ajax({
+            type: 'POST',
+            url: 'database.php',
 
-    data: {key: 'registrar', user: $('#user').val(), email: $('#email').val(), nom: $('#nom').val(), tel: $('#tel').val(), pass: $('#pass').val(), ced: $('#ced').val()}
+            data: {key: 'registrar', user: $('#user').val(), email: $('#email').val(), nom: $('#nom').val(), tel: $('#tel').val(), pass: $('#pass').val(), ced: $('#ced').val()}
 
-  }).done(function ( data ) {
-   
-   
-    if(data.trim()==("se ha iniciado correctamente")){
-   alert(data+"paso");
+          }).done(function ( data ) {
+           
+           
+            if(data.trim()==("se ha iniciado correctamente")){
+           alert(data+"paso");
 
-    }else{
-     alert(data+"hi");
+            }else{
+             alert(data+"hi");
+            }
+            
+               
+
+          
+          }).fail(function (jqXHR, textStatus, errorThrown){
+            $("#msjbox").html(" Error al insertar!");
+          })        
     }
-    
-       
+    else
+    {
+      alert('Debes aceptar nuestros Términos y condiciones!');
+    }
+  }else{
+    alert("Las contraseñas no conciden, Por favor reintente!");
+  }
+  }
+  else
+  {
+    alert('No puedes dejar espacios en blanco!');
+  }
 
-  
-  }).fail(function (jqXHR, textStatus, errorThrown){
-    $("#msjbox").html(" Error al insertar!");
-  })
-}else{
-alert("contraseña no concide");
-
-}
  
 }
 function caracteresCorreoValido(email, div){

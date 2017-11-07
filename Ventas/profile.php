@@ -296,7 +296,7 @@
                     <div class="col-md-12">
             <input class="btn btn-primary"  value="Guardar cambios" onclick="guardardireccion('.$_SESSION['id'].')" type="submit">
             <span></span>
-             <input class="btn btn-default" value="Actualizar cambios" type="reset">
+             
            
           </div>
 

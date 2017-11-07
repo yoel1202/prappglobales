@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-11-2017 a las 08:11:46
+-- Tiempo de generación: 07-11-2017 a las 19:29:58
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -64,8 +64,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar` (IN `idvendedor` INT, IN 
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertshipping` (`nam` VARCHAR(20), `lastnam` VARCHAR(20), `address1` VARCHAR(50), `address2` VARCHAR(50), `provinces` VARCHAR(20), `cantones` VARCHAR(20), `districts` VARCHAR(20), `zips` INT, `coun` VARCHAR(20), `id` INT)  BEGIN
- INSERT INTO tbl_shipping(id_tblshipping,name,last_name,firts_adress,second_adress,province,canton,district,zip,country,id_user) VALUES('',nam,lastnam,address1,address2,provinces,cantones,districts,zips,coun,id);
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertshipping` (IN `nam` VARCHAR(20), IN `lastnam` VARCHAR(20), IN `address1` VARCHAR(50), IN `address2` VARCHAR(50), IN `provinces` VARCHAR(20), IN `cantones` VARCHAR(20), IN `districts` VARCHAR(20), IN `zips` INT, IN `coun` VARCHAR(20), IN `id` INT)  BEGIN
+ INSERT INTO tbl_shipping(name,last_name,firts_adress,second_adress,province,canton,district,zip,country,id_user) VALUES(nam,lastnam,address1,address2,provinces,cantones,districts,zips,coun,id);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `search` (`word` VARCHAR(25))  BEGIN
@@ -360,7 +360,7 @@ CREATE TABLE `tbl_see` (
 --
 
 INSERT INTO `tbl_see` (`id_tbl_see`, `visitas`, `id_tbl_productos`) VALUES
-(1, 32, 1),
+(1, 34, 1),
 (3, 13, 13),
 (4, 51, 17),
 (5, 2, 14),
@@ -428,8 +428,8 @@ CREATE TABLE `tbl_shipping` (
 --
 
 INSERT INTO `tbl_shipping` (`id_tblshipping`, `name`, `last_name`, `firts_adress`, `second_adress`, `province`, `canton`, `district`, `zip`, `country`, `id_user`) VALUES
-(0, '', '', '', '', 'Puntarenas', '', '', 0, '', 4),
-(8, 'yoel', 'cerdas', '200 metros norte', 'casa color roja entrada al fondo de', 'puntarenas', 'osa', 'ciudad cortes', 60501, 'costa rica', 1);
+(0, 'Steven', 'Orozco', '', '', '', '', '', 0, '', 3),
+(9, 'Yoel', '', '', '', 'Puntarenas', '', '', 0, '', 1);
 
 -- --------------------------------------------------------
 
@@ -478,7 +478,7 @@ CREATE TABLE `tbl_user` (
 INSERT INTO `tbl_user` (`idtbl_usuario`, `nombre_usuario`, `nombre`, `cedula`, `correo`, `password`, `telefono`, `foto`, `estado`, `tbl_contract_idtbl_contract`) VALUES
 (1, 'yoel1202', 'yoel cerdas', 604140385, 'yoel1202@hotmail.com', '1', 87109682, 'img/Usuario/profile111.jpeg', '1', 1),
 (2, 'yoe', 'yoe', 604140385, 'yoel120294@gmail.com', '123', 87109682, '1', 'img/Usuari', 1),
-(3, 'steven1', 'Steven', 604250344, 'steven10795@gmail.com', '1', 62567388, '1', 'img/Usuari', 1);
+(3, 'steven1', 'Steven', 604250344, 'steven10795@gmail.co', '1', 62567388, 'img/Usuario/15220006_1287216378006343_5008424892848480740_n0.jpg', 'img/Usuari', 1);
 
 --
 -- Índices para tablas volcadas
@@ -694,7 +694,7 @@ ALTER TABLE `tbl_seller`
 -- AUTO_INCREMENT de la tabla `tbl_shipping`
 --
 ALTER TABLE `tbl_shipping`
-  MODIFY `id_tblshipping` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_tblshipping` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `tbl_subcategories`
 --
