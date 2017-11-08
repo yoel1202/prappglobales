@@ -8,10 +8,14 @@ background:#eee;
 }
 
 .btn-danger {
-    background-color: #E9573F;
-    border-color: #E9573F;
-    color: white;
+    color: #fff;
+    background-color: #1ab188;
+    border-color: #1ab188;
+    height: 32px;
+    left: 5px;
+
 }
+
 
 .panel-teal .panel-heading {
     background-color: #37BC9B;

@@ -30,6 +30,7 @@
     <script src="js/funciones.js"></script>
     <script src="js/cargarcategorias.js"></script>
  <link rel="stylesheet" href="css/font-awesome.min.css">
+ <link rel="stylesheet" href="css/profile.css">
 <link href="css/stylemenu.css" rel="stylesheet">
 </head>
 <body>

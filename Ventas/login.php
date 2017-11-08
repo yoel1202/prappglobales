@@ -126,7 +126,7 @@
                   <div class="modal-body">
                   
                     <table class="pull-left col-md-8 ">
-                          <p >En el siguiente contrato se estipula que los usuarios que compren en el sistema deben comprender que cuando se efectue una transccion de cualquier tipo la empresa queda bajo ninguna reposibilidad. La empresa se compromete a seguir cualquier transcion que no se efectue de manera correcta una ves entendido los terminos puede cerrar la pestaña muchas gracias por usar nuestro sitio</p>
+                          <p >En el siguiente contrato se estipula que los usuarios que compren en el sistema deben comprender que cuando se efectue una transcción de cualquier tipo la empresa queda bajo ninguna reposibilidad. La empresa se compromete a seguir cualquier transacción que no se efectue de manera correcta una ves entendido los terminos puede cerrar la pestaña muchas gracias por usar nuestro sitio</p>
                     </table>
                              
                          

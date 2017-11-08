@@ -70,6 +70,8 @@ footer {  min-height:350px; font-family: 'Open Sans', sans-serif;
     color: #fff;
     background-color: #1ab188;
     border-color: #1ab188;
+    height: 32px;
+    left: 5px;
 }
 
 .pager li a{

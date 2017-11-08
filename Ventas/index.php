@@ -97,7 +97,8 @@
 
 
  <div class="container " id="principal">
-
+ <h1 style="background-color: #1AB188; width: 100%; color: white; padding: 20px;">Te damos la bienvenida a Watcher, donde podrás encontrar los productos que más anhelas en un increíble precio!</h1> 
+           
           <div class="row">
      <div class="col-lg-12">
                 <h3 id="titulo">&nbsp;&nbsp;Artículos más vistos</h3>
@@ -116,9 +117,11 @@
                                 <li data-target="#carousel-example-generic" data-slide-to="2"></li>
                                 <li data-target="#carousel-example-generic" data-slide-to="3"></li>
                             </ol>
+
                             <div class="row">
        
                             <div class="carousel-inner">
+
                              <?php 
 
    $conexion->consulta ("SELECT idtbl_productos,picture_code FROM `tbl_productos` INNER join tbl_photo on idtbl_productos=tbl_productos_idtbl_productos inner join tbl_see on idtbl_productos=  id_tbl_productos GROUP by idtbl_productos ORDER BY  visitas DESC LIMIT 4 ");
@@ -156,8 +159,7 @@ $i++;
         <!-- Title -->
         <div class="row">
             <div class="col-lg-12">
-            <h1 style="background-color: #1AB188; width: 100%; color: white; padding: 20px;">Te damos la bienvenida a Watcher, donde podrás encontrar los productos que más anhelas en un increíble precio!</h1> 
-            <hr>
+           <hr>
                 <h3 id="titulo">Artículos recientes</h3>
             </div>
         </div>
