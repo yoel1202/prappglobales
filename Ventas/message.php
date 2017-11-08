@@ -46,12 +46,9 @@
           <div class="row" >
           	<div class="col-md-1 " id="logo" >
 
-	 <img  src="img/logo/logo.png" height="40" width="40" style="margin-top:8px">
+        <a  class="navbar-brand" href="index.php"><img  src="img/logo/logo.png" height="80" width="120" style="margin-top:-23px; margin-left: -30px;"></a>
 </div>
-	<div class="col-md-1 " id="logotipo"  >
 
-	  <a  class="navbar-brand" href="index.html">Watcher   </a>
-</div>
 
 <div class="col-md-6 " id="buscador">
 	    <div id="custom-search-input ">
@@ -59,8 +56,8 @@
 
                                 <input type="text" id="search" class="  search-query form-control" placeholder="Search" />
                                 <span class="input-group-btn">
-                                    <button id="find" class="btn btn-danger" type="button" ">
-                                        <span class=" glyphicon glyphicon-search"></span>
+                                    <button id="find" class="btn btn-primary" type="button" ">
+                                        <span class="fa fa-search"></span>
                                     </button>
                                 </span>
                             </div>
@@ -167,7 +164,7 @@
         <p>Somos una empresa dedicada a las ventas a nivel nacional, con el fin de que todos los clientes tengan sus productos en puerta de su casa, sin necesidad de salir de su casa o trabajo</p>
         <p><i class="fa fa-map-pin"></i>  Osa, Ciudad Cortes, Puntarenas-61003, Costa Rica</p>
         <p><i class="fa fa-phone"></i> Telefono (Costa Rica) : +506 87109682 : +506 83137757</p>
-        <p><i class="fa fa-envelope"></i> E-mail : yoel1202@hotmail.com</p>
+   <p><i class="fa fa-envelope"></i> E-mail : watcher@hotmail.com</p>
         
       </div>
       <div class="col-md-2 col-sm-6 paddingtop-bottom">

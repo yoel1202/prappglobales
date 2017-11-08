@@ -7,19 +7,19 @@ background:#eee;
     margin-bottom: 20px;
 }
 
-.btn-danger {
+.btn-primary {
     color: #fff;
     background-color: #1ab188;
     border-color: #1ab188;
-    height: 32px;
+    height: 38px;
     left: 5px;
 
 }
 
 
 .panel-teal .panel-heading {
-    background-color: #37BC9B;
-    border: 1px solid #36b898;
+    background-color: #1ab188;
+    border: 1px solid #1ab188;
     color: white;
 }
 
