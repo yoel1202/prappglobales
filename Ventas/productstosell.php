@@ -102,7 +102,7 @@
             </li>
                         <li class="">
                 <a href="categories.php">
-                 <i class="fa fa-shopping-cart"></i> Vender
+                 <i class="fa fa-shopping-cart"></i> Ingresar Productos
                  
                      
                 </a>

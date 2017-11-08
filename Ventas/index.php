@@ -340,7 +340,7 @@ $i++;
             <form accept-charset="UTF-8" action="messagemanager.php" method="POST">
             <h4>Contáctenos</h4>
              <p>
-               Si usted desea hacer alguna consulta acerca de nuestra aplicaión puede contactarnos.
+               Si usted desea hacer alguna consulta acerca de nuestra aplicación puede contactarnos.
                Gracias por preferirnos.
              </p>
        

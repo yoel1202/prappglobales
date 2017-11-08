@@ -102,7 +102,7 @@
             </li>
             <li class="">
                 <a href="categories.php">
-                 <i class="fa fa-shopping-cart"></i> Vender
+                 <i class="fa fa-shopping-cart"></i> Ingresar Productos
                  
                      
                 </a>
@@ -482,20 +482,23 @@
             <form>
             <h4>Búsqueda de productos</h4>
              <p>
-               Si usted desea buscar un producto debe irse en la parte superior de la pagina ingresar el producto que desea buscar
-               los productos que busque van a estar sujetos segun los que vendan los vendedores registrados puede presentar que no se encuentre el producto que usted desea.
+               Si usted desea buscar un producto debe irse en la parte superior de la página ingresar el producto que desea buscar
+               los productos que busque van a estar sujetos según los que vendan los vendedores registrados puede presentar que no se encuentre el producto que usted desea.
+
              </p>
               <h4>Pagar productos</h4>
              <p>
-               Para pagar los productos solo necesitas poseer una tarjeta de tipo mastercard o visa la cual te permita hacer compras.
-               Una vez seleccionado el producto y teniendo el requisito de la tarjeta debes agregar los que va comprar al carrito, ahi directamente
-               compras el producto y debes esperar que vendedor te lo envie.
+               Para pagar los productos solo necesitas poseer una tarjeta de tipo MasterCard o visa la cual te permita hacer compras.
+               Una vez seleccionado el producto y teniendo el requisito de la tarjeta debes agregar los que va comprar al carrito, ahí directamente
+               compras el producto y debes esperar que vendedor te lo envié.
+
              </p>
              <h4>Envíos</h4>
              <p>
-               Cuando se realize la compra el vendedor porpocionara una fecha de envio la cual usted tendra que esperar para poder hacer un reclamo una vez
-               que se cumpla la fecha y el vendedor no ha enviado el producto debera enviarle un mensaje y el vendedor tendra 48 horas para responderle,
-               en caso que el vendedor no se ponga en contacto con usted usted debera enviar un mensaje al servicio tecnico para resolver su problema.
+               Cuando se realice la compra el vendedor proporcionara una fecha de envió la cual usted tendrá que esperar para poder hacer un reclamo una vez
+               que se cumpla la fecha y el vendedor no ha enviado el producto deberá enviarle un mensaje y el vendedor tendrá 48 horas para responderle,
+               en caso que el vendedor no se ponga en contacto con usted deberá enviar un mensaje al servicio técnico para resolver su problema.
+
              </p>
             </form>
 
@@ -525,7 +528,7 @@
             <form accept-charset="UTF-8" action="messagemanager.php" method="POST">
             <h4>Contáctenos</h4>
              <p>
-               Si usted desea hacer alguna consulta acerca de nuestra aplicaión puede contactarnos.
+               Si usted desea hacer alguna consulta acerca de nuestra aplicaicón puede contactarnos.
                Gracias por preferirnos.
              </p>
        
