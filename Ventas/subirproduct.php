@@ -11,7 +11,7 @@ foreach ($_FILES["foto"]["error"] as $key => $error) {
 }
 
 
-   // header("location: productstosell.php");
+    header("location: productstosell.php");
 
 
 
@@ -48,7 +48,7 @@ $copia = imagecreatetruecolor($ancho_nuevo,$alto_nuevo);
  imagejpeg($copia,"img/productos/".$nombre_final,100);
    $conexion->consulta("SELECT max(idtbl_productos) from tbl_productos");
 $row= $conexion->extraer_registro();
- $conexion->consulta("CALL Actualizarfoto(' img/productos/".$nombre_final."','".$row[0]."')");
+ $conexion->consulta("INSERT INTO tbl_photo(picture_code,tbl_productos_idtbl_productos) VALUES('img/productos/".$nombre_final."',".$row[0].")");
 }
 
 ?>
