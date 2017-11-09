@@ -160,10 +160,10 @@ echo json_encode($search);
    }
    function updateproduct($conexion,$id,$subcategoria,$cantidad,$tama,$precio,$envio,$peso,$anchura,$altura,$titulo,$garantia,$descripcion,$color){
 
-    // if($conexion->consulta("CALL Actualizarproducto('$id','$subcategoria','$peso','$color','$anchura','$altura','$envio','$cantidad','$tama','$precio','$titulo','$garantia','$descripcion')")){
+    if($conexion->consulta("CALL Actualizarproducto('$id','$subcategoria','$peso','$color','$anchura','$altura','$envio','$cantidad','$tama','$precio','$titulo','$garantia','$descripcion')")){
 
       echo "Se actualizado correctamente";
-    // }
+    }
 
    
    }
