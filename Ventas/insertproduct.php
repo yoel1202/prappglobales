@@ -341,7 +341,7 @@
         <p>Somos una empresa dedicada a las ventas a nivel nacional, con el fin de que todos los clientes tengan sus productos en puerta de su casa, sin necesidad de salir de su casa o trabajo</p>
         <p><i class="fa fa-map-pin"></i>  Osa, Ciudad Cortes, Puntarenas-61003, Costa Rica</p>
         <p><i class="fa fa-phone"></i> Telefono (Costa Rica) : +506 87109682 : +506 83137757</p>
-        <p><i class="fa fa-envelope"></i> E-mail : yoel1202@hotmail.com</p>
+        <p><i class="fa fa-envelope"></i> E-mail : Watcher@hotmail.com</p>
         
       </div>
       <div class="col-md-2 col-sm-6 paddingtop-bottom">
