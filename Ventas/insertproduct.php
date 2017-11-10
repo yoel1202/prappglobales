@@ -96,7 +96,7 @@
                                 <input type="text" id="search" class="  search-query form-control" placeholder="Search" />
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary" type="button">
-                                        <span class=" glyphicon glyphicon-search"></span>
+                                       <span class="fa fa-search"></span>
                                     </button>
                                 </span>
                             </div>

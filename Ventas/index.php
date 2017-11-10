@@ -47,7 +47,7 @@
 
 	<div class="col-md-1 " id="logotipo"  >
 
-	  <a  class="navbar-brand" href="index.php"><img  src="img/logo/logo.png" height="80" width="120" style="margin-top:-23px; margin-left: -30px;"></a>
+	  <a  class="navbar-brand" href="index.php"><img  src="img/logo/logo.png" height="90" width="120" style="margin-top:-30px; margin-left: -80px;"></a>
 </div>
 
 <div class="col-md-6 " id="buscador">
@@ -97,8 +97,10 @@
 
 
  <div class="container " id="principal">
- <h1 style="background-color: #1AB188; width: 100%; color: white; padding: 20px;">Te damos la bienvenida a Watcher, donde podrás encontrar los productos que más anhelas en un increíble precio!</h1> 
-           
+<img id="baner" src="whatcher.png" class="img-responsive" alt="Cinque Terre" height: "500px" style="
+margin-top: -24px;">
+    
+         
           <div class="row">
      <div class="col-lg-12">
                 <h3 id="titulo">&nbsp;&nbsp;Artículos más vistos</h3>

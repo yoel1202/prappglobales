@@ -4,6 +4,19 @@
 	
 	margin-top:  7%;
 }
+#search{
+   margin: 10px;
+margin-left: -3px;
+}
+
+#baner{
+height: 500px;
+
+margin-top: -24px;
+}
+#nom{
+    height: 12px;
+}
 .btn span.glyphicon {               
     opacity: 0;             
 }
@@ -58,6 +71,7 @@ footer {  min-height:350px; font-family: 'Open Sans', sans-serif;
  a {
     color: #fafafa;
     text-decoration: none;
+    margin: 7px;
 }
 .controls .glyphicon.active {
     font-size: 3em;
@@ -175,7 +189,7 @@ margin-top: 14px;
 }
 	.move{
 
-margin-top: 8px;
+margin-top: 20px;
 position: relative;
  left:5%;
 }
