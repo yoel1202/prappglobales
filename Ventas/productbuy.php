@@ -105,8 +105,8 @@
             <li class="active">
                 <a href="#">
                   <?php 
-   $conexion->consulta ("select distinct( idtbl_productos) from tbl_sales ts inner join tbl_productos  on  ts.tbl_productos_idtbl_productos=idtbl_productos
- inner join tbl_user on tbl_usuario_idtbl_usuario='". $_SESSION['id']."' inner join tbl_photo tph on tph.tbl_productos_idtbl_productos=idtbl_productos group by idtbl_productos");
+   $conexion->consulta ("select count(idtbl_ventas) from tbl_sales ts inner join tbl_productos  on  ts.tbl_productos_idtbl_productos=idtbl_productos where
+tbl_usuario_idtbl_usuario ='". $_SESSION['id']."'");
    
   if(!$row = $conexion->extraer_registro()) {
  echo ' <i class="fa fa-shopping-cart"></i>Historial de compra<span class="label label-info pull-right inbox-notification">0</span> ';
