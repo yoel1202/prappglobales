@@ -28,99 +28,47 @@
 
 </head>
 <body>
- 
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-               
+ <div id="flipkart-navbar">
+    <div class="container">
+        <div class="row row1">
+          <br>
+        </div>
+        <div class="row row2">
+            <div class="col-sm-2">
+                <h2 style="margin:0px;"><span class="smallnav menu" onclick="openNav()">☰ Brand</span></h2>
+                <h1 style="margin:0px;"><span class="largenav"> <a   href="index.php"><img  src="img/logo/logo.png" height="90" width="120" style="margin-top:-30px; margin-left: -80px;"></a></span></h1>
             </div>
-        <div class="container">
-     
-  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >
-
-          <div class="row" >
-          	<div class="col-md-1 " id="logo" >
-
-	 <img  src="img/logo/logo.png" height="40" width="40" style="margin-top:8px">
-</div>
-	<div class="col-md-1 " id="logotipo"  >
-
-	  <a  class="navbar-brand" href="index.php">Watcher   </a>
-</div>
-
-<div class="col-md-6 " id="buscador">
-	    <div id="custom-search-input ">
-                            <div class="input-group col-md-12">
-
-                                <input type="text" id="search" class="  search-query form-control" placeholder="Search" />
-                                <span class="input-group-btn">
-                                    <button id="find" class="btn btn-danger" type="button" ">
-                                        <span class=" glyphicon glyphicon-search"></span>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                         </div>
-
-                        <div class="col-md-1  " id="cb">
-                                       <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Categorias
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-   <?php 
-   $conexion->consulta ("SELECT * FROM  tbl_categories");
-                while($row = $conexion->extraer_registro()){
-       echo '<li><a href="#">'.$row['1'].'</a></li>';}
-   ?>
-   
-   
-    <li role="separator" class="divider"></li>
-    <li><a href="#">Separated link</a></li>
-  </ul>
-</div>
-                        </div>
-
-
-                        <div class="col-md-3 move ">
-                                   <ul class="nav navbar-nav" id="inicio">
+            <div class="flipkart-navbar-search smallsearch col-sm-6 col-xs-11" style="color:black;">
+                <div class="row">
+                    <input class="flipkart-navbar-input col-xs-11" type=""  id="search" placeholder="Buscar productos" name="">
+                    <button class="flipkart-navbar-button col-xs-1" id="find">
+                       <span class="fa fa-search"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="cart largenav col-sm-4">
+             <ul class="largenav pull-right" id="inicio">
       
   
-  <li ><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
-   <li  ><a href="message.php" class="fa fa-envelope" ></a></li>
-   <li   >
+  <li class="upper-links"><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
+   <li  class="upper-links"><a href="message.php" class="fa fa-envelope" ></a></li>
+   <li class="upper-links">
 
-   <?php       if(isset($_SESSION['id'])){
-    echo '<a href="checkout.php" class="fa fa-shopping-cart" >&nbsp;<span id="cantidadcarrito" class="badge">';
-               $conexion->consulta ("SELECT (SUM(quantity)) FROM  tbl_cart where id_user = ". $_SESSION['id']);
+   <?php     if(isset($_SESSION['id'])){
+  echo '<a href="checkout.php" class="fa fa-shopping-cart" >&nbsp;<span id="cantidadcarrito" class="badge">';
+              $conexion->consulta ("SELECT (SUM(quantity)) FROM  tbl_cart where id_user = ". $_SESSION['id']);
                 while($row = $conexion->extraer_registro()){
                   echo $row['0'];
-                }
-                echo '</span></a>';
-      }
-      else{echo '<a href="login.php" class="fa fa-shopping-cart" >&nbsp;<span id="cantidadcarrito" class="badge"></span></a>';}?></li>  
+               }
+               echo '</span></a>';
+     }
+   else{echo '<a href="login.php" class="fa fa-shopping-cart" >&nbsp;<span id="cantidadcarrito" class="badge"></span></a>';}?></li>  
                 </ul>
-                        </div>
-          
-</div>
-           
-         
-     
-   
-          
-            </div>
-            
-        </div>
 
-    </nav>
-    <hr>
-    <hr>
+            </div>
+        </div>
+    </div>
+</div>
     <?php 
 
 require_once("conexion.php"); $conexion = new Conexion();
