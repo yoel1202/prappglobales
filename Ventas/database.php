@@ -97,6 +97,22 @@ if ($_POST['key']=='registrar') {
          $ced = $_POST['ced'];
       registrar($conexion,$user,$email,$nom,$tel,$pass,$ced);
     }
+    if ($_POST['key']=='deleteemail') {
+        
+         $data = $_POST['data'];
+        
+      deleteemail($conexion,$data);
+    }
+function deleteemail($conexion,$data){
+if($conexion->consulta("UPDATE tbl_message SET estado='borrado' WHERE idtbl_message='$data' ")){
+
+      echo "se ha  efectuado correctamente";
+    }else{
+      echo "error ha efectuar cambios posiblemente correo ya existe o nombre el nombre de u suario";
+    }
+
+}
+
 function registrar($conexion,$user,$email,$nom,$tel,$pass,$ced){
 if($conexion->consulta(" INSERT INTO tbl_user(idtbl_usuario,nombre_usuario,nombre,cedula,correo,password,telefono,foto,estado,tbl_contract_idtbl_contract) VALUES('','$user','$nom','$ced','$email','$pass','$tel','1','img/Usuario/profile.png','1')")){
 

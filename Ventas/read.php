@@ -1,6 +1,7 @@
 <?php
              
   session_start();
+       require_once("conexion.php"); $conexion = new Conexion();
 
                  if(isset($_SESSION['nombre'])and isset($_SESSION['tipo']) ){
              	$nombre=$_SESSION['nombre'];
@@ -13,11 +14,11 @@
         header("location: login.php");
      }
           if(isset( $_GET['mensaje'])){
- 
+  $conexion->consulta ("UPDATE tbl_message SET estado='leido' WHERE idtbl_message='".$_GET['mensaje']."' ");
  }else{
     header("location: login.php");
  }
-     require_once("conexion.php"); $conexion = new Conexion();
+
   ?>
   <!DOCTYPE html>
 <html>
@@ -45,6 +46,7 @@
 </head>
 <body>
 
+
 <div id="flipkart-navbar">
     <div class="container">
         <div class="row row1">
@@ -52,7 +54,7 @@
         </div>
         <div class="row row2">
             <div class="col-sm-2">
-                <h2 style="margin:0px;"><span class="smallnav menu" onclick="openNav()">☰ Brand</span></h2>
+                <h2 style="margin:0px;"><span class="smallnav menu" onclick="openNav()">☰ Watcher</span></h2>
                 <h1 style="margin:0px;"><span class="largenav"> <a   href="index.php"><img  src="img/logo/logo.png" height="90" width="120" style="margin-top:-30px; margin-left: -80px;"></a></span></h1>
             </div>
             <div class="flipkart-navbar-search smallsearch col-sm-6 col-xs-11" style="color:black;">
@@ -68,7 +70,22 @@
       
   
   <li class="upper-links"><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
-   <li  class="upper-links"><a href="message.php" class="fa fa-envelope" ></a></li>
+  <?php  
+ if(isset($_SESSION['id'])){
+  $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')");  if(!$row = $conexion->extraer_registro()) {
+              echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
+              }else{
+
+                echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ><span
+                class="badge"> '.$row['0'].'</span></a> </li> ';
+                }
+}else{
+  echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
+}
+
+                 ?>
+
+  
    <li class="upper-links">
 
    <?php     if(isset($_SESSION['id'])){
@@ -87,15 +104,42 @@
     </div>
 </div>
 <div id="mySidenav" class="sidenav">
-    <div class="container" style="background-color: #2874f0; padding-top: 10px;">
-        <span class="sidenav-heading">Home</span>
+    <div class="container" style="background-color: #1ab188; padding-top: 10px;">
+        <span class="sidenav-heading">Watcher</span>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
     </div>
-    <a href="http://clashhacks.in/">Link</a>
-    <a href="http://clashhacks.in/">Link</a>
-    <a href="http://clashhacks.in/">Link</a>
-    <a href="http://clashhacks.in/">Link</a>
+      
+  
+  <li class="lower-links"><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
+  <?php  
+ if(isset($_SESSION['id'])){
+  $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')");  if(!$row = $conexion->extraer_registro()) {
+              echo ' <li  class="lower-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
+              }else{
+
+                echo ' <li  class="lower-links"><a href="inbox.php" class="fa fa-envelope" ><span
+                class="badge"> '.$row['0'].'</span></a> </li> ';
+                }
+}else{
+  echo ' <li  class="upper-links"><a href="login.php" class="fa fa-envelope" ></a></li>';
+}
+
+                 ?>
+
+  
+   <li class="lower-links">
+
+   <?php     if(isset($_SESSION['id'])){
+  echo '<a href="checkout.php" class="fa fa-shopping-cart" >&nbsp;<span id="cantidadcarrito" class="badge">';
+              $conexion->consulta ("SELECT (SUM(quantity)) FROM  tbl_cart where id_user = ". $_SESSION['id']);
+                while($row = $conexion->extraer_registro()){
+                  echo $row['0'];
+               }
+               echo '</span></a>';
+     }
+   else{echo '<a href="login.php" class="fa fa-shopping-cart" >&nbsp;<span id="cantidadcarrito" class="badge"></span></a>';}?></li>  
 </div>
+
 
 
 <div class="container" id="principal">
@@ -106,11 +150,24 @@
 				<a href="messagepanel.php" class="btn btn-danger btn-block">Nuevo correo</a>
 				<ul>
 					<li>
-						<a href="inbox.php"><i class="fa fa-inbox"></i> Entrada <span class="label label-danger"><?php  $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario 	not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')");  if(!$row = $conexion->extraer_registro()) {
-							echo "0";
-							}else{
-								echo $row['0'];
-								} ?></span></a>
+						<a href="inbox.php"><i class="fa fa-inbox"></i> Entrada <span class="label label-danger"><?php  
+    if ($_SESSION['tipo']=="user") {
+            $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario  not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')");  if(!$row = $conexion->extraer_registro()) {
+              echo "0";
+              }else{
+                echo $row['0'];
+                }
+                }else{
+
+                   $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and   tbl_vendedor_idtbl_vendedor='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')");  if(!$row = $conexion->extraer_registro()) {
+              echo "0";
+              }else{
+                echo $row['0'];
+                }
+                }
+
+
+                 ?></span></a>
 					</li>
 					<li>
 						<a href="send.php"><i class="fa fa-rocket"></i> Enviados</a>
@@ -126,12 +183,24 @@
 		
 		<div class="panel panel-default">
 			<div class="panel-body contacts">
-				<a href="#" class="btn btn-success btn-block">Vendedores</a>
-				<ul>
-				<?php 
+				  <?php 
+        if ($_SESSION['tipo']=="user") {
+      echo'<a href="#" class="btn btn-success btn-block">Vendedores recientes</a>';
+      echo' <ul>';
+      
   $conexion->consulta ("select tse.correo from tbl_sales ts inner join tbl_productos as tp on  ts.tbl_productos_idtbl_productos=idtbl_productos 
 inner join tbl_seller as tse on tse.idtbl_vendedor=tp.tbl_vendedor_idtbl_vendedor where 
-tbl_usuario_idtbl_usuario ='1'  group by tse.correo order by idtbl_ventas limit 18");
+tbl_usuario_idtbl_usuario ='".$_SESSION['id']."'  group by tse.correo order by idtbl_ventas limit 18");
+        }else{
+
+            echo'<a href="#" class="btn btn-success btn-block">Compradores recientes</a>';
+      echo' <ul>';
+      
+  $conexion->consulta ("select tse.correo from tbl_sales ts inner join tbl_productos as tp on  ts.tbl_productos_idtbl_productos=idtbl_productos 
+inner join tbl_user as tse on tse.idtbl_usuario=ts.tbl_usuario_idtbl_usuario where 
+tp.tbl_vendedor_idtbl_vendedor ='".$_SESSION['id']."'  group by tse.correo order by idtbl_ventas limit 18");
+        }
+        
   $i=0;
                 while($row = $conexion->extraer_registro()){
 
@@ -160,7 +229,8 @@ tbl_usuario_idtbl_usuario ='1'  group by tse.correo order by idtbl_ventas limit 
 }
 $i++;
 }
-				 ?>
+         ?>
+        
 				
 				</ul>
 			

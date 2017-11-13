@@ -5,37 +5,38 @@
                  if(isset($_SESSION['nombre'])and isset($_SESSION['tipo']) ){
              	$nombre=$_SESSION['nombre'];
              	$tipo=$_SESSION['tipo'];
+              
           echo ("<div id=tip style='display: none;'>".$tipo."</div>");
        echo ("<div id=nam style='display: none;'> ".$nombre." </div>");
        
      }else{
 
-        header("location: login.php");
+             header("location: login.php");
      }
-     require_once("conexion.php"); $conexion = new Conexion();
-  ?>
-  <!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <script src="js/jquery-2.0.3.js"></script>
-     <script src="js/bootstrap.min.js"></script>
-  <link href="css/stylemenu.css" rel="stylesheet">
-     <script src="js/funciones.js"></script>
-      <link rel="stylesheet" href="css/font-awesome.min.css">
-            <link rel="stylesheet" href="css/message.css">
-</head>
-<body>
 
+
+      require_once("conexion.php"); $conexion = new Conexion();
+      if (isset($_POST['item'])) {
+        
+      }else{
+       header("location: login.php");
+      }
+  ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title></title>
-	
+	  
+   <script src="js/jquery-2.0.3.js"></script>
+ <link rel="stylesheet" href="css/bootstrap.min.css">
+   <script src="js/funciones.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+ <link rel="stylesheet" href="css/font-awesome.min.css">
+<link href="css/stylemenu.css" rel="stylesheet">
+
 </head>
 <body>
-
+ 
 
 <div id="flipkart-navbar">
     <div class="container">
@@ -101,6 +102,7 @@
       
   
   <li class="lower-links"><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
+
   <?php  
  if(isset($_SESSION['id'])){
   $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')");  if(!$row = $conexion->extraer_registro()) {
@@ -129,167 +131,129 @@
      }
    else{echo '<a href="login.php" class="fa fa-shopping-cart" >&nbsp;<span id="cantidadcarrito" class="badge"></span></a>';}?></li>  
 </div>
-
-
-
-<div class="container" id="principal">
-<div class="row inbox">
-	<div class="col-md-3">
-		<div class="panel panel-default">
-			<div class="panel-body inbox-menu">						
-				<a href="messagepanel.php" class="btn btn-danger btn-block">Nuevo correo</a>
-				<ul>
-					<li>
-						<a href="inbox.php"><i class="fa fa-inbox"></i> Entrada <span class="label label-danger"><?php  
-    if ($_SESSION['tipo']=="user") {
-            $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario 	not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')");  if(!$row = $conexion->extraer_registro()) {
-							echo "0";
-							}else{
-								echo $row['0'];
-								}
-                }else{
-
-                   $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and   tbl_vendedor_idtbl_vendedor='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')");  if(!$row = $conexion->extraer_registro()) {
-              echo "0";
-              }else{
-                echo $row['0'];
-                }
-                }
-
-
-                 ?></span></a>
-					</li>
-					<li>
-						<a href="send.php"><i class="fa fa-rocket"></i> Enviados</a>
-					</li>
-					<li>
-						<a href="delete.php"><i class="fa fa-trash-o"></i> Borrados </a>
-					</li>
-					
-				
-				</ul>
-			</div>	
-		</div>
-		
-		<div class="panel panel-default">
-			<div class="panel-body contacts">
-        <?php 
-        if ($_SESSION['tipo']=="user") {
-      echo'<a href="#" class="btn btn-success btn-block">Vendedores recientes</a>';
-      echo' <ul>';
-      
-  $conexion->consulta ("select tse.correo from tbl_sales ts inner join tbl_productos as tp on  ts.tbl_productos_idtbl_productos=idtbl_productos 
-inner join tbl_seller as tse on tse.idtbl_vendedor=tp.tbl_vendedor_idtbl_vendedor where 
-tbl_usuario_idtbl_usuario ='".$_SESSION['id']."'  group by tse.correo order by idtbl_ventas limit 18");
-        }else{
-
-            echo'<a href="#" class="btn btn-success btn-block">Compradores recientes</a>';
-      echo' <ul>';
-      
-  $conexion->consulta ("select tse.correo from tbl_sales ts inner join tbl_productos as tp on  ts.tbl_productos_idtbl_productos=idtbl_productos 
-inner join tbl_user as tse on tse.idtbl_usuario=ts.tbl_usuario_idtbl_usuario where 
-tp.tbl_vendedor_idtbl_vendedor ='".$_SESSION['id']."'  group by tse.correo order by idtbl_ventas limit 18");
-        }
-				
-  $i=0;
-                while($row = $conexion->extraer_registro()){
-
-               switch ($i) {
-    case 0:
-        echo '<li><span class="label label-danger"></span>'.$row['0'].'</li>';
-        break;
-    case 1:
-        echo '<li><span class="label label-default"></span> '.$row['0'].'</li>';
-        break;
-    case 2:
-        echo '<li><span class="label label-success"></span> '.$row['0'].'</li>';
-        break;
-          case 3:
-        echo '<li><span class="label label-success"></span>'.$row['0'].'</li>';
-        break;
-            case 4:
-        echo '<li><span class="label label-warning"></span> '.$row['0'].'</li>';
-        break;
-        
-           case 5:
-        echo '<li><span class="label label-default"></span>'.$row['0'].'</li>';
-        $i=0;
-        break;
-
-}
-$i++;
-}
-				 ?>
-				
-				</ul>
-			
-			</div>
-		
-		</div>			
-		
-	</div><!--/.col-->
-	
-	<div class="col-md-9">
-		<div class="panel panel-default">
-			<div class="panel-body message">
-				<p class="text-center">Nuevo Mensaje</p>
-				<form class="form-horizontal" role="form" action="sendmessagenow.php" method="post">
-					<div class="form-group">
-				    	<label for="to" class="col-sm-1 control-label">Para:</label>
-				    	<div class="col-sm-11">
-              <?php      if ($_SESSION['tipo']=="user") {
-                     echo '
-                              <input type="email" class="form-control select2-offscreen" name="vendedor" placeholder="Vendedor" tabindex="-1">';
-
-                }else{
-                     echo '
-                              <input type="email" class="form-control select2-offscreen" name="vendedor" placeholder="Comprador" tabindex="-1">';
-
-                }
-                ?>
-				    	</div>
-				  	</div>
-					<div class="form-group">
-				    	<label for="cc" class="col-sm-1 control-label">Asunto:</label>
-				    	<div class="col-sm-11">
-                              <input type="text" class="form-control select2-offscreen" name="asunto" placeholder="Asunto" tabindex="-1">
-				    	</div>
-				  	</div>
-				
-				  
-				
-				
-				<div class="col-sm-11 col-sm-offset-1">
-					
-					<div class="btn-toolbar" role="toolbar">
-						
-						
-
-						
-						
-						
-						
-						
-					</div>
-					<br>	
-					
-					<div class="form-group">
-						<textarea class="form-control" id="message" name="mensaje" rows="12" placeholder="Escriba el texto aqui"></textarea>
-					</div>
-					
-					<div class="form-group">	
-
-						<button type="submit" class="btn btn-success">Enviar</button>	
-						<button class="btn btn-default"><span class="fa fa-paperclip"></span></button>
-					</div>
-				</div>	
-				</form>
-			</div>	
-		</div>	
-	</div><!--/.col-->		
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+        <div class="invoice-title">
+          <h2>Factura</h2><h3 class="pull-right">Orden # 12345</h3>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-xs-6">
+            <address>
+            <strong>Billed To:</strong><br>
+              
+              John Smith<br>
+              1234 Main<br>
+              Apt. 4B<br>
+              Springfield, ST 54321
+            </address>
+          </div>
+          <div class="col-xs-6 text-right">
+            <address>
+              <strong>Shipped To:</strong><br>
+               <?php 
+   $conexion->consulta ("SELECT  * from   tbl_shipping
+    where id_user =". $_SESSION['id']."");
+                $row = $conexion->extraer_registro();
+                   echo ''.$row['1'].' '.$row['2'].'<br>';
+                  echo' '.$row['3'].'<br>';
+                  echo ' '.$row['4'].'<br>';
+                  echo ' '.$row['5'].' '.$row['6'].''.$row['7'].', '.$row['8'].'';
+                 
+                  ?>
+              
+              
+            
+             
+            </address>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <address>
+              <strong>Metodo de pago</strong><br>
+              Visa ending **** 4242<br>
+              <?php   $conexion->consulta ("SELECT   correo from tbl_user  where idtbl_usuario=". $_SESSION['id']."");
+              $row = $conexion->extraer_registro();
+echo $row['0'];
+              ?>
+             
+            </address>
+          </div>
+          <div class="col-xs-6 text-right">
+            <address>
+              <strong>Order Date:</strong><br>
+              March 7, 2014<br><br>
+            </address>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>Order summary</strong></h3>
+          </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-condensed">
+                <thead>
+                                <tr>
+                      <td><strong>Item</strong></td>
+                      <td class="text-center"><strong>Price</strong></td>
+                      <td class="text-center"><strong>Quantity</strong></td>
+                      <td class="text-right"><strong>Totals</strong></td>
+                                </tr>
+                </thead>
+                <tbody>
+                  <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                  <tr>
+                    <td>BS-200</td>
+                    <td class="text-center">$10.99</td>
+                    <td class="text-center">1</td>
+                    <td class="text-right">$10.99</td>
+                  </tr>
+                                <tr>
+                      <td>BS-400</td>
+                    <td class="text-center">$20.00</td>
+                    <td class="text-center">3</td>
+                    <td class="text-right">$60.00</td>
+                  </tr>
+                                <tr>
+                        <td>BS-1000</td>
+                    <td class="text-center">$600.00</td>
+                    <td class="text-center">1</td>
+                    <td class="text-right">$600.00</td>
+                  </tr>
+                  <tr>
+                    <td class="thick-line"></td>
+                    <td class="thick-line"></td>
+                    <td class="thick-line text-center"><strong>Subtotal</strong></td>
+                    <td class="thick-line text-right">$670.99</td>
+                  </tr>
+                  <tr>
+                    <td class="no-line"></td>
+                    <td class="no-line"></td>
+                    <td class="no-line text-center"><strong>Shipping</strong></td>
+                    <td class="no-line text-right">$15</td>
+                  </tr>
+                  <tr>
+                    <td class="no-line"></td>
+                    <td class="no-line"></td>
+                    <td class="no-line text-center"><strong>Total</strong></td>
+                    <td class="no-line text-right">$685.99</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
-</div>
-
 
 <footer id="final">
   <div class="container">
@@ -525,5 +489,4 @@ Conflictos En caso de conflicto entre estas Condiciones de uso y cualquier otro 
 </div>
 
 </body>
-
 </html>

@@ -34,9 +34,7 @@
 <head>
 	<title></title>
 	
-   <script src="js/funciones.js"></script>
-      <script src="js/jquery.js"></script>
- <link href="css/style.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -177,12 +175,12 @@
 		
 		<div class="panel panel-default">
 			<div class="panel-body contacts">
-				
+			
 				<ul>
-				  <?php 
-        if ($_SESSION['tipo']=="user") {
+			  <?php 
+      if ($_SESSION['tipo']=="user") {
       echo'<a href="#" class="btn btn-success btn-block">Vendedores recientes</a>';
-      echo' <ul>';
+    
       
   $conexion->consulta ("select tse.correo from tbl_sales ts inner join tbl_productos as tp on  ts.tbl_productos_idtbl_productos=idtbl_productos 
 inner join tbl_seller as tse on tse.idtbl_vendedor=tp.tbl_vendedor_idtbl_vendedor where 
@@ -190,13 +188,13 @@ tbl_usuario_idtbl_usuario ='".$_SESSION['id']."'  group by tse.correo order by i
         }else{
 
             echo'<a href="#" class="btn btn-success btn-block">Compradores recientes</a>';
-      echo' <ul>';
+   
       
   $conexion->consulta ("select tse.correo from tbl_sales ts inner join tbl_productos as tp on  ts.tbl_productos_idtbl_productos=idtbl_productos 
 inner join tbl_user as tse on tse.idtbl_usuario=ts.tbl_usuario_idtbl_usuario where 
 tp.tbl_vendedor_idtbl_vendedor ='".$_SESSION['id']."'  group by tse.correo order by idtbl_ventas limit 18");
         }
-        
+          echo' <ul>';
   $i=0;
                 while($row = $conexion->extraer_registro()){
 
@@ -243,17 +241,17 @@ $i++;
 
                   <aside class="lg-side">
                       <div class="inbox-head">
-                          <h3>Entrada</h3>
-                       <form action="searchsend.php" method="POST" class="pull-right position">
+                          <h3>Borrados</h3>
+                         <form action="searchsend.php" method="POST" class="pull-right position">
                               <div class="input-append">
                                   <input type="text" class="sr-input" name="buscar" placeholder="Buscar mensaje">
-                                  <button class="btn sr-btn" name="inbox" type="submit"><i class="fa fa-search"></i></button>
+                                  <button class="btn sr-btn" name="delete" type="submit"><i class="fa fa-search"></i></button>
                               </div>
                           </form>
                       </div>
                       <div class="inbox-body">
                          <div class="mail-option">
-                           <div class="chk-all">
+                             <div class="chk-all">
                                  <input type="checkbox" class="mail-checkbox mail-group-checkbox" id="checkAll">
                                  <div class="btn-group">
                                      <a data-toggle="dropdown" href="#" class="btn mini all" aria-expanded="false">
@@ -261,13 +259,12 @@ $i++;
                                          <i class="fa fa-angle-down "></i>
                                      </a>
                                      <ul class="dropdown-menu">
-                                         <li><a id="borrar2" > Eliminar</a></li>
+                                         <li><a id="borrar" > Eliminar</a></li>
                                          <!-- <li><a href="#"> Read</a></li>
                                          <li><a href="#"> Unread</a></li> -->
                                      </ul>
                                  </div>
                              </div>
-
 
                              <div class="btn-group">
                                  <a data-original-title="Refresh" data-placement="top" data-toggle="dropdown" href="#" class="btn mini tooltips">
@@ -288,7 +285,7 @@ $i++;
                              </ul>
                          </div>
                           <table class="table table-inbox table-hover">
-                            <tbody>
+                            <tbody  id="reload">
 
                             <?php   
                             $ip = "201.191.255.109";  //$_SERVER['REMOTE_ADDR']
@@ -298,29 +295,17 @@ $timezone = $ipInfo->timezone;
 date_default_timezone_set($timezone);
 
 
-                              $conexion->consulta ("CALL cargarmensajes('".$_SESSION['id']."','".$_SESSION['tipo']."')");
+                              $conexion->consulta ("CALL cargarborrados('".$_SESSION['id']."','".$_SESSION['tipo']."')");
                 while($row = $conexion->extraer_registro()){
                
 
 
  $date=date_create($row['3']);
  if (date_format($date, 'Y/m/d') ==date('Y/m/d')) {
- 	if($row['2']=='no leido'){
-                        echo '<tr class="unread leer" id="leer" data-id="'.$row['4'].'">
-                                  <td class="inbox-small-cells">
-                                      <input type="checkbox" class="mail-checkbox" data-id="'.$row['4'].'">
-                                  </td>
-                                  <td class="inbox-small-cells"></td>
-                                  <td class="view-message  dont-show">'.$row['0'].'</td>
-                                  <td class="view-message ">'.$row['1'].'</td>
-                                  <td class="view-message  inbox-small-cells"><i class="fa fa-paperclip"></i></td>
-                                  <td class="view-message  text-right">'.date_format($date, 'g:i A').'</td>
-                              </tr>';
 
-                	}else{
-                              echo '<tr class="leer" id="leer" data-id="'.$row['4'].'">
+                              echo '<tr class="items" id="enviado" data-id="'.$row['4'].'">
                                   <td class="inbox-small-cells">
-                                      <input type="checkbox" class="mail-checkbox" data-id="'.$row['4'].'">
+                                      <input type="checkbox"   class="mail-checkbox" data-id="'.$row['4'].'">
                                   </td>
                                   <td class="inbox-small-cells"></td>
                                   <td class="view-message  dont-show">'.$row['0'].'</td>
@@ -329,25 +314,13 @@ date_default_timezone_set($timezone);
                                   <td class="view-message  text-right">'. date_format($date, 'g:i A').'</td>
                               </tr>';
 
-                	}
+                	
  	
  }else{
- 	if($row['2']=='no leido'){
-                        echo '<tr class="unread leer" id="leer" data-id="'.$row['4'].'">
-                                  <td class="inbox-small-cells">
-                                      <input type="checkbox" class="mail-checkbox" data-id="'.$row['4'].'">
-                                  </td>
-                                  <td class="inbox-small-cells"></td>
-                                  <td class="view-message  dont-show">'.$row['0'].'</td>
-                                  <td class="view-message ">'.$row['1'].'</td>
-                                  <td class="view-message  inbox-small-cells"><i class="fa fa-paperclip"></i></td>
-                                  <td class="view-message  text-right">'.date_format($date, 'd/m/y').'</td>
-                              </tr>';
 
-                	}else{
-                              echo '<tr class="leer" id="leer" data-id="'.$row['4'].'"  >
+                              echo '<tr class="items" id="enviado" data-id="'.$row['4'].'">
                                   <td class="inbox-small-cells">
-                                      <input type="checkbox" class="mail-checkbox"data-id="'.$row['4'].'">
+                                      <input type="checkbox"  class="mail-checkbox" data-id="'.$row['4'].'">
                                   </td>
                                   <td class="inbox-small-cells"></td>
                                   <td class="view-message  dont-show">'.$row['0'].'</td>
@@ -356,7 +329,7 @@ date_default_timezone_set($timezone);
                                   <td class="view-message  text-right">'. date_format($date, 'd/m/y').'</td>
                               </tr>';
 
-                	}
+                	
 
  }
 //date_default_timezone_set('America/Los_Angeles');

@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-11-2017 a las 19:29:58
--- Versión del servidor: 10.1.16-MariaDB
--- Versión de PHP: 5.6.24
+-- Tiempo de generación: 13-11-2017 a las 20:27:32
+-- Versión del servidor: 10.1.10-MariaDB
+-- Versión de PHP: 7.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -52,8 +52,114 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Actualizarvendedortexto` (`id` INT,
 UPDATE tbl_seller SET nombre=nom, nombre_usuario=nombreuser,password=pass,correo=email,cedula_juridica=ced,telefono=tel WHERE idtbl_vendedor=id;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `buscargarmensajesentrada` (`id` INT, `tipo` VARCHAR(20), `correodata` VARCHAR(20))  BEGIN
+if tipo='user' then
+select correo,Cc, tm.estado, fecha, idtbl_message from tbl_message as 
+tm inner join tbl_seller on idtbl_vendedor=tbl_vendedor_idtbl_vendedor 
+where tbl_user_idtbl_usuario=id and tipo_usuario=tipo and tm.estado 
+not in(select estado from tbl_message  where estado='borrado'  ) 
+and correo LIKE  concat(correodata,'%') order by fecha desc ;
+
+   ELSE
+     select correo,Cc, tm.estado, fecha, idtbl_message from tbl_message as tm 
+     inner join tbl_user on idtbl_usuario=tbl_user_idtbl_usuario
+     where tbl_vendedor_idtbl_vendedor=id and tipo_usuario=tipo and tm.estado 
+not in(select estado from tbl_message  where estado='borrado'  ) and correo LIKE  concat(correodata,'%') order by fecha desc;
+
+   END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `buscarmensajes` (`id` INT, `tipo` VARCHAR(20), `correodata` VARCHAR(20))  BEGIN
+if tipo='user' then
+select correo,Cc, tm.estado, fecha, idtbl_message from tbl_message as tm inner join tbl_seller on idtbl_vendedor=tbl_vendedor_idtbl_vendedor where tbl_user_idtbl_usuario=id and tipo_usuario 	
+not in(SELECT tipo_usuario from tbl_message where  tipo_usuario=tipo) and tm.estado 
+not in(select estado from tbl_message  where estado='borrado'  ) and correo LIKE  concat(correodata,'%') order by fecha desc ;
+
+   ELSE
+     select correo,Cc, tm.estado, fecha, idtbl_message from tbl_message as tm
+     inner join tbl_user on idtbl_usuario=tbl_user_idtbl_usuario 
+     where tbl_vendedor_idtbl_vendedor=id and  tipo_usuario 	
+     not in(SELECT tipo_usuario from tbl_message where  tipo_usuario=tipo) and tm.estado 
+not in(select estado from tbl_message  where estado='borrado'  ) and correo LIKE  concat(correodata,'%') order by fecha desc;
+
+   END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `buscarmensajesborrados` (`id` INT, `tipo` VARCHAR(20), `correodata` VARCHAR(20))  BEGIN
+if tipo='user' then
+select correo,Cc, tm.estado, fecha, idtbl_message from tbl_message as tm inner join tbl_seller on idtbl_vendedor=tbl_vendedor_idtbl_vendedor where tbl_user_idtbl_usuario=id and tipo_usuario 	
+not in(SELECT tipo_usuario from tbl_message where  tipo_usuario=tipo)
+ and tm.estado ='borrado'  and correo LIKE  concat(correodata,'%')   order by fecha desc ;
+
+   ELSE
+     select correo,Cc, tm.estado, fecha, idtbl_message from tbl_message as tm
+     inner join tbl_user on idtbl_usuario=tbl_user_idtbl_usuario 
+     where tbl_vendedor_idtbl_vendedor=id and  tipo_usuario 	
+     not in(SELECT tipo_usuario from tbl_message where  tipo_usuario=tipo) and tm.estado ='borrado'  
+     and correo LIKE  concat(correodata,'%') order by fecha desc;
+
+   END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cargarborrados` (`id` INT, `tipo` VARCHAR(20))  BEGIN
+if tipo='user' then
+select correo,Cc, tm.estado, fecha, idtbl_message from tbl_message as tm inner join tbl_seller on idtbl_vendedor=tbl_vendedor_idtbl_vendedor where tbl_user_idtbl_usuario=id and tipo_usuario 	
+not in(SELECT tipo_usuario from tbl_message where  tipo_usuario=tipo) and tm.estado ='borrado'    order by fecha desc ;
+
+   ELSE
+     select correo,Cc, tm.estado, fecha, idtbl_message from tbl_message as tm
+     inner join tbl_user on idtbl_usuario=tbl_user_idtbl_usuario 
+     where tbl_vendedor_idtbl_vendedor=id and  tipo_usuario 	
+     not in(SELECT tipo_usuario from tbl_message where  tipo_usuario=tipo) and tm.estado ='borrado'  order by fecha desc;
+
+   END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cargarmensajes` (`id` INT, `tipo` VARCHAR(20))  BEGIN
+if tipo='user' then
+select correo,Cc, tm.estado, fecha, idtbl_message from tbl_message as tm inner join tbl_seller on idtbl_vendedor=tbl_vendedor_idtbl_vendedor where tbl_user_idtbl_usuario=id and tipo_usuario 	
+not in(SELECT tipo_usuario from tbl_message where  tipo_usuario=tipo) and tm.estado 
+not in(select estado from tbl_message  where estado='borrado'  )  order by fecha desc ;
+
+   ELSE
+     select correo,Cc, tm.estado, fecha, idtbl_message from tbl_message as tm
+     inner join tbl_user on idtbl_usuario=tbl_user_idtbl_usuario 
+     where tbl_vendedor_idtbl_vendedor=id and  tipo_usuario 	
+     not in(SELECT tipo_usuario from tbl_message where  tipo_usuario=tipo) and tm.estado 
+not in(select estado from tbl_message  where estado='borrado'  ) order by fecha desc;
+
+   END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cargarmensajesdeentrada` (`id` INT, `tipo` VARCHAR(20))  BEGIN
+if tipo='user' then
+select correo,Cc, tm.estado, fecha, idtbl_message from tbl_message as 
+tm inner join tbl_seller on idtbl_vendedor=tbl_vendedor_idtbl_vendedor 
+where tbl_user_idtbl_usuario=id and tipo_usuario=tipo and tm.estado 
+not in(select estado from tbl_message  where estado='borrado'  )  order by fecha desc ;
+
+   ELSE
+     select correo,Cc, tm.estado, fecha, idtbl_message from tbl_message as tm 
+     inner join tbl_user on idtbl_usuario=tbl_user_idtbl_usuario
+     where tbl_vendedor_idtbl_vendedor=id and tipo_usuario=tipo and tm.estado 
+not in(select estado from tbl_message  where estado='borrado'  ) order by fecha desc;
+
+   END IF;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `EnviarMensajeAdmi` (`msg` VARCHAR(320), `email` VARCHAR(50))  BEGIN
  INSERT INTO tbl_message_manager(mensaje,correo,id_tbl_manager) VALUES(msg,email,'2');
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Enviarmensajeusuarios` (`user` VARCHAR(30), `vendedor` VARCHAR(30), `asunto` VARCHAR(30), `mensaje` VARCHAR(200), `tipo` VARCHAR(20))  BEGIN
+if tipo='user' then
+set @idvendedor=(select idtbl_vendedor from tbl_seller where correo=vendedor);
+ INSERT INTO tbl_message(tbl_user_idtbl_usuario,tbl_vendedor_idtbl_vendedor,message,Cc,estado,tipo_usuario,fecha) VALUES(user,@idvendedor,mensaje,asunto,'no leido',tipo,now());
+else
+set @iduser=(select idtbl_usuario from tbl_user   where correo=user);
+ INSERT INTO tbl_message(tbl_user_idtbl_usuario,tbl_vendedor_idtbl_vendedor,message,Cc,estado,tipo_usuario,fecha) VALUES(@iduser,vendedor,mensaje,asunto,'no leido',tipo,now());
+end if;
+
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar` (IN `idvendedor` INT, IN `idsubcategoria` INT, IN `pesos` VARCHAR(5), IN `colores` VARCHAR(20), IN `anchos` VARCHAR(10), IN `alturas` VARCHAR(10), IN `estados` VARCHAR(20), IN `precio_envios` INT(15), IN `cantidades` INT(10), IN `tamas` VARCHAR(10), IN `precios` INT(15), IN `titulos` VARCHAR(100), IN `garantias` VARCHAR(20), IN `descripciones` VARCHAR(500))  BEGIN
@@ -64,8 +170,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar` (IN `idvendedor` INT, IN 
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertshipping` (IN `nam` VARCHAR(20), IN `lastnam` VARCHAR(20), IN `address1` VARCHAR(50), IN `address2` VARCHAR(50), IN `provinces` VARCHAR(20), IN `cantones` VARCHAR(20), IN `districts` VARCHAR(20), IN `zips` INT, IN `coun` VARCHAR(20), IN `id` INT)  BEGIN
- INSERT INTO tbl_shipping(name,last_name,firts_adress,second_adress,province,canton,district,zip,country,id_user) VALUES(nam,lastnam,address1,address2,provinces,cantones,districts,zips,coun,id);
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertshipping` (`nam` VARCHAR(20), `lastnam` VARCHAR(20), `address1` VARCHAR(50), `address2` VARCHAR(50), `provinces` VARCHAR(20), `cantones` VARCHAR(20), `districts` VARCHAR(20), `zips` INT, `coun` VARCHAR(20), `id` INT)  BEGIN
+ INSERT INTO tbl_shipping(id_tblshipping,name,last_name,firts_adress,second_adress,province,canton,district,zip,country,id_user) VALUES('',nam,lastnam,address1,address2,provinces,cantones,districts,zips,coun,id);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `readmessage` (`id` INT)  BEGIN
+select message,Cc,correo,fecha from tbl_message inner join tbl_seller on idtbl_vendedor=tbl_vendedor_idtbl_vendedor where idtbl_message=id;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `search` (`word` VARCHAR(25))  BEGIN
@@ -118,9 +228,9 @@ CREATE TABLE `tbl_cart` (
 --
 
 INSERT INTO `tbl_cart` (`id_cart`, `id_product`, `quantity`, `id_user`) VALUES
-(10, 1, '10', 1),
-(12, 13, '5', 1),
-(13, 18, '1', 3);
+(10, 1, '15', 1),
+(11, 1, '6', 4),
+(12, 13, '5', 1);
 
 -- --------------------------------------------------------
 
@@ -192,8 +302,34 @@ CREATE TABLE `tbl_message` (
   `idtbl_message` int(11) NOT NULL,
   `tbl_user_idtbl_usuario` int(11) NOT NULL,
   `tbl_vendedor_idtbl_vendedor` int(11) NOT NULL,
-  `message` varchar(45) DEFAULT NULL
+  `message` varchar(45) DEFAULT NULL,
+  `Cc` varchar(30) NOT NULL,
+  `estado` varchar(15) NOT NULL,
+  `tipo_usuario` varchar(20) NOT NULL,
+  `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tbl_message`
+--
+
+INSERT INTO `tbl_message` (`idtbl_message`, `tbl_user_idtbl_usuario`, `tbl_vendedor_idtbl_vendedor`, `message`, `Cc`, `estado`, `tipo_usuario`, `fecha`) VALUES
+(4, 1, 4, 'll', 'Envio de documentos', 'borrado', 'user', '2017-11-11 00:00:00'),
+(5, 1, 4, 'articulo en mal estado', 'si', 'borrado', 'user', '2017-11-08 00:00:00'),
+(6, 1, 4, 'articulo en mal estado', 'si', 'borrado', 'administrador', '2017-11-09 00:00:00'),
+(7, 1, 4, 'si claro', 'el articulo no pertenece', 'borrado', 'user', '2017-11-11 00:29:58'),
+(8, 1, 4, 'df', 'f', 'borrado', 'user', '2017-11-11 00:53:41'),
+(9, 1, 4, 'quiero saber si me pueden enviar la factura', 'smart tv', 'no leido', 'user', '2017-11-12 23:50:25'),
+(10, 1, 4, 'sdsd', 'dz', 'borrado', 'administrador', '2017-11-13 00:06:16'),
+(11, 3, 4, 'ds', 'cz', 'no leido', 'administrador', '2017-11-13 00:16:07'),
+(12, 3, 4, 'sdsd', 'cz', 'no leido', 'administrador', '2017-11-13 00:16:25'),
+(13, 3, 4, 'sdsd', 'cz', 'no leido', 'administrador', '2017-11-13 00:17:21'),
+(14, 3, 4, 'sds', 'sd', 'no leido', 'administrador', '2017-11-13 00:17:43'),
+(15, 3, 4, 'df', 'df', 'no leido', 'administrador', '2017-11-13 00:18:11'),
+(16, 1, 4, 'df', 'df', 'borrado', 'administrador', '2017-11-13 00:25:16'),
+(17, 1, 4, 'df', 'fds', 'borrado', 'administrador', '2017-11-13 00:25:30'),
+(18, 1, 4, 'me alegro por su compra', 'smart', 'no leido', 'administrador', '2017-11-13 00:26:56'),
+(19, 1, 4, 'me alegro por su compra', 'smart', 'leido', 'administrador', '2017-11-13 00:28:00');
 
 -- --------------------------------------------------------
 
@@ -207,6 +343,13 @@ CREATE TABLE `tbl_message_manager` (
   `correo` varchar(50) NOT NULL,
   `id_tbl_manager` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tbl_message_manager`
+--
+
+INSERT INTO `tbl_message_manager` (`id_tbl_message_maneger`, `mensaje`, `correo`, `id_tbl_manager`) VALUES
+(1, 'si', 'yoel1202@hotmail.com', 2);
 
 -- --------------------------------------------------------
 
@@ -242,14 +385,12 @@ CREATE TABLE `tbl_photo` (
 --
 
 INSERT INTO `tbl_photo` (`idtbl_photo`, `picture_code`, `tbl_productos_idtbl_productos`) VALUES
-(0, 'img/productos/vfcon0798601.jpg', 18),
 (1, 'http://www.evisionstore.com/catalogo/samsung_wa14f5l2udy.jpg', 1),
 (2, 'https://www.tiendamonge.com/content/images/thumbs/0021337_lg-lavadora-automatica-16kg.jpg', 1),
 (3, 'https://www.calidadtelstar.com/contenido/wp-content/uploads/2016/06/TLA012510MD.jpg', 1),
-(10, 'https://famsa_imagenes2.storage.googleapis.com/473931024WMC1786SXCG.GRI.jpg', 1),
-(11, 'img/productos/comparison-phones-s80.jpg', 18),
-(12, 'img/productos/15220006_1287216378006343_5008424892848480740_n1.jpg', 18),
-(13, 'img/productos/12670292_101324590256825_133399599940571132_n0.jpg', 18);
+(7, ' img/productos/smarttv.jpg', 13),
+(8, ' img/productos/Screenshot (81)0.png', 15),
+(9, ' img/productos/Screenshot (1)0.png', 17);
 
 -- --------------------------------------------------------
 
@@ -280,10 +421,12 @@ CREATE TABLE `tbl_productos` (
 --
 
 INSERT INTO `tbl_productos` (`idtbl_productos`, `tbl_vendedor_idtbl_vendedor`, `tbl_subcategorias_idtbl_subcategorias`, `Peso`, `color`, `ancho`, `altura`, `estado`, `price_shipping`, `cantidad`, `tama`, `precio`, `titulo`, `garantia`, `descripcion`) VALUES
-(1, 4, 2, '100', 'Blanca nieve', '50', '75', 'activo', '250', 25, '0', 100000, 'Lavadora automatica', '24 meses', 'Ultima generacion de lavadoras.'),
-(18, 4, 1, '140', 'Negro', '10', '20', 'activo', '0', 10, '118', 250000, 'Samsung Galaxy S8', '12 meses', 'El Galaxy S8 tiene la pantalla más grande de cualquiera de nuestros teléfonos a la fecha en una pantalla Infinity redondeada continua, que mejora la función multiventana de nuestros teléfonos anteriores y provee una experiencia inmersiva y cinemática.\n'),
-(19, 4, 1, '', '', '', '', 'activo', '0', 0, '', 0, '', '', ''),
-(20, 4, 1, '', '', '', '', 'activo', '0', 0, '', 0, '', '', '');
+(1, 4, 2, '100', 'Blanco', '50', '75', 'activo', '250', 250, '0', 100000, 'Lavadora automatica', '24 meses', 'Ultima generacion de lavadoras.'),
+(13, 4, 1, '1', '1', '1', '1', 'activo', '0', 1, '1', 1, 'Smart TV', '1', '1'),
+(14, 4, 1, '1', '1', '1', '1', 'activo', '0', 11, '1', 1, '1', '1', '1'),
+(15, 4, 1, '1', '1', '1', '1', 'activo', '0', 11, '1', 1, '1', '1', '1'),
+(16, 4, 1, '100', 'Blanco', '50', '75', 'activo', '250', 250, '0', 100000, 'Lavadora automatica', '24 meses', 'Ultima generacion de lavadoras.'),
+(17, 4, 1, '100', 'Blanco', '50', '75', 'activo', '250', 250, '0', 100000, 'Lavadora automatica', '24 meses', 'Ultima generacion de lavadoras.');
 
 -- --------------------------------------------------------
 
@@ -333,15 +476,18 @@ CREATE TABLE `tbl_sales` (
   `tbl_usuario_idtbl_usuario` int(11) NOT NULL,
   `tbl_productos_idtbl_productos` int(11) NOT NULL,
   `id_tblshipping` int(11) NOT NULL,
-  `cantidad` int(11) NOT NULL
+  `cantidad` int(11) NOT NULL,
+  `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_sales`
 --
 
-INSERT INTO `tbl_sales` (`idtbl_ventas`, `tbl_usuario_idtbl_usuario`, `tbl_productos_idtbl_productos`, `id_tblshipping`, `cantidad`) VALUES
-(2, 1, 1, 8, 0);
+INSERT INTO `tbl_sales` (`idtbl_ventas`, `tbl_usuario_idtbl_usuario`, `tbl_productos_idtbl_productos`, `id_tblshipping`, `cantidad`, `fecha`) VALUES
+(2, 1, 1, 8, 0, '2017-11-01 00:00:00'),
+(3, 1, 13, 8, 2, '2017-11-15 00:00:00'),
+(6, 1, 15, 8, 2, '2017-11-22 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -360,12 +506,9 @@ CREATE TABLE `tbl_see` (
 --
 
 INSERT INTO `tbl_see` (`id_tbl_see`, `visitas`, `id_tbl_productos`) VALUES
-(1, 34, 1),
+(1, 29, 1),
 (3, 13, 13),
-(4, 51, 17),
-(5, 2, 14),
-(6, 20, 15),
-(7, 12, 18);
+(4, 1, 15);
 
 -- --------------------------------------------------------
 
@@ -391,7 +534,7 @@ CREATE TABLE `tbl_seller` (
 --
 
 INSERT INTO `tbl_seller` (`idtbl_vendedor`, `tbl_contract_idtbl_contract`, `nombre`, `nombre_usuario`, `password`, `correo`, `cedula_juridica`, `estado`, `foto`, `telefono`) VALUES
-(4, 1, 'Gollo', 'gollo1', 'gollo1', 'gollo@', 123456789, 'activo', 'img/Vendedor/Logo-Gollo-300x2530.jpg', 84915419);
+(4, 1, 'Gollo', 'gollo1', 'gollo1', 'gollo@gollo.com', 123456789, 'activo', 'ld', 84915419);
 
 --
 -- Disparadores `tbl_seller`
@@ -428,8 +571,8 @@ CREATE TABLE `tbl_shipping` (
 --
 
 INSERT INTO `tbl_shipping` (`id_tblshipping`, `name`, `last_name`, `firts_adress`, `second_adress`, `province`, `canton`, `district`, `zip`, `country`, `id_user`) VALUES
-(0, 'Steven', 'Orozco', '', '', '', '', '', 0, '', 3),
-(9, 'Yoel', '', '', '', 'Puntarenas', '', '', 0, '', 1);
+(8, 'yoel', 'cerdas', '200 metros norte', 'casa color roja entrada al fondo de', 'puntarenas', 'osa', 'ciudad cortes', 60501, 'costa rica', 1),
+(10, 'gollo', 'mas gallos', 'palamar', 'palamar', 'puntarenas', 'osa', 'nose', 52014, 'costa rica', 4);
 
 -- --------------------------------------------------------
 
@@ -476,9 +619,8 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`idtbl_usuario`, `nombre_usuario`, `nombre`, `cedula`, `correo`, `password`, `telefono`, `foto`, `estado`, `tbl_contract_idtbl_contract`) VALUES
-(1, 'yoel1202', 'yoel cerdas', 604140385, 'yoel1202@hotmail.com', '1', 87109682, 'img/Usuario/profile111.jpeg', '1', 1),
-(2, 'yoe', 'yoe', 604140385, 'yoel120294@gmail.com', '123', 87109682, '1', 'img/Usuari', 1),
-(3, 'steven1', 'Steven', 604250344, 'steven10795@gmail.co', '1', 62567388, 'img/Usuario/15220006_1287216378006343_5008424892848480740_n0.jpg', 'img/Usuari', 1);
+(1, 'yoel', 'yoel cerdas', 604140385, 'yoel1202@hotmail.com', '1', 87109682, 'img/Usuario/profile111.jpeg', '1', 1),
+(3, 'steven1', 'steven', 6542889, 'steven@gmail.com', '1', 12029994, 'no tiene', 'casado', 1);
 
 --
 -- Índices para tablas volcadas
@@ -624,7 +766,7 @@ ALTER TABLE `tbl_agreement`
 -- AUTO_INCREMENT de la tabla `tbl_cart`
 --
 ALTER TABLE `tbl_cart`
-  MODIFY `id_cart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_cart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `tbl_categories`
 --
@@ -644,12 +786,12 @@ ALTER TABLE `tbl_manager`
 -- AUTO_INCREMENT de la tabla `tbl_message`
 --
 ALTER TABLE `tbl_message`
-  MODIFY `idtbl_message` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idtbl_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT de la tabla `tbl_message_manager`
 --
 ALTER TABLE `tbl_message_manager`
-  MODIFY `id_tbl_message_maneger` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tbl_message_maneger` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `tbl_page`
 --
@@ -659,12 +801,12 @@ ALTER TABLE `tbl_page`
 -- AUTO_INCREMENT de la tabla `tbl_photo`
 --
 ALTER TABLE `tbl_photo`
-  MODIFY `idtbl_photo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idtbl_photo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `tbl_productos`
 --
 ALTER TABLE `tbl_productos`
-  MODIFY `idtbl_productos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `idtbl_productos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT de la tabla `tbl_ranking`
 --
@@ -679,12 +821,12 @@ ALTER TABLE `tbl_record_seller`
 -- AUTO_INCREMENT de la tabla `tbl_sales`
 --
 ALTER TABLE `tbl_sales`
-  MODIFY `idtbl_ventas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idtbl_ventas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `tbl_see`
 --
 ALTER TABLE `tbl_see`
-  MODIFY `id_tbl_see` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_tbl_see` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `tbl_seller`
 --
@@ -694,7 +836,7 @@ ALTER TABLE `tbl_seller`
 -- AUTO_INCREMENT de la tabla `tbl_shipping`
 --
 ALTER TABLE `tbl_shipping`
-  MODIFY `id_tblshipping` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_tblshipping` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `tbl_subcategories`
 --
