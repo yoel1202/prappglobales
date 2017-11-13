@@ -47,7 +47,7 @@
 
 	<div class="col-md-1 " id="logotipo"  >
 
-	  <a  class="navbar-brand" href="index.php"><img  src="img/logo/logo.png" height="90" width="120" style="margin-top:-30px; margin-left: -80px;"></a>
+	  <a  class="navbar-brand" href="index.php"><img  src="img/logo/logo.png" height="80" width="120" style="margin-top:-13px; margin-left: -90px;"></a>
 </div>
 
 <div class="col-md-6 " id="buscador">
@@ -97,7 +97,7 @@
 
 
  <div class="container " id="principal">
-<img id="baner" src="whatcher.png" class="img-responsive" alt="Cinque Terre" height: "500px" style="
+<img id="baner" src="whatcher.png" class="img-responsive" alt="Cinque Terre" height: "500px" style="margin-left: center;
 margin-top: -24px;">
     
          

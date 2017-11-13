@@ -46,7 +46,7 @@
           <div class="row" >
           	<div class="col-md-1 " id="logo" >
 
-        <a  class="navbar-brand" href="index.php"><img  src="img/logo/logo.png" height="80" width="120" style="margin-top:-23px; margin-left: -30px;"></a>
+        <a  class="navbar-brand" href="index.php"><img  src="img/logo/logo.png" height="80" width="120" style="margin-top:-13px; margin-left: -90px;"></a>
 </div>
 
 
@@ -66,7 +66,7 @@
 
                         <div class="col-md-1  " id="cb">
                                        <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="margin-top:13px;">
     Categorias
     <span class="caret"></span>
   </button>

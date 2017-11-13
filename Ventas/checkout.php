@@ -47,7 +47,7 @@
 
   <div class="col-md-1 " id="logotipo"  >
 
-      <a  class="navbar-brand" href="index.php"><img  src="img/logo/logo.png" height="80" width="120" style="margin-top:-23px; margin-left: -30px;"></a>
+      <a  class="navbar-brand" href="index.php"><img  src="img/logo/logo.png" height="80" width="120" style="margin-top:-13px; margin-left: -90px;"></a>
 </div>
 
 <div class="col-md-6 " id="buscador">

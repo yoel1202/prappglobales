@@ -45,7 +45,7 @@
 
   <div class="col-md-1 " id="logotipo"  >
 
-        <a  class="navbar-brand" href="index.php"><img  src="img/logo/logo.png" height="80" width="120" style="margin-top:-23px; margin-left: -30px;"></a>
+        <a  class="navbar-brand" href="index.php"><img  src="img/logo/logo.png" height="80" width="120" style="margin-top:-13px; margin-left: -90px;"></a>
 </div>
 
 <div class="col-md-6 " id="buscador">
@@ -207,7 +207,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">Cedula Juridica:</label>
+          <label class="col-lg-3 control-label">Cédula Juridica:</label>
           <div class="col-lg-8">
             <input class="form-control" name="cedula" value="'.$row['2'].'" type="text">
           </div>
@@ -220,19 +220,19 @@
         </div>
 
            <div class="form-group">
-          <label class="col-lg-3 control-label">Telefono:</label>
+          <label class="col-lg-3 control-label">Teléfono:</label>
           <div class="col-lg-8">
             <input class="form-control" name="telefono" value="'.$row['5'].'" type="text">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-3 control-label">Contraeña:</label>
+          <label class="col-md-3 control-label">Contraseña:</label>
           <div class="col-md-8">
             <input class="form-control" name="pass" value="'.$row['4'].'" type="password">
           </div>
         </div>  
         <div class="form-group">
-          <label class="col-md-3 control-label">Confirmar Contraña:</label>
+          <label class="col-md-3 control-label">Confirmar Contraseña:</label>
           <div class="col-md-8">
             <input class="form-control" value="'.$row['4'].'" type="password">
           </div>
@@ -286,12 +286,12 @@
                 </div>
                 
                                 <div class="form-group">
-                    <label for="AddressLine1">Primera direccion </label>
-                    <input type="text" class="form-control" id="AddressLine1" placeholder="Primera Direccion" required="" >
+                    <label for="AddressLine1">Primera dirección </label>
+                    <input type="text" class="form-control" id="AddressLine1" placeholder="Primera Dirección" required="" >
                 </div>
                 <div class="form-group">
-                    <label for="Address Line 1">Segunda direccion 2</label>
-                    <input type="text" class="form-control" id="AddressLine2" placeholder="Segunda Direccion" required="" >
+                    <label for="Address Line 1">Segunda dirección</label>
+                    <input type="text" class="form-control" id="AddressLine2" placeholder="Segunda Dirección" required="" >
                 </div>
                 
             
@@ -302,7 +302,7 @@
                     <input type="text" class="form-control" id="city" placeholder="Provincia" required="" >
                 </div>
                 <div class="form-group">
-                    <label for="State">Canton</label>
+                    <label for="State">Cantón</label>
                     <input type="text" class="form-control" id="state" placeholder="Canton" required="" >
                 </div>   <div class="form-group">
 
@@ -312,11 +312,11 @@
 
                 
                  <div class="form-group">
-                    <label for="zip">Zip / Codigo Postal</label>
+                    <label for="zip">Zip / Código Postal</label>
                     <input type="text" class="form-control" id="zip" placeholder="Codigo Postal" required="" >
                 </div>
                 <div class="form-group">
-                <label for="pais">Pais</label>
+                <label for="pais">País</label>
                     <input type="text" class="form-control" id="country" placeholder="pais" required="" >
                 </div> 
                     <div class="col-md-12">
