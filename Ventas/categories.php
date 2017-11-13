@@ -1,7 +1,7 @@
 <?php
              
   session_start();
-
+require_once("conexion.php"); $conexion = new Conexion();
                  if(isset($_SESSION['nombre'])and isset($_SESSION['tipo']) ){
                 $nombre=$_SESSION['nombre'];
                   $tipo=$_SESSION['tipo'];
