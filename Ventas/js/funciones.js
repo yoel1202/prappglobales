@@ -2,16 +2,38 @@
 $('#find').click(function() {
   search();
   });
+
+$('#borrar').click(function() {
+ deleteemail("items");
+  });
+$('#borrar2').click(function() {
+ deleteemail('leer');
+  });
+   
+$("#checkAll").click(function(){
+    $('input:checkbox').not(this).prop('checked', this.checked);
+});
+
 $('.leer').click(function() {
+    if ($('input').is(':checked')) { 
  
-   window.location="read.php?mensaje="+ $(this).attr("data-id")+"";
+   
+     } else {
+      window.location="read.php?mensaje="+ $(this).attr("data-id")+"";
+    }
   });
 
 
 
 $('.items').click(function() {
- 
-   window.location="sendread.php?mensaje="+ $(this).attr("data-id")+"";
+  if ($('input').is(':checked')) { 
+
+   
+  } else {
+     window.location="sendread.php?mensaje="+ $(this).attr("data-id")+"";
+    
+  }
+  
   });
 
 
@@ -38,6 +60,32 @@ $.ajax({
    
    
 });
+
+ function  deleteemail(item){
+
+  $('.'+item+' input:checked').each(function() {
+$.ajax({
+    type: 'POST',
+    url: 'database.php',
+    data: {key: 'deleteemail',data:$(this).attr("data-id")}
+
+  }).done(function ( data ) {
+
+      if (data.trim()=="se ha  efectuado correctamente") {
+        if (item=="items") {
+          window.location="send.php";
+        }else{
+
+           window.location="inbox.php";
+        }
+              
+      }
+  }).fail(function (jqXHR, textStatus, errorThrown){
+   
+  })
+});
+}
+
  function openNav() {
     document.getElementById("mySidenav").style.width = "70%";
     // document.getElementById("flipkart-navbar").style.width = "50%";
@@ -152,6 +200,7 @@ function editprofile(){
     $('#nam').html('');
     $('#log').closest('li').remove(); 
     $('#inicio').append(" <li class='upper-links' id=close ><a href=# class='fa fa-sign-out'></a></li>");
+      $('#mySidenav').append(" <li class='lower-links' id=close ><a href=# class='fa fa-sign-out'></a></li>");
    }else{
     $('#nom').html("");
 
