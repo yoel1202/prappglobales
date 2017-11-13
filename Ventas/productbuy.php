@@ -187,7 +187,7 @@ tbl_usuario_idtbl_usuario ='". $_SESSION['id']."'");
         <div class="panel-body">
 
         <?php 
-   $conexion->consulta ("select  titulo, precio, ts.cantidad, descripcion,picture_code from tbl_sales ts inner join tbl_productos  on  ts.tbl_productos_idtbl_productos=idtbl_productos
+   $conexion->consulta ("select  titulo, precio, ts.cantidad, descripcion,picture_code,idtbl_productos from tbl_sales ts inner join tbl_productos  on  ts.tbl_productos_idtbl_productos=idtbl_productos
  inner join tbl_user on tbl_usuario_idtbl_usuario='". $_SESSION['id']."' inner join tbl_photo tph on tph.tbl_productos_idtbl_productos=idtbl_productos group by idtbl_productos");
                 while($row = $conexion->extraer_registro()){ 
         echo '  <div class="row">
@@ -204,9 +204,8 @@ tbl_usuario_idtbl_usuario ='". $_SESSION['id']."'");
               <h6><strong>'.$row['2'].'<span class="text-muted"></span></strong></h6>
               </div>
               <div class="col-xs-2">
-                <button type="button" class="btn btn-link btn-xs">
-                 
-                </button>
+              <a href="invoice.php?item='.$row['5'].'" class="btn btn-link btn-xs">   <span class="fa fa-file-text-o"> </span></a> 
+                
               </div>
             </div>
           </div>
@@ -216,7 +215,7 @@ tbl_usuario_idtbl_usuario ='". $_SESSION['id']."'");
           <hr>
       
         </div>
-       
+      
       </div>
     </div>
   </div>
