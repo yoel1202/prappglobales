@@ -13,7 +13,6 @@ margin-top: -24px;
 }
 #nom{
     height: 12px;
-    
 }
 .btn span.glyphicon {               
     opacity: 0;             
@@ -69,7 +68,7 @@ footer {  min-height:350px; font-family: 'Open Sans', sans-serif;
  a {
     color: #fafafa;
     text-decoration: none;
-    
+    margin: 7px;
 }
 .controls .glyphicon.active {
     font-size: 3em;

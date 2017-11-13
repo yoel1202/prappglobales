@@ -27,45 +27,17 @@
 <link href="css/profile.css" rel="stylesheet">
 </head>
 <body>
- <div id="flipkart-navbar">
+ 
+<div id="flipkart-navbar">
     <div class="container">
         <div class="row row1">
           <br>
         </div>
         <div class="row row2">
             <div class="col-sm-2">
-                <h2 style="margin:0px;"><span class="smallnav menu" onclick="openNav()">☰ Brand</span></h2>
+                <h2 style="margin:0px;"><span class="smallnav menu" onclick="openNav()">☰ Watcher</span></h2>
                 <h1 style="margin:0px;"><span class="largenav"> <a   href="index.php"><img  src="img/logo/logo.png" height="90" width="120" style="margin-top:-30px; margin-left: -80px;"></a></span></h1>
             </div>
-
-        <div class="container">
-     
-  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >
-
-          <div class="row" >
-
-  <div class="col-md-1 " id="logotipo"  >
-
-        <a  class="navbar-brand" href="index.php"><img  src="img/logo/logo.png" height="80" width="120" style="margin-top:-13px; margin-left: -90px;"></a>
-</div>
-
-<div class="col-md-6 " id="buscador">
-      <div id="custom-search-input ">
-                            <div class="input-group col-md-12">
-
-                                <input type="text" id="search" class="  search-query form-control" placeholder="Buscar" />
-                                <span class="input-group-btn">
-                                    <button id="find" class="btn btn-primary" type="button" ">
-                                        <span class="fa fa-search"></span>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                         </div>
-
-                        <div class="col-md-3 move ">
-                                   <ul class="nav navbar-nav" id="inicio">
-=======
             <div class="flipkart-navbar-search smallsearch col-sm-6 col-xs-11" style="color:black;">
                 <div class="row">
                     <input class="flipkart-navbar-input col-xs-11" type=""  id="search" placeholder="Buscar productos" name="">
@@ -76,11 +48,25 @@
             </div>
             <div class="cart largenav col-sm-4">
              <ul class="largenav pull-right" id="inicio">
->>>>>>> 9111f1983802d61a36fda36bd3e706d92b69854e
       
   
   <li class="upper-links"><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
-   <li  class="upper-links"><a href="message.php" class="fa fa-envelope" ></a></li>
+  <?php  
+ if(isset($_SESSION['id'])){
+  $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')");  if(!$row = $conexion->extraer_registro()) {
+              echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
+              }else{
+
+                echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ><span
+                class="badge"> '.$row['0'].'</span></a> </li> ';
+                }
+}else{
+  echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
+}
+
+                 ?>
+
+  
    <li class="upper-links">
 
    <?php     if(isset($_SESSION['id'])){
@@ -99,15 +85,42 @@
     </div>
 </div>
 <div id="mySidenav" class="sidenav">
-    <div class="container" style="background-color: #2874f0; padding-top: 10px;">
-        <span class="sidenav-heading">Home</span>
+    <div class="container" style="background-color: #1ab188; padding-top: 10px;">
+        <span class="sidenav-heading">Watcher</span>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
     </div>
-    <a href="http://clashhacks.in/">Link</a>
-    <a href="http://clashhacks.in/">Link</a>
-    <a href="http://clashhacks.in/">Link</a>
-    <a href="http://clashhacks.in/">Link</a>
+      
+  
+  <li class="lower-links"><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
+  <?php  
+ if(isset($_SESSION['id'])){
+  $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')");  if(!$row = $conexion->extraer_registro()) {
+              echo ' <li  class="lower-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
+              }else{
+
+                echo ' <li  class="lower-links"><a href="inbox.php" class="fa fa-envelope" ><span
+                class="badge"> '.$row['0'].'</span></a> </li> ';
+                }
+}else{
+  echo ' <li  class="upper-links"><a href="login.php" class="fa fa-envelope" ></a></li>';
+}
+
+                 ?>
+
+  
+   <li class="lower-links">
+
+   <?php     if(isset($_SESSION['id'])){
+  echo '<a href="checkout.php" class="fa fa-shopping-cart" >&nbsp;<span id="cantidadcarrito" class="badge">';
+              $conexion->consulta ("SELECT (SUM(quantity)) FROM  tbl_cart where id_user = ". $_SESSION['id']);
+                while($row = $conexion->extraer_registro()){
+                  echo $row['0'];
+               }
+               echo '</span></a>';
+     }
+   else{echo '<a href="login.php" class="fa fa-shopping-cart" >&nbsp;<span id="cantidadcarrito" class="badge"></span></a>';}?></li>  
 </div>
+
 
 
 <div class="container"  id="principal">
@@ -233,7 +246,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">Cédula Juridica:</label>
+          <label class="col-lg-3 control-label">Cedula Juridica:</label>
           <div class="col-lg-8">
             <input class="form-control" name="cedula" value="'.$row['2'].'" type="text">
           </div>
@@ -246,19 +259,19 @@
         </div>
 
            <div class="form-group">
-          <label class="col-lg-3 control-label">Teléfono:</label>
+          <label class="col-lg-3 control-label">Telefono:</label>
           <div class="col-lg-8">
             <input class="form-control" name="telefono" value="'.$row['5'].'" type="text">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-3 control-label">Contraseña:</label>
+          <label class="col-md-3 control-label">Contraeña:</label>
           <div class="col-md-8">
             <input class="form-control" name="pass" value="'.$row['4'].'" type="password">
           </div>
         </div>  
         <div class="form-group">
-          <label class="col-md-3 control-label">Confirmar Contraseña:</label>
+          <label class="col-md-3 control-label">Confirmar Contraña:</label>
           <div class="col-md-8">
             <input class="form-control" value="'.$row['4'].'" type="password">
           </div>
@@ -312,12 +325,12 @@
                 </div>
                 
                                 <div class="form-group">
-                    <label for="AddressLine1">Primera dirección </label>
-                    <input type="text" class="form-control" id="AddressLine1" placeholder="Primera Dirección" required="" >
+                    <label for="AddressLine1">Primera direccion </label>
+                    <input type="text" class="form-control" id="AddressLine1" placeholder="Primera Direccion" required="" >
                 </div>
                 <div class="form-group">
-                    <label for="Address Line 1">Segunda dirección</label>
-                    <input type="text" class="form-control" id="AddressLine2" placeholder="Segunda Dirección" required="" >
+                    <label for="Address Line 1">Segunda direccion 2</label>
+                    <input type="text" class="form-control" id="AddressLine2" placeholder="Segunda Direccion" required="" >
                 </div>
                 
             
@@ -328,7 +341,7 @@
                     <input type="text" class="form-control" id="city" placeholder="Provincia" required="" >
                 </div>
                 <div class="form-group">
-                    <label for="State">Cantón</label>
+                    <label for="State">Canton</label>
                     <input type="text" class="form-control" id="state" placeholder="Canton" required="" >
                 </div>   <div class="form-group">
 
@@ -338,11 +351,11 @@
 
                 
                  <div class="form-group">
-                    <label for="zip">Zip / Código Postal</label>
+                    <label for="zip">Zip / Codigo Postal</label>
                     <input type="text" class="form-control" id="zip" placeholder="Codigo Postal" required="" >
                 </div>
                 <div class="form-group">
-                <label for="pais">País</label>
+                <label for="pais">Pais</label>
                     <input type="text" class="form-control" id="country" placeholder="pais" required="" >
                 </div> 
                     <div class="col-md-12">
