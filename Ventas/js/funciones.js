@@ -2,6 +2,18 @@
 $('#find').click(function() {
   search();
   });
+$('.leer').click(function() {
+ 
+   window.location="read.php?mensaje="+ $(this).attr("data-id")+"";
+  });
+
+
+
+$('.items').click(function() {
+ 
+   window.location="sendread.php?mensaje="+ $(this).attr("data-id")+"";
+  });
+
 
 $('#hidepage').hide();
   // find(word);
@@ -26,6 +38,16 @@ $.ajax({
    
    
 });
+ function openNav() {
+    document.getElementById("mySidenav").style.width = "70%";
+    // document.getElementById("flipkart-navbar").style.width = "50%";
+    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.body.style.backgroundColor = "rgba(0,0,0,0)";
+}
 
 (function($) {
     /**
@@ -129,7 +151,7 @@ function editprofile(){
          $('#nom2').html(profile);
     $('#nam').html('');
     $('#log').closest('li').remove(); 
-    $('#inicio').append(" <li id=close ><a href=# class='fa fa-sign-out' ></a></li>");
+    $('#inicio').append(" <li class='upper-links' id=close ><a href=# class='fa fa-sign-out'></a></li>");
    }else{
     $('#nom').html("");
 

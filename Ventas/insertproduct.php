@@ -67,16 +67,17 @@
       <link rel="stylesheet" href="css/font-awesome.min.css">
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-               
+<div id="flipkart-navbar">
+    <div class="container">
+        <div class="row row1">
+          <br>
+        </div>
+        <div class="row row2">
+            <div class="col-sm-2">
+                <h2 style="margin:0px;"><span class="smallnav menu" onclick="openNav()">☰ Brand</span></h2>
+                <h1 style="margin:0px;"><span class="largenav"> <a   href="index.php"><img  src="img/logo/logo.png" height="90" width="120" style="margin-top:-30px; margin-left: -80px;"></a></span></h1>
             </div>
+
         <div class="container">
      
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >
@@ -106,26 +107,50 @@
 
                         <div class="col-md-3 move ">
                                    <ul class="nav navbar-nav" id="inicio">
+=======
+            <div class="flipkart-navbar-search smallsearch col-sm-6 col-xs-11" style="color:black;">
+                <div class="row">
+                    <input class="flipkart-navbar-input col-xs-11" type=""  id="search" placeholder="Buscar productos" name="">
+                    <button class="flipkart-navbar-button col-xs-1" id="find">
+                       <span class="fa fa-search"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="cart largenav col-sm-4">
+             <ul class="largenav pull-right" id="inicio">
+>>>>>>> 9111f1983802d61a36fda36bd3e706d92b69854e
       
   
-  <li ><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
-   <li  ><a href="login.php" class="fa fa-envelope" ></a></li>
-   <li   ><a href="login.php" class="fa fa-shopping-cart" ></a></li>  
-              
+  <li class="upper-links"><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
+   <li  class="upper-links"><a href="message.php" class="fa fa-envelope" ></a></li>
+   <li class="upper-links">
+
+   <?php     if(isset($_SESSION['id'])){
+  echo '<a href="checkout.php" class="fa fa-shopping-cart" >&nbsp;<span id="cantidadcarrito" class="badge">';
+              $conexion->consulta ("SELECT (SUM(quantity)) FROM  tbl_cart where id_user = ". $_SESSION['id']);
+                while($row = $conexion->extraer_registro()){
+                  echo $row['0'];
+               }
+               echo '</span></a>';
+     }
+   else{echo '<a href="login.php" class="fa fa-shopping-cart" >&nbsp;<span id="cantidadcarrito" class="badge"></span></a>';}?></li>  
                 </ul>
-                        </div>
-          
-</div>
-           
-         
-     
-   
-          
+
             </div>
-            
         </div>
+    </div>
 </div>
-    </nav>
+<div id="mySidenav" class="sidenav">
+    <div class="container" style="background-color: #2874f0; padding-top: 10px;">
+        <span class="sidenav-heading">Home</span>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    </div>
+    <a href="http://clashhacks.in/">Link</a>
+    <a href="http://clashhacks.in/">Link</a>
+    <a href="http://clashhacks.in/">Link</a>
+    <a href="http://clashhacks.in/">Link</a>
+</div>
+
   
 <div class="container" id="principal">
 
