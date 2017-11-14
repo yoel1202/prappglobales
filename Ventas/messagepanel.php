@@ -239,11 +239,11 @@ $i++;
 				    	<div class="col-sm-11">
               <?php      if ($_SESSION['tipo']=="user") {
                      echo '
-                              <input type="email" class="form-control select2-offscreen" name="vendedor" placeholder="Vendedor" tabindex="-1">';
+                              <input type="email" class="form-control select2-offscreen" value="';if(isset($_GET['destinatario'])){echo $_GET['destinatario'];} echo '" name="vendedor" placeholder="Vendedor" tabindex="-1">';
 
                 }else{
                      echo '
-                              <input type="email" class="form-control select2-offscreen" name="vendedor" placeholder="Comprador" tabindex="-1">';
+                              <input type="email" class="form-control select2-offscreen"  value="';if(isset($_GET['destinatario'])){echo $_GET['destinatario'];} echo '"name="vendedor" placeholder="Comprador" tabindex="-1">';
 
                 }
                 ?>

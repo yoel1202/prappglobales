@@ -333,6 +333,7 @@ $i++;
          <table align="left" border="0" cellpadding="0" cellspacing="0" widt
             h="380">
             <tr>
+            	<a href="messagepanel.php?destinatario='.$row[2].'" class="btn btn-danger btn-block">Responder</a>
                <td align="left" style="padding:20px 30px 0 0;font-family:Arial,Helveti=
                ca,sans-serif;font-weight:normal;font-size:13px;line-height:18px;color:#333=
                333" valign="top" width="100%">
