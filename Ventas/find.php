@@ -56,9 +56,18 @@
       
   
   <li class="upper-links"><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
-  <?php  
+ <?php  
  if(isset($_SESSION['id'])){
-  $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')");  if(!$row = $conexion->extraer_registro()) {
+  if ($_SESSION['tipo']=="user") {
+    
+$conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')"); 
+  }else{
+
+    $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_vendedor_idtbl_vendedor='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')"); 
+  }
+  
+
+   if(!$row = $conexion->extraer_registro()) {
               echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
               }else{
 
@@ -70,6 +79,7 @@
 }
 
                  ?>
+
 
   
    <li class="upper-links">
@@ -130,7 +140,61 @@
     <div class="container" id="principal">
 
           <div class="row">
+       <div class="col-md-3">
+ <div class="container">
+  <div class="row">
+    <div class="col-lg-3 col-md-6 col-md-offset-3 col-lg-offset-0">
+      <div class="well">
+      <h3 align="center">Filtros de busqueda</h3>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label for="location1" class="control-label">Localizacion</label>
+            <select class="form-control" name="" id="location1">
+              <option value="">Cualquiera</option>
+              <option value="">Puntarenas</option>
+              <option value="">San Jose</option>
+               <option value="">Heredia</option>
+                <option value="">Alajuela</option>
+                 <option value="">Guanacaste</option>
+                  <option value="">Limon</option>
+            </select>
+          </div>
+        <div class="form-group">
+            <label for="pricefrom" class="control-label">Envio gratis</label>
+            <div class="input-group">
+              <div class="input-group-addon" id="basic-addon1"></div>
+              <input type="text" class="form-control" id="pricefrom" aria-describedby="basic-addon1">
+            </div>
+          </div>
+           <div class="form-group">
+            <label for="pricefrom" class="control-label">Empresa</label>
+            <div class="input-group">
+              <div class="input-group-addon" id="basic-addon1"></div>
+              <input type="text" class="form-control" id="pricefrom" aria-describedby="basic-addon1">
+            </div>
+          </div>
 
+          <div class="form-group">
+            <label for="pricefrom" class="control-label">Minimo Precio</label>
+            <div class="input-group">
+              <div class="input-group-addon" id="basic-addon1">₡</div>
+              <input type="text" class="form-control" id="pricefrom" aria-describedby="basic-addon1">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="priceto" class="control-label">Maximo Precio</label>
+            <div class="input-group">
+              <div class="input-group-addon" id="basic-addon2">₡</div>
+              <input type="text" class="form-control" id="priceto" aria-describedby="basic-addon1">
+            </div>
+          </div>
+          <p class="text-center"><a href="#" class="btn btn-danger glyphicon glyphicon-search" role="button"></a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+           </div>
     <div class="col-md-9">
 <div class="container" id="wordsearch">
 

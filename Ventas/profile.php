@@ -51,9 +51,18 @@
       
   
   <li class="upper-links"><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
-  <?php  
+   <?php  
  if(isset($_SESSION['id'])){
-  $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')");  if(!$row = $conexion->extraer_registro()) {
+  if ($_SESSION['tipo']=="user") {
+    
+$conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')"); 
+  }else{
+
+    $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_vendedor_idtbl_vendedor='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')"); 
+  }
+  
+
+   if(!$row = $conexion->extraer_registro()) {
               echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
               }else{
 
@@ -65,6 +74,7 @@
 }
 
                  ?>
+
 
   
    <li class="upper-links">
@@ -92,17 +102,26 @@
       
   
   <li class="lower-links"><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
-  <?php  
+ <?php  
  if(isset($_SESSION['id'])){
-  $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')");  if(!$row = $conexion->extraer_registro()) {
-              echo ' <li  class="lower-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
+  if ($_SESSION['tipo']=="user") {
+    
+$conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')"); 
+  }else{
+
+    $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_vendedor_idtbl_vendedor='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')"); 
+  }
+  
+
+   if(!$row = $conexion->extraer_registro()) {
+              echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
               }else{
 
-                echo ' <li  class="lower-links"><a href="inbox.php" class="fa fa-envelope" ><span
+                echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ><span
                 class="badge"> '.$row['0'].'</span></a> </li> ';
                 }
 }else{
-  echo ' <li  class="upper-links"><a href="login.php" class="fa fa-envelope" ></a></li>';
+  echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
 }
 
                  ?>
@@ -137,7 +156,9 @@
               
             </li>
             <li>
-                <a href="messagepanel.php"><i class="fa fa-envelope"></i>Mensajes</a>
+                <a href="messagepanel.php"><i class="fa fa-envelope">
+                  
+                </i>Mensajes</a>
             </li>
             <li>
                 <a href="productbuy.php">

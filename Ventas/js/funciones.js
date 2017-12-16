@@ -9,6 +9,10 @@ $('#borrar').click(function() {
 $('#borrar2').click(function() {
  deleteemail('leer');
   });
+
+$('#borrar3').click(function() {
+ deletemsg("items");
+  });
    
 $("#checkAll").click(function(){
     $('input:checkbox').not(this).prop('checked', this.checked);
@@ -78,6 +82,30 @@ $.ajax({
 
            window.location="inbox.php";
         }
+              
+      }
+  }).fail(function (jqXHR, textStatus, errorThrown){
+   
+  })
+});
+}
+ function  deletemsg(item){
+
+  $('.'+item+' input:checked').each(function() {
+$.ajax({
+    type: 'POST',
+    url: 'database.php',
+    data: {key: 'deletemsg',data:$(this).attr("data-id")}
+
+  }).done(function ( data ) {
+
+      if (data.trim()=="se ha  efectuado correctamente") {
+       
+          window.location="delete.php";
+       
+
+          
+      
               
       }
   }).fail(function (jqXHR, textStatus, errorThrown){

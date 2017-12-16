@@ -103,6 +103,24 @@ if ($_POST['key']=='registrar') {
         
       deleteemail($conexion,$data);
     }
+
+      if ($_POST['key']=='deletemsg') {
+        
+         $data = $_POST['data'];
+        
+      deletemsg($conexion,$data);
+    }
+
+    function deletemsg($conexion,$data){
+if($conexion->consulta("DELETE FROM tbl_message WHERE idtbl_message='$data' ")){
+
+      echo "se ha  efectuado correctamente";
+    }else{
+      echo "error ha efectuar cambios posiblemente correo ya existe o nombre el nombre de u suario";
+    }
+
+}
+
 function deleteemail($conexion,$data){
 if($conexion->consulta("UPDATE tbl_message SET estado='borrado' WHERE idtbl_message='$data' ")){
 

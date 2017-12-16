@@ -137,20 +137,30 @@
       
   
   <li class="lower-links"><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
-  <?php  
+ <?php  
  if(isset($_SESSION['id'])){
-  $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')");  if(!$row = $conexion->extraer_registro()) {
-              echo ' <li  class="lower-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
+  if ($_SESSION['tipo']=="user") {
+    
+$conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')"); 
+  }else{
+
+    $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_vendedor_idtbl_vendedor='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')"); 
+  }
+  
+
+   if(!$row = $conexion->extraer_registro()) {
+              echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
               }else{
 
-                echo ' <li  class="lower-links"><a href="inbox.php" class="fa fa-envelope" ><span
+                echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ><span
                 class="badge"> '.$row['0'].'</span></a> </li> ';
                 }
 }else{
-  echo ' <li  class="upper-links"><a href="login.php" class="fa fa-envelope" ></a></li>';
+  echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
 }
 
                  ?>
+
 
   
    <li class="lower-links">
@@ -187,7 +197,7 @@ echo '<div class="col-5 "><img id="picture" height="300px" width="350px;" src="'
                 <div class="col-xs-5" style="border:0px solid gray">
                     <!-- Datos del vendedor y titulo del producto -->
                     <h3><?php echo $nombre_producto;?></h3>    
-                    <h5 style="color:#337ab7">Vendido por <a style="color:#337ab7" href="#"><?php echo $nombre_vendedor;?></a> · <small style="color:#337ab7">(<?php echo $record_ventas;?> ventas exitosas)</small></h5>
+                    <h5 style="color:#337ab7">Vendido por <a style="color:#337ab7" href=""><?php echo $nombre_vendedor;?></a> · <small style="color:#337ab7">(<?php echo $record_ventas;?> ventas exitosas)</small></h5>
                     <img height="100" width="100" src="<?php echo $foto_vendedor;?>">
         
                     <!-- Precios -->

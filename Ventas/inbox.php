@@ -64,9 +64,18 @@
       
   
   <li class="upper-links"><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
-  <?php  
+ <?php  
  if(isset($_SESSION['id'])){
-  $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')");  if(!$row = $conexion->extraer_registro()) {
+  if ($_SESSION['tipo']=="user") {
+    
+$conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')"); 
+  }else{
+
+    $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_vendedor_idtbl_vendedor='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')"); 
+  }
+  
+
+   if(!$row = $conexion->extraer_registro()) {
               echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
               }else{
 
@@ -78,6 +87,7 @@
 }
 
                  ?>
+
 
   
    <li class="upper-links">
@@ -107,18 +117,28 @@
   <li class="lower-links"><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
   <?php  
  if(isset($_SESSION['id'])){
-  $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')");  if(!$row = $conexion->extraer_registro()) {
-              echo ' <li  class="lower-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
+  if ($_SESSION['tipo']=="user") {
+    
+$conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')"); 
+  }else{
+
+    $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_vendedor_idtbl_vendedor='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')"); 
+  }
+  
+
+   if(!$row = $conexion->extraer_registro()) {
+              echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
               }else{
 
-                echo ' <li  class="lower-links"><a href="inbox.php" class="fa fa-envelope" ><span
+                echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ><span
                 class="badge"> '.$row['0'].'</span></a> </li> ';
                 }
 }else{
-  echo ' <li  class="upper-links"><a href="login.php" class="fa fa-envelope" ></a></li>';
+  echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
 }
 
                  ?>
+
 
   
    <li class="lower-links">
@@ -202,23 +222,23 @@ tp.tbl_vendedor_idtbl_vendedor ='".$_SESSION['id']."'  group by tse.correo order
 
                switch ($i) {
     case 0:
-        echo '<li><span class="label label-danger"></span>'.$row['0'].'</li>';
+        echo '<li><span class="label label-danger"></span><a style="color:black;" href="messagepanel.php?destinatario='.$row['0'].'"  >'.$row['0'].' </a></li>';
         break;
     case 1:
-        echo '<li><span class="label label-default"></span> '.$row['0'].'</li>';
+        echo '<li><span class="label label-danger"></span><a style="color:black;" href="messagepanel.php?destinatario='.$row['0'].'"  >'.$row['0'].' </a></li>';
         break;
     case 2:
-        echo '<li><span class="label label-success"></span> '.$row['0'].'</li>';
+        echo '<li><span class="label label-danger"></span><a style="color:black;" href="messagepanel.php?destinatario='.$row['0'].'"  >'.$row['0'].' </a></li>';
         break;
           case 3:
-        echo '<li><span class="label label-success"></span>'.$row['0'].'</li>';
+        echo '<li><span class="label label-danger"></span><a style="color:black;" href="messagepanel.php?destinatario='.$row['0'].'"  >'.$row['0'].' </a></li>';
         break;
             case 4:
-        echo '<li><span class="label label-warning"></span> '.$row['0'].'</li>';
+        echo '<li><span class="label label-danger"></span><a style="color:black;" href="messagepanel.php?destinatario='.$row['0'].'"  >'.$row['0'].' </a></li>';
         break;
         
            case 5:
-        echo '<li><span class="label label-default"></span>'.$row['0'].'</li>';
+       echo '<li><span class="label label-danger"></span><a style="color:black;" href="messagepanel.php?destinatario='.$row['0'].'"  >'.$row['0'].' </a></li>';
         $i=0;
         break;
 
@@ -239,7 +259,7 @@ $i++;
 	<div class="col-md-9">
 		<div class="panel panel-default">
 			<div class="panel-body message">
-<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+<link rel='stylesheet prefetch' href=''>
 
                   <aside class="lg-side">
                       <div class="inbox-head">
@@ -269,16 +289,28 @@ $i++;
                              </div>
 
 
-                             <div class="btn-group">
-                                 <a data-original-title="Refresh" data-placement="top" data-toggle="dropdown" href="#" class="btn mini tooltips">
-                                     <i class=" fa fa-refresh"></i>
-                                 </a>
-                             </div>
+                          
                            
                      
 
                              <ul class="unstyled inbox-pagination">
-                                 <li><span>1-50 of 234</span></li>
+                                 <li><span> <?php      
+$conexion->consulta ("select count(idtbl_message) from tbl_message as tm inner join tbl_seller on idtbl_vendedor=tbl_vendedor_idtbl_vendedor where tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario  
+not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."') and tm.estado 
+not in(select estado from tbl_message  where estado='borrado'  )  "); 
+ if($row = $conexion->extraer_registro()) {
+if ($row['0']>50) {
+  echo "1-50 de";
+}else{
+ echo "1-".$row['0']." de";
+}
+
+ 
+echo $row['0'];
+}else{
+echo "0-0 de 0";
+}
+    ?> </span></li>
                                  <li>
                                      <a class="np-btn" href="#"><i class="fa fa-angle-left  pagination-left"></i></a>
                                  </li>
