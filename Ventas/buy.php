@@ -25,7 +25,12 @@
      $conexion->consulta (" INSERT INTO tbl_see(visitas,id_tbl_productos) VALUES('1','".$_GET['product']."')");
     }
      $record_ventas = "0";
-     
+     $conexion->consulta ("select discount FROM tbl_discount WHERE id_product = ". $_GET['product']);
+           $row= $conexion->extraer_registro();
+           $descuento="";
+           if ($row>0) {
+             $descuento = $row[0];
+           }
      $conexion->consulta ("SELECT * FROM  tbl_productos inner join tbl_photo on tbl_photo.tbl_productos_idtbl_productos = tbl_productos.idtbl_productos inner join tbl_seller on tbl_seller.idtbl_vendedor = tbl_productos.tbl_vendedor_idtbl_vendedor WHERE tbl_productos.idtbl_productos = " . $_GET['product'] .' group by tbl_photo.idtbl_photo DESC');
                 while($row = $conexion->extraer_registro()){
                   //datos del producto
@@ -201,8 +206,12 @@ echo '<div class="col-5 "><img id="picture" height="300px" width="350px;" src="'
                     <img height="100" width="100" src="<?php echo $foto_vendedor;?>">
         
                     <!-- Precios -->
-                    <h6 class="title-price"><small>PRECIO OFERTA</small></h6>
-                    <h3 style="margin-top:0px;">₡ <?php echo $precio_producto;?></h3>
+                    <h6 class="title-price"><h6>PRECIO <?php if($descuento!=""){echo "OFERTA";}?></h6></h6>
+                     <?php if($descuento!=""){echo '<strike style="margin-top:0px;">₡'. $precio_producto.'</strike>';
+                      echo '&nbsp;&nbsp;<label style="border-radius:50%; background-color:#17b088; padding:5px; padding-left:10px;padding-right:10px;color:white">-'.$descuento.'%</label><br>
+                      <label  style="font-size: large;border-radius:10%; background-color:#17b088; padding:5px; padding-left:10px;padding-right:10px;color:white">₡'.($precio_producto-($precio_producto*$descuento/100)).'</label>';}
+                     else{echo '<h3 style="margin-top:0px;">₡'. $precio_producto.'</h3>';}?>
+                    
         
                     <!-- Detalles especificos del producto -->
   <!--                   <div class="section">

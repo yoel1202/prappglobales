@@ -6,8 +6,30 @@
    }
          if (isset($_GET['id_producto'])) {
           $idproducto=$_GET['id_producto'];
-      
-           $conexion->consulta ("select * FROM tbl_productos WHERE idtbl_productos = ". $_GET['id_producto']);
+           $conexion->consulta ("select id_product FROM tbl_discount WHERE id_product = ". $_GET['id_producto']);
+           $row= $conexion->extraer_registro();
+           if ($row>0) {
+                        $conexion->consulta ("select * FROM tbl_productos inner join tbl_discount on tbl_productos.idtbl_productos = tbl_discount.id_product WHERE tbl_productos.idtbl_productos = ". $_GET['id_producto']);
+                 while($row = $conexion->extraer_registro()){
+                   $subcategoria = $row['2'];
+                  
+                   $cantidad = $row['9'];
+                   $color = $row['4'];
+                   $tamano = $row['10'];
+                   $precio = $row['11'];
+                   $peso = $row['3'];
+                   $titulo = $row['12'];
+                   $garantia = $row['13'];
+                   $descripcion = $row['14'];
+                   $ancho = $row['5'];
+                   $alto = $row['6'];
+                   $precioenvio = $row['8'];
+                   $descuento = $row['17'];
+                 }
+           }
+           else{
+
+             $conexion->consulta ("select * FROM tbl_productos WHERE tbl_productos.idtbl_productos = ". $_GET['id_producto']);
            while($row = $conexion->extraer_registro()){
              $subcategoria = $row['2'];
             
@@ -22,7 +44,10 @@
              $ancho = $row['5'];
              $alto = $row['6'];
              $precioenvio = $row['8'];
+             $descuento="";
            }
+           }
+
          }
 
               echo ("<div id=idproducto style='display: none;'> ".$idproducto." </div>");
@@ -236,6 +261,12 @@ $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estad
       <div class="col-lg-4">
         <input type="text" id="price" name="Price" placeholder="" class="form-control price" value="<?php if (isset($_GET['id_producto'])) {echo $precio;}?>">
       </div>
+    </div>
+     <div class="col-lg-12 form-group">
+      <label class="col-lg-2" for="Discount">Descuento</label>
+      <div class="col-lg-1">
+        <input type="text" id="discount" name="Discount" placeholder="" class="form-control price" value="<?php if (isset($_GET['id_producto'])) {echo $descuento;}?>">
+      </div><label style="font-size: 15px; margin-top: 5px">% (Si desea poner este producto en oferta, sino dejar en blanco)</label>
     </div>
         <div class="col-lg-12 form-group">
       <label class="col-lg-2"  for="RequiresTextField">Envio incluido</label>

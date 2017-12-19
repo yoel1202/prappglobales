@@ -25,7 +25,7 @@ function insertproduct(){
     url: 'database.php',
     data: {key: 'insertproduct',subcategoria:$('#subcategoria').find(':selected').data("id2"),vendedor:$('#vendedor').text(),cantidad:$('#quantity').val(),
     tama:$('#size').val(),price:$('#price').val(),shipping:$('#shipping').val(),weight:$('#weight').val(),width:$('#width').val(),height:$('#height').val(),
-    title:$('#title').val(),warranty:$('#warranty').val(),description:$('#description').val(),estado:'activo',color:$('#color').val(),idproduct:$('#idproducto').text()
+    title:$('#title').val(),warranty:$('#warranty').val(),description:$('#description').val(),estado:'activo',color:$('#color').val(),idproduct:$('#idproducto').text(),descuento:$('#discount').val()
 }
 
   }).done(function ( data ) {

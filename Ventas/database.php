@@ -59,11 +59,12 @@ if ($_POST['key']=='login') {
            $estados = $_POST['estado'];
      $color = $_POST['color'];
    $id=$_POST['idproduct'];
+   $descuento=$_POST['descuento'];
 
         if ($id != 0) {
-       updateproduct($conexion,$id,$subcategoria,$cantidad,$tama,$price,$shipping,$weight,$width,$height,$title,$warranty,$description,$color);
+       updateproduct($conexion,$id,$subcategoria,$cantidad,$tama,$price,$shipping,$weight,$width,$height,$title,$warranty,$description,$color,$descuento);
         }else{
-       insertproduct($conexion,$subcategoria,$vendedor,$cantidad,$tama,$price,$shipping,$weight,$width,$height,$title,$warranty,$description,$estados,$color);
+       insertproduct($conexion,$subcategoria,$vendedor,$cantidad,$tama,$price,$shipping,$weight,$width,$height,$title,$warranty,$description,$estados,$color,$descuento);
     }
     }
         if ($_POST['key']=='busqueda') {
@@ -183,19 +184,33 @@ echo json_encode($search);
 
     }
 
- function insertproduct($conexion,$subcategoria,$vendedor,$cantidad,$tama,$precio,$envio,$peso,$anchura,$altura,$titulo,$garantia,$descripcion,$estados,$color){
+ function insertproduct($conexion,$subcategoria,$vendedor,$cantidad,$tama,$precio,$envio,$peso,$anchura,$altura,$titulo,$garantia,$descripcion,$estados,$color,$descuento){
 
     if($conexion->consulta("CALL insertar('$vendedor','$subcategoria','$peso','$color','$anchura','$altura','$estados','$envio','$cantidad','$tama','$precio','$titulo','$garantia','$descripcion')")){
-
+      $conexion->consulta("SELECT idtbl_productos FROM tbl_productos order by idtbl_productos DESC LIMIT 1");
+      $row= $conexion->extraer_registro();
+      if ($row>0) {
+       $conexion->consulta("INSERT INTO tbl_discount (id_product,discount) VALUES (".$row[0].",".$descuento.")");
+      }
+      
       echo "Se ha insertado correctamente";
     }
 
    
    }
-   function updateproduct($conexion,$id,$subcategoria,$cantidad,$tama,$precio,$envio,$peso,$anchura,$altura,$titulo,$garantia,$descripcion,$color){
+   function updateproduct($conexion,$id,$subcategoria,$cantidad,$tama,$precio,$envio,$peso,$anchura,$altura,$titulo,$garantia,$descripcion,$color,$descuento){
 
     if($conexion->consulta("CALL Actualizarproducto('$id','$subcategoria','$peso','$color','$anchura','$altura','$envio','$cantidad','$tama','$precio','$titulo','$garantia','$descripcion')")){
-
+      $conexion->consulta("SELECT id_product FROM tbl_discount WHERE id_product = " . $id);
+      $row= $conexion->extraer_registro();
+      if ($row>0) {
+         $conexion->consulta("UPDATE tbl_discount SET discount = " . $descuento . " WHERE id_product = " . $id);
+      }
+      else
+      {
+        $conexion->consulta("INSERT INTO tbl_discount (id_product,discount) VALUES (".$id.",".$descuento.")");
+      }
+      
       echo "Se actualizado correctamente";
     }
 
@@ -238,7 +253,7 @@ echo json_encode($categoria);
     function close(){
  
   session_destroy();
-
+ // $_SESSION = array();   
 
 }
 

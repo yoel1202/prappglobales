@@ -139,7 +139,7 @@ margin-top: -24px;">
          
           <div class="row">
      <div class="col-lg-12">
-                <h3 id="titulo">&nbsp;&nbsp;Artículos más vistos</h3>
+                <h3 id="titulo">&nbsp;&nbsp;Artículos en oferta</h3>
             </div>
         </div>
   
@@ -150,10 +150,7 @@ margin-top: -24px;">
                     <div class="col-md-12">
                         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
-                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+          
                             </ol>
 
                             <div class="row">
@@ -162,17 +159,27 @@ margin-top: -24px;">
 
                              <?php 
 
-   $conexion->consulta ("SELECT idtbl_productos,picture_code FROM `tbl_productos` INNER join tbl_photo on idtbl_productos=tbl_productos_idtbl_productos inner join tbl_see on idtbl_productos=  id_tbl_productos GROUP by idtbl_productos ORDER BY  visitas DESC LIMIT 4 ");
+   $conexion->consulta ("SELECT idtbl_productos,picture_code,titulo,precio,discount FROM `tbl_productos` INNER join tbl_photo on idtbl_productos=tbl_productos_idtbl_productos inner join tbl_discount on idtbl_productos=  tbl_discount.id_product GROUP by idtbl_productos ORDER BY  idtbl_productos DESC LIMIT 8 ");
    $i=0;
                 while($row = $conexion->extraer_registro()){
  if($i==0){
        echo ' <div class="item active">
                                     <a href="buy.php?product='.$row[0].'"><img class="slide-image center-block" src="'.$row[1].'" alt=""></a>
+                                    <div class="carousel-caption">
+        <h3 style=" text-shadow: black 0.1em 0.1em 0.2em;">'.$row['2'].'</h3>
+        <strike style=" text-shadow: black 0.1em 0.1em 0.2em">C'.$row[3].'</strike><p> -'.$row[4].'%   <h2>C'.($row[3]-($row[3]*$row[4]/100)).'</h2></p>
+        
+      </div>
                                 </div>
                                 ';
 }else{
  echo ' <div class="item ">
                                     <a href="buy.php?product='.$row[0].'"><img class="slide-image center-block" src="'.$row[1].'" alt=""></a>
+                                     <div class="carousel-caption">
+        <h3 style=" text-shadow: black 0.1em 0.1em 0.2em;">'.$row['2'].'</h3>
+        <strike style=" text-shadow: black 0.1em 0.1em 0.2em">C'.$row[3].'</strike><p> -'.$row[4].'%   <h2>C'.($row[3]-($row[3]*$row[4]/100)).'</h2></p>
+        
+      </div>
                                 </div>
                                 ';
 }
@@ -201,11 +208,21 @@ $i++;
                 <h3 id="titulo">Artículos recientes</h3>
             </div>
         </div>
+
+
+
+
+
+
+
+
       
         <div class="row text-center">
         <?php 
                $conexion->consulta ("SELECT * FROM  tbl_productos inner join tbl_photo on tbl_photo.tbl_productos_idtbl_productos = tbl_productos.idtbl_productos inner join tbl_seller on tbl_seller.idtbl_vendedor = tbl_productos.tbl_vendedor_idtbl_vendedor WHERE tbl_productos.cantidad > 0 AND tbl_productos.estado = 'activo' group by tbl_productos.idtbl_productos DESC LIMIT 8");
                 while($row = $conexion->extraer_registro()){
+                  
+    
                       echo '<div class="col-md-3 col-sm-6 hero-feature">
                                 <div class="thumbnail">
                                        <div class="row">
@@ -213,7 +230,7 @@ $i++;
                             <div id="progreso" class="progress-radial progress">
                                 <div class="overlay">
                                     <a href="buy.php?product='.$row[0].'"><img  width="260" height="260" class="img-responsive img-circle" src="'.$row['16'].'" alt=""></a>
-                                   
+                                    <img style="position:absolute; z-index:200; top:200px" width="160" height="160" class="img-responsive img-circle" src="img/oferta.png" alt="">
                                     <div class="clearfix"></div>
                                 </div>
                            </div>
@@ -221,8 +238,11 @@ $i++;
                                         </div>
                                     <div class="caption">
                                         <h3>'.$row['12'].'</h3>
-                                        <p>'.$row['20'].'</p>
-                                        <p>';
+                                        <p>'.$row['20'].'</p>';
+
+                                        '<p>';
+
+
                                       
                                           if (isset($_SESSION['id'])) {
                                             echo '<a onclick="agregarcarrito('.$row['0'].',1,'.$_SESSION['id'].', '.$row['1'].')" class="btn btn-primary">Agregar al carrito!</a><br> <a href="buy.php?product='.$row[0].'" class="btn btn-default">Mas Informacion </a>';                                         

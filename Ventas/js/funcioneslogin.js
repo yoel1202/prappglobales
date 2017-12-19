@@ -29,10 +29,9 @@ $.ajax({
 
   }).done(function ( login ) {
    
-   
     if(login.trim()==("se ha iniciado correctamente")){
          $('#alert').html('<div class="alert alert-info"><strong>Sesion</strong> Se ha iniciado correctamente</div>'); 
-                             sleep(3000).then(() => {
+                             sleep(1000).then(() => {
 
       window.location="index.php";
 
@@ -40,7 +39,7 @@ $.ajax({
 
     }else{
        $('#alert').html('<div class="alert alert-info"><strong>Sesion</strong>Su Nombre de usuario o contraseña son incorrectos</div>'); 
-             sleep(2000).then(() => {
+             sleep(1000).then(() => {
 
       window.location="login.php";
 });
