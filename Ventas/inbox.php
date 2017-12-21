@@ -53,10 +53,55 @@
             </div>
             <div class="flipkart-navbar-search smallsearch col-sm-6 col-xs-11" style="color:black;">
                 <div class="row">
-                    <input class="flipkart-navbar-input col-xs-11" type=""  id="search" placeholder="Buscar productos" name="">
+                    <input class="flipkart-navbar-input col-xs-10" type=""  id="search" placeholder="Buscar productos" name="">
                     <button class="flipkart-navbar-button col-xs-1" id="find">
                        <span class="fa fa-search"></span>
                     </button>
+                     <div class="col-xs-1">
+  <div class="collapse navbar-collapse js-navbar-collapse">
+    <ul class="nav navbar-nav">
+      <li class="dropdown dropdown-large">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categorias <b class="caret"></b></a>
+        <div class="container" id="width">
+        <div class="row">
+        <div class="col-sm-6">
+        <ul class="dropdown-menu dropdown-menu-large row">
+          
+            <?php 
+require_once("conexion.php"); $con = new Conexion();
+ $conexion->consulta ("SELECT * FROM    tbl_categories Limit 8 ");
+                while($row = $conexion->extraer_registro()){
+                 
+                  echo '<li class="col-sm-3">
+                 <ul>
+              <li href="#" class="dropdown-header"><a href="#"></a>'. $row['1'].'</li>
+           '
+              ;
+ $con->consulta ("SELECT * FROM    tbl_subcategories WHERE tbl_categorias_idtbl_categorias= '". $row['0']."' limit 4");
+while($row2 = $con->extraer_registro()){
+            echo '  <li><a href="showcategories.php?subcategories='.$row2['1'].'">'. $row2['1'].'</a></li>   
+            <li class="divider"></li>';
+            
+          }
+           echo ' </ul>
+          </li> ' ;
+               }
+              
+           ?>
+            
+          
+         
+        </ul>
+        </div>
+        </div>
+        </div>
+      </li>
+    </ul>
+    
+  </div><!-- /.nav-collapse -->
+
+
+</div>
                 </div>
             </div>
             <div class="cart largenav col-sm-4">
