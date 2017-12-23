@@ -1,16 +1,15 @@
 <?php 
-function con()
-{
-	include("conexion.php");
+    require_once("conexion.php");
 
-	return $con;
-}
+    
+    $conexion = new Conexion();
+
    if ($_POST['key']=='insertcate') {
          $id = $_POST['id'] ;
           $name = $_POST['name'] ;
            $description= $_POST['description'] ;
            
-         insertcate($id,$name,$description);
+         insertcate($conexion,$id,$name,$description);
     
     }
 
@@ -18,7 +17,7 @@ function con()
 
 if ($_POST['key']=='cargaradmi') {
         
-         cargaradmi();
+         cargaradmi($conexion);
     
     }
     if ($_POST['key']=='editaradmi') {
@@ -27,7 +26,7 @@ if ($_POST['key']=='cargaradmi') {
            $page= $_POST['page'] ;
             $pass = $_POST['pass'] ;
              $id2 = $_POST['id2'] ;
-         editadmi($id,$name,$page,$pass,$id2);
+         editadmi($conexion,$id,$name,$page,$pass,$id2);
     
     }
 
@@ -37,14 +36,14 @@ if ($_POST['key']=='cargaradmi') {
           $name = $_POST['name'] ;
            $page= $_POST['page'] ;
             $pass = $_POST['pass'] ;
-         insertaradmi($id,$name,$page,$pass);
+         insertaradmi($conexion,$id,$name,$page,$pass);
     
     }
 
       if ($_POST['key']=='cleanadmi') {
          $id = $_POST['id'] ;
           
-         cleanadmi($id);
+         cleanadmi($conexion,$id);
     
     }
 
@@ -63,7 +62,7 @@ if ($_POST['key']=='cargaradmi') {
     }
     if ($_POST['key']=='cargarcontrato') {
         
-         cargarcontrato();
+         cargarcontrato($conexion);
     
     }
 
@@ -87,12 +86,12 @@ if ($_POST['key']=='cargaradmi') {
      if ($_POST['key']=='buscardeal') {
          $dato = $_POST['dato'] ;
           
-         buscardeal($dato);
+         buscardeal($conexion,$dato);
     
     } 
     if ($_POST['key']=='cargarcate') {
         
-         cargarcate();
+         cargarcate($conexion);
     
     }
       if ($_POST['key']=='editcategories') {
@@ -403,10 +402,10 @@ echo "Se ha producido un error";
 
 }
 
-      function insertcate($id,$name,$description)
+      function insertcate($conexion,$id,$name,$description)
 { 
 
-   if(mysqli_query(con()," INSERT INTO  tbl_categorias(idtbl_categorias,nombre_categoria,descripcion) VALUES('".$id."','".$name."','".$description."')") ){
+   if($conexion->consulta(" INSERT INTO  tbl_categorias(idtbl_categorias,nombre_categoria,descripcion) VALUES('".$id."','".$name."','".$description."')") ){
 
 echo "Se ha insertado correctamente ";
 
@@ -419,14 +418,14 @@ echo $id;
 
 }
 
- function buscardeal($dato)
+ function buscardeal($conexion,$dato)
     {
       
    $output = '';  
  $sql = "SELECT * From tbl_agreement where idtbl_agreement Like '%".$dato."%' OR agreement LIKE '%".$dato."%' ";  
- $result = mysqli_query(con(), $sql);  
-
- if(mysqli_num_rows($result) > 0)  
+ $result = $conexion->consulta( $sql);  
+$row=$conexion->extraer_registro();
+ if($row > 0)  
  {  
 
    $output .= '  
@@ -442,7 +441,7 @@ echo $id;
                        <th>Eliminar</th>
                        <th>Añadir</th>
                    </thead>';  
-      while($row = mysqli_fetch_array($result))  
+      while($row = $conexion->extraer_registro())  
       {  
            $output .= '  
                <tr>
@@ -467,10 +466,10 @@ echo $id;
  echo $output;  
     }
 
-  function insertardeal($id,$page,$agree,$help)
+  function insertardeal($conexion,$id,$page,$agree,$help)
 { 
 
-   if(mysqli_query(con()," INSERT INTO tbl_agreement(idtbl_agreement,tbl_page_idtbl_page,agreement,help) VALUES('".$id."','".$page."','".$agree."','".$help."')") ){
+   if($conexion ->consulta(" INSERT INTO tbl_agreement(idtbl_agreement,tbl_page_idtbl_page,agreement,help) VALUES('".$id."','".$page."','".$agree."','".$help."')") ){
 
 echo "Se ha insertado correctamente ";
 
@@ -547,9 +546,9 @@ echo "Se ha producido un error";
 
 
     }
-function cleanadmi($id)
+function cleanadmi($conexion,$id)
 {
-	 if(mysqli_query(con(),"DELETE FROM tbl_administrador WHERE idtbl_administrador='".$id."' ") ){
+	 if($Conexion->consulta("DELETE FROM tbl_administrador WHERE idtbl_administrador='".$id."' ") ){
 
 echo "Se ha Eliminado correctamente ";
 
@@ -560,14 +559,14 @@ echo "Se ha producido un error";
 }
 }
 
-function cargaradmi()
+function cargaradmi($conexion)
 {
 
 
   
    $output = '';  
  $sql = "SELECT * From tbl_administrador";  
- $result = mysqli_query(con(), $sql);  
+ $result = $conexion->consulta($sql);  
  $output .= '  
       <div class="table-responsive">  
            <table id="mytable" class="table table-bordred">
@@ -581,21 +580,36 @@ function cargaradmi()
                        <th>Eliminar</th>
                        <th>Añadir</th>
                    </thead>';  
- if(mysqli_num_rows($result) > 0)  
- {  
-      while($row = mysqli_fetch_array($result))  
-      {  
+   
+      while($row = $conexion->extraer_registro($result))  
+      { 
+        if($row > 0)  
+ { 
            $output .= '  
                <tr>
-    <td class="id" data-id1="'.$row["idtbl_administrador"].'"  >'.$row["idtbl_administrador"].'</td>
-    <td class="nombre" data-id2="'.$row["nombre"].'" >'.$row["nombre"].'</td>
-    <td class="page" data-id3="'.$row["tbl_page_idtbl_page"].'"    >'.$row["tbl_page_idtbl_page"].'</td>
-    <td class="pass" data-id4="'.$row["password"].'"     >'.$row["password"].'</td>
-    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button id="btn_edit" data-id5="'.$row["idtbl_administrador"].'" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+    <td class="id" data-id1="'.$row["0"].'"  >'.$row["0"].'</td>
+    <td class="nombre" data-id2="'.$row["1"].'" >'.$row["1"].'</td>
+    <td class="page" data-id3="'.$row["3"].'"    >'.$row["3"].'</td>
+    <td class="pass" data-id4="'.$row["2"].'"     >'.$row["2"].'</td>
+    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button id="btn_edit" data-id5="'.$row["0"].'" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
 
-    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button id="btn_delete" data-id6="'.$row["idtbl_administrador"].'" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button id="btn_delete" data-id6="'.$row["0"].'" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
  </tr>  
            ';  
+         }  
+ else  
+ {  
+      $output .= ' <tr>  
+                <th></th>
+                    <th></th>
+                     <th></th>
+                     <th></th>
+                      <th></th>
+                     <th></th>
+                 
+                <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button id="btn_add" class="btn btn-xs btn-success" data-title="Delete" data-toggle="modal" data-target="#insert" ><span class="glyphicon glyphicon-plus"></span></button></p></td> 
+           </tr>   ';  
+ }  
       }  
       $output .= '  
            <tr>  
@@ -610,29 +624,16 @@ function cargaradmi()
                 <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button id="btn_add"  class="btn btn-xs btn-success" data-title="Delete" data-toggle="modal" data-target="#insert" ><span class="glyphicon glyphicon-plus"></span></button></p></td>
            </tr>  
       ';  
- }  
- else  
- {  
-      $output .= ' <tr>  
-                <th></th>
-                    <th></th>
-                     <th></th>
-                     <th></th>
-                      <th></th>
-                     <th></th>
-                 
-                <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button id="btn_add" class="btn btn-xs btn-success" data-title="Delete" data-toggle="modal" data-target="#insert" ><span class="glyphicon glyphicon-plus"></span></button></p></td> 
-           </tr>   ';  
- }  
+ 
  $output .= '</table>  
       </div>';  
  echo $output;  
  
 }
-function editadmi($id,$nombre,$page,$password,$id2)
+function editadmi($conexion,$id,$nombre,$page,$password,$id2)
 {
        
-   if(mysqli_query(con(),"UPDATE tbl_administrador SET idtbl_administrador='".$id."',nombre='".$nombre."',tbl_page_idtbl_page='".$page."',password='".$password."' WHERE idtbl_administrador='".$id2."' ") ){
+   if($conexion->consulta("UPDATE tbl_administrador SET idtbl_administrador='".$id."',nombre='".$nombre."',tbl_page_idtbl_page='".$page."',password='".$password."' WHERE idtbl_administrador='".$id2."' ") ){
 
 echo "Se ha modificado correctamente ";
 
@@ -645,10 +646,10 @@ echo "Se ha producido un error";
 }
 
 
-function insertaradmi($id,$nombre,$page,$password)
+function insertaradmi($conexion,$id,$nombre,$page,$password)
 { 
 
-	 if(mysqli_query(con()," INSERT INTO tbl_administrador(idtbl_administrador,nombre,tbl_page_idtbl_page,password) VALUES('".$id."','".$nombre."','".$page."','".$password."')") ){
+	 if($conexion->consulta(" INSERT INTO tbl_administrador(idtbl_administrador,nombre,tbl_page_idtbl_page,password) VALUES('".$id."','".$nombre."','".$page."','".$password."')") ){
 
 echo "Se ha insertado correctamente ";
 
@@ -660,11 +661,11 @@ echo "Se ha producido un error";
 
 }
 
-function cargarcate()
+function cargarcate($conexion)
 {
   $output = '';  
- $sql = "SELECT * From  tbl_categorias";  
- $result = mysqli_query(con(), $sql);  
+ $sql = "SELECT * From  tbl_categories";  
+ $result = $conexion->consulta($sql);  
  $output .= '  
       <div class="table-responsive">  
            <table id="mytable" class="table table-bordred">
@@ -677,22 +678,36 @@ function cargarcate()
                        <th>Eliminar</th>
                        <th>Añadir</th>
                    </thead>';  
- if(mysqli_num_rows($result) > 0)  
+   while($row = $conexion->extraer_registro())  
+      {
+       if($row > 0)  
  {  
-      while($row = mysqli_fetch_array($result))  
-      {  
+     
            $output .= '  
                <tr>
-    <td class="id"   >'.$row["idtbl_categorias"].'</td>
-    <td class="name"  >'.$row["nombre_categoria"].'</td>
-    <td class="descripcion"   >'.$row["descripcion"].'</td>
+    <td class="id"   >'.$row["0"].'</td>
+    <td class="name"  >'.$row["1"].'</td>
+    <td class="descripcion"   >'.$row["2"].'</td>
   
-    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button id="btn_edit" data-id5="'.$row["idtbl_categorias"].'" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button id="btn_edit" data-id5="'.$row["0"].'" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
 
-    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button id="btn_delete" data-id6="'.$row["idtbl_categorias"].'" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button id="btn_delete" data-id6="'.$row["0"].'" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
  </tr>  
            ';  
-      }  
+            }else  
+ {  
+      $output .= ' <tr>  
+                <th></th>
+                    <th></th>
+                     <th></th>
+                     <th></th>
+                      <th></th>
+                     <th></th>
+                 
+                <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button id="btn_add" class="btn btn-xs btn-success" data-title="Delete" data-toggle="modal" data-target="#insert" ><span class="glyphicon glyphicon-plus"></span></button></p></td> 
+           </tr>   ';  
+ }  
+       
       $output .= '  
            <tr>  
                
@@ -707,30 +722,18 @@ function cargarcate()
            </tr>  
       ';  
  }  
- else  
- {  
-      $output .= ' <tr>  
-                <th></th>
-                    <th></th>
-                     <th></th>
-                     <th></th>
-                      <th></th>
-                     <th></th>
-                 
-                <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button id="btn_add" class="btn btn-xs btn-success" data-title="Delete" data-toggle="modal" data-target="#insert" ><span class="glyphicon glyphicon-plus"></span></button></p></td> 
-           </tr>   ';  
- }  
+ 
  $output .= '</table>  
       </div>';  
  echo $output;  
  
 }
 
-function cargarcontrato()
+function cargarcontrato($conexion)
 {
   $output = '';  
  $sql = "SELECT * From tbl_agreement";  
- $result = mysqli_query(con(), $sql);  
+ $result = $conexion->consulta($sql);  
  $output .= '  
       <div class="table-responsive">  
            <table id="mytable" class="table table-bordred">
@@ -744,35 +747,25 @@ function cargarcontrato()
                        <th>Eliminar</th>
                        <th>Añadir</th>
                    </thead>';  
- if(mysqli_num_rows($result) > 0)  
- {  
-      while($row = mysqli_fetch_array($result))  
+                
+  
+      while($row = $conexion->extraer_registro())  
       {  
+        if($row>0)  
+ { 
            $output .= '  
                <tr>
-    <td class="id"   >'.$row["idtbl_agreement"].'</td>
-    <td class="page"  >'.$row["tbl_page_idtbl_page"].'</td>
-    <td class="agree"   >'.$row["agreement"].'</td>
-    <td class="help" >'.$row["help"].'</td>
-    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button id="btn_edit" data-id5="'.$row["idtbl_agreement"].'" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+    <td class="id"   >'.$row['0'].'</td>
+    <td class="page"  >'.$row['1'].'</td>
+    <td class="agree"   >'.$row['2'].'</td>
+    <td class="help" >'.$row['3'].'</td>
+    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button id="btn_edit" data-id5="'.$row["0"].'" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
 
-    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button id="btn_delete" data-id6="'.$row["idtbl_agreement"].'" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button id="btn_delete" data-id6="'.$row["0"].'" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
  </tr>  
            ';  
-      }  
-      $output .= '  
-           <tr>  
-               
-                 <th></th>
-                    <th></th>
-                     <th></th>
-                     <th></th>
-                      <th></th>
-                     <th></th>
-                 
-                <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button id="btn_add"  class="btn btn-xs btn-success" data-title="Delete" data-toggle="modal" data-target="#insert" ><span class="glyphicon glyphicon-plus"></span></button></p></td>
-           </tr>  
-      ';  
+
+
  }  
  else  
  {  
@@ -787,6 +780,21 @@ function cargarcontrato()
                 <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button id="btn_add" class="btn btn-xs btn-success" data-title="Delete" data-toggle="modal" data-target="#insert" ><span class="glyphicon glyphicon-plus"></span></button></p></td> 
            </tr>   ';  
  }  
+      }  
+      $output .= '  
+           <tr>  
+               
+                 <th></th>
+                    <th></th>
+                     <th></th>
+                     <th></th>
+                      <th></th>
+                     <th></th>
+                 
+                <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button id="btn_add"  class="btn btn-xs btn-success" data-title="Delete" data-toggle="modal" data-target="#insert" ><span class="glyphicon glyphicon-plus"></span></button></p></td>
+           </tr>  
+      ';  
+
  $output .= '</table>  
       </div>';  
  echo $output;  

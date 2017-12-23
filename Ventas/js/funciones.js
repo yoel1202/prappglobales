@@ -1,6 +1,6 @@
  $( document ).ready(function() {
 
-  $('.carousel').carousel()
+  
 $('#find').click(function() {
   search();
   });
@@ -64,6 +64,7 @@ $.ajax({
   })
 
 });
+   $('.carousel').carousel();
    
            $('#myCarousel').carousel({
                 interval: 5000

@@ -84,7 +84,11 @@ footer {  min-height:350px; font-family: 'Open Sans', sans-serif;
     height: 32px;
     left: 5px;
 }
-
+.btn-primary:hover{
+    color: #fff;
+    background-color: #1ab188;
+   
+}
 .pager li a{
 
 	color: black;

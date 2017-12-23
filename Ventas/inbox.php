@@ -23,7 +23,7 @@
      <script src="js/bootstrap.min.js"></script>
   <link href="css/stylemenu.css" rel="stylesheet">
      <script src="js/funciones.js"></script>
-          <script src="js/funcionesinsert.js"></script>
+         
       <link rel="stylesheet" href="css/font-awesome.min.css">
             <link rel="stylesheet" href="css/message.css">
 </head>
@@ -109,18 +109,9 @@ while($row2 = $con->extraer_registro()){
       
   
   <li class="upper-links"><a  id="nom" href="profile.php"  class="fa fa-user" ></a></li>
- <?php  
+  <?php  
  if(isset($_SESSION['id'])){
-  if ($_SESSION['tipo']=="user") {
-    
-$conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')"); 
-  }else{
-
-    $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_vendedor_idtbl_vendedor='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')"); 
-  }
-  
-
-   if(!$row = $conexion->extraer_registro()) {
+  $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estado='no leido' and tbl_user_idtbl_usuario='".$_SESSION['id']."' and tipo_usuario   not in(SELECT tipo_usuario from tbl_message where  tipo_usuario='".$_SESSION['tipo']."')");  if(!$row = $conexion->extraer_registro()) {
               echo ' <li  class="upper-links"><a href="inbox.php" class="fa fa-envelope" ></a></li>';
               }else{
 
@@ -132,7 +123,6 @@ $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estad
 }
 
                  ?>
-
 
   
    <li class="upper-links">

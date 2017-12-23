@@ -205,7 +205,7 @@ $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estad
                   LOUNGE CHAIR
                 </div>
                 <div class="product-pri" price-data="320.03">
-                  $320<span class="product-price-cents">03</span>
+                  <span class="product-price-cents"></span>
                 </div>
               </div>
               <div class="product-image">
@@ -214,7 +214,7 @@ $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estad
             </div>
             <div class="product-right">
               <div class="product-description">
-                Designer Karim Rashid continues to put his signature spin on all genres of design through various collaborations with top-notch companies. Another one to add to the win column is his work with Italian manufacturer Chateau d’Ax.
+                
               </div>
               <div class="product-available">
                 en existencia. <span class="product-extended"><a href="#"></a></span>
@@ -225,17 +225,17 @@ $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estad
                 <i class="fa fa-star rating" star-data="3"></i>
                 <i class="fa fa-star" star-data="4"></i>
                 <i class="fa fa-star" star-data="5"></i>
-                <div class="product-rating-details">(3.1 - <span class="rating-count">1203</span> reviews)
+                <div class="product-rating-details">(<span class="rating-count">1203</span> Visitas)
                 </div>
 
               </div>
               <div class="product-quantity">
-                <label for="product-quantity-input" class="product-quantity-label">Quantity</label>
+                <label for="cantidadp" class="product-quantity-label">Cantidad</label>
                 <div class="product-quantity-subtract">
                   <i class="fa fa-chevron-left"></i>
                 </div>
                 <div>
-                  <input type="text" id="product-quantity-input" placeholder="0" value="0" />
+                  <input type="text" id="cantidadp" placeholder="0" value="0" />
                 </div>
                 <div class="product-quantity-add">
                   <i class="fa fa-chevron-right"></i>
@@ -244,7 +244,7 @@ $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estad
             </div>
             <div class="product-bottom">
               <div class="product-checkout">
-                Total Price
+                Precio total
                 <div class="product-checkout-total">
                   <i class="fa fa-usd"></i>
                   <div class="product-checkout-total-amount">
@@ -253,10 +253,11 @@ $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estad
                 </div>
               </div>
               <div class="product-checkout-actions">
-               <a href="#" class="btn btn-default">Mas Informacion </a>
+
+               <a  class="btn btn-default" id="boton1" href="#">Mas Informacion </a>
                <?php  
                  if (isset($_SESSION['id'])) {
-                                            echo '<a onclick="agregarcarrito('.$row['0'].',1,'.$_SESSION['id'].', '.$row['1'].')" class="btn btn-primary">Agregar al carrito!</a>';                                         
+                                            echo '<a onclick="agregarcarrito('.$row['0'].',1,'.$_SESSION['id'].', '.$row['1'].')" id="boton2" class="btn btn-primary">Agregar al carrito!</a>';                                         
                                           }
                                           else
                                           {
@@ -314,25 +315,25 @@ $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estad
                                     </a>
                                 </li>
                                 <li class="item-4 ">
-                                    <a class="" href="#">
+                                    <a class="" data-toggle="modal" data-target="#squarespaceModal">
                                         <span class="sign"><i class="icon-play"></i></span>
                                         <span class="lbl">Marca</span> 
                                     </a>
                                 </li>  
                                   <li class="item-5 ">
-                                    <a class="" href="#">
+                                    <a class="" data-toggle="modal" data-target="#squarespaceModal">
                                         <span class="sign"><i class="icon-play"></i></span>
                                         <span class="lbl">Color</span> 
                                     </a>
                                 </li>
                                      <li class="item-6 ">
-                                    <a class="" href="#">
+                                    <a class="" data-toggle="modal" data-target="#squarespaceModal">
                                         <span class="sign"><i class="icon-play"></i></span>
                                         <span class="lbl">Localizacion</span> 
                                     </a>
                                 </li>  
                                      <li class="item-7 ">
-                                    <a class="" href="#">
+                                    <a class="" data-toggle="modal" data-target="#squarespaceModal">
                                         <span class="sign"><i class="icon-play"></i></span>
                                         <span class="lbl">Precio</span> 
                                     </a>
@@ -351,37 +352,37 @@ while($row = $conexion->extraer_registro()){
 
     }else{
         echo '      <li class="item-'. $i.' deeper parent">
-                            <a class="" href="#">
+                            <a class="" data-toggle="modal" data-target="#squarespaceModal">
                                 <span data-toggle="collapse" data-parent="#menu-group-1" href="#sub-item-'. $i.'" class="sign"><i class="fa fa-plus"></i></span>
                                 <span class="lbl">'.$row['1'].'</span> 
                             </a>
                             <ul class="children nav-child unstyled small collapse" id="sub-item-'. $i.'">
                                         <li class="item-'. $i++.'">
-                                    <a class="" href="#">
+                                    <a class="" data-toggle="modal" data-target="#squarespaceModal">
                                         <span class="sign"><i class="icon-play"></i></span>
                                         <span class="lbl">Cualquiera</span>                                    
                                     </a>
                                 </li>
                                 <li class="item-'. $i++.'">
-                                    <a class="" href="#">
+                                    <a class="" data-toggle="modal" data-target="#squarespaceModal">
                                         <span class="sign"><i class="icon-play"></i></span>
                                         <span class="lbl">Marca</span>                                    
                                     </a>
                                 </li>
                                  <li class="item-'. $i++.'">
-                                    <a class="" href="#">
+                                    <a class="" data-toggle="modal" data-target="#squarespaceModal">
                                         <span class="sign"><i class="icon-play"></i></span>
                                         <span class="lbl">Color</span>                                    
                                     </a>
                                 </li>
                                  <li class="item-'. $i++.'">
-                                    <a class="" href="#">
+                                    <a class=""data-toggle="modal" data-target="#squarespaceModal">
                                         <span class="sign"><i class="icon-play"></i></span>
                                         <span class="lbl">Localizacion</span>                                    
                                     </a>
                                 </li>
                                  <li class="item-'. $i++.'">
-                                    <a class="" href="#">
+                                    <a class="" data-toggle="modal" data-target="#squarespaceModal">
                                         <span class="sign"><i class="icon-play"></i></span>
                                         <span class="lbl">Precio</span>                                    
                                     </a>
@@ -409,40 +410,258 @@ while($row = $conexion->extraer_registro()){
     </div>
   </div>
   <div class="col-lg-8">
-      <?php  
+        <div class="row">
+        <div class="row">
+            <div class="col-md-9">
+                <h3>
+                    Artículos de lavadoras</h3>
+            </div>
+            <div class="col-md-3">
+                <!-- Controls -->
+              
+            </div>
+        </div>
+        <div id="carousel-example" class="carousel slide hidden-xs" data-ride="carousel">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                
+                      
+
+                      <?php  
 
     if (isset($_GET['subcategories'] )) {
-       $conexion->consulta ("SELECT titulo,precio,descripcion,picture_code,idtbl_productos FROM tbl_productos as tp
+       $conexion->consulta ("SELECT titulo,precio,descripcion,picture_code,idtbl_productos,tbl_vendedor_idtbl_vendedor,visitas FROM tbl_productos as tp
  INNER JOIN tbl_photo AS TPH ON TPH.tbl_productos_idtbl_productos=idtbl_productos  INNER JOIN tbl_subcategories as tsu on 
- tsu.idtbl_subcategorias =tp.tbl_subcategorias_idtbl_subcategorias   where tsu.nombre_subcategoria ='".$_GET['subcategories']."' 
+ tsu.idtbl_subcategorias =tp.tbl_subcategorias_idtbl_subcategorias INNER JOIN tbl_see TSE ON TSE.id_tbl_productos =tp.idtbl_productos   where tsu.nombre_subcategoria ='".$_GET['subcategories']."' 
  group by titulo order by tsu.idtbl_subcategorias ASC  limit 8 ; ");
        $i=0;
+       echo '<div class="item active">
+                    <div class="row">';
                 while($row = $conexion->extraer_registro()){
-     echo ' <div class="itemlist-item-wrapper" onclick="OpenProduct('.$row['4'].');">
-        <div class="product-details "  >
-        <div class="descripcion hide" item-data="'.$row['4'].'"  >'.$row['2'].' </div>
-          <div class="">
-            <div class="product-info">
+                    if ($i==4) {
+                  echo '<div class="item">
+                    <div class="row">';
+                  }
+                  if (isset($_SESSION['id'])) {
+                    echo '     <div class="col-sm-3" onclick="OpenProduct('.$row['4'].','.$row['5'].','.$_SESSION['id'].');">
+                            <div class="col-item">
+                                <div class="photo" item-data="'.$row['4'].'">
+                                    <img src="'.$row['3'].'"  width="350"  height="260" alt="a" />
+                                </div>
+                                <div class="info">
+                                    <div class="row">
+                                        <div class="product-price col-md-6" price-data="'.$row['1'].'" item-data="'.$row['4'].'">
+                                            <h5 class="titulo">
+                                                '.$row['0'].'</h5>
+                                            <h5 class="price-text-color">
+                                                ₡'.$row['1'].'.00</h5>
 
-              <div class="product-title" item-data="'.$row['4'].'">
-               <h3>'.$row['0'].' </h3>
-              </div>
-              <div class="product-price" price-data="320.03" item-data="'.$i.'">
-                  ₡<span class="product-price-cents">'.$row['1'].'</span>
-              </div>
-            </div>
-            <div class="product-image" item-data="'.$row['4'].'">
-              <img src=" '.$row['3'].'" />
-            </div>
-          </div>
-        </div>
-      </div>';
+                                        </div>
+                                        <div class="rating hidden-sm col-md-6">
+                                            <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
+                                            </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
+                                            </i><i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="descripcion hide" item-data="'.$row['4'].'"  >'.$row['2'].' </div>
+                                     <div class="visitas hide" item-data="'.$row['4'].'"  >'.$row['6'].' </div>
+                                    <div class="clearfix">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        ';
+                         if ($i==3) {
+                   echo '  </div>
+                </div>';
+                  }
+                   
+
+                     if ($i==7) {
+                    echo '  </div>
+                </div>';
+                  }
+
+
+                  }else{
+       echo '     <div class="col-sm-3" onclick="OpenProduct('.$row['4'].','.$row['5'].',1);">
+                            <div class="col-item">
+                                <div class="photo" item-data="'.$row['4'].'">
+                                    <img src="'.$row['3'].'"  width="350"  height="260" alt="a" />
+                                </div>
+                                <div class="info">
+                                    <div class="row">
+                                        <div class="product-price col-md-6" price-data="'.$row['1'].'" item-data="'.$row['4'].'">
+                                            <h5 class="titulo">
+                                                '.$row['0'].'</h5>
+                                            <h5 class="price-text-color">
+                                                ₡'.$row['1'].'.00</h5>
+
+                                        </div>
+                                        <div class="rating hidden-sm col-md-6">
+                                            <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
+                                            </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
+                                            </i><i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="descripcion hide" item-data="'.$row['4'].'"  >'.$row['2'].' </div>
+                                     <div class="visitas hide" item-data="'.$row['4'].'"  >'.$row['6'].' </div>
+                                    <div class="clearfix">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        ';
+                         if ($i==3) {
+                   echo '  </div>
+                </div>';
+                  }
+                   
+
+                     if ($i==7) {
+                    echo '  </div>
+                </div>';
+                  }
+    }
+    
       $i++;
     }
     
     }
 
       ?>
+                  
+              
+            </div>
+        </div>
+    </div>
+        <div class="row">
+        <div class="row">
+            <div class="col-md-9">
+                <h3>
+                    Mas articulos</h3>
+            </div>
+            <div class="col-md-3">
+                <!-- Controls -->
+               
+            </div>
+        </div>
+        <div id="carousel-example-generic" class="carousel slide hidden-xs" data-ride="carousel">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+             
+       
+                      <?php  
+
+    if (isset($_GET['subcategories'] )) {
+       $conexion->consulta ("SELECT titulo,precio,descripcion,picture_code,idtbl_productos,tbl_vendedor_idtbl_vendedor,visitas FROM tbl_productos as tp
+ INNER JOIN tbl_photo AS TPH ON TPH.tbl_productos_idtbl_productos=idtbl_productos  INNER JOIN tbl_subcategories as tsu on 
+ tsu.idtbl_subcategorias =tp.tbl_subcategorias_idtbl_subcategorias INNER JOIN tbl_see TSE ON TSE.id_tbl_productos =tp.idtbl_productos   where tsu.nombre_subcategoria ='".$_GET['subcategories']."' 
+ group by titulo order by tsu.idtbl_subcategorias ASC  limit 8,14 ; ");
+       $i=0;
+       echo '<div class="item active">
+                    <div class="row">';
+                while($row = $conexion->extraer_registro()){
+                    if ($i==4) {
+                  echo '<div class="item">
+                    <div class="row">';
+                  }
+                  if (isset($_SESSION['id'])) {
+                    echo '     <div class="col-sm-4" onclick="OpenProduct('.$row['4'].','.$row['5'].','.$_SESSION['id'].');">
+                            <div class="col-item">
+                                <div class="photo" item-data="'.$row['4'].'">
+                                    <img src="'.$row['3'].'"  width="350"  height="260" alt="a" />
+                                </div>
+                                <div class="info">
+                                    <div class="row">
+                                        <div class="product-price col-md-6" price-data="'.$row['1'].'" item-data="'.$row['4'].'">
+                                            <h5 class="titulo">
+                                                '.$row['0'].'</h5>
+                                            <h5 class="price-text-color">
+                                                ₡'.$row['1'].'.00</h5>
+
+                                        </div>
+                                        <div class="rating hidden-sm col-md-6">
+                                            <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
+                                            </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
+                                            </i><i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="descripcion hide" item-data="'.$row['4'].'"  >'.$row['2'].' </div>
+                                     <div class="visitas hide" item-data="'.$row['4'].'"  >'.$row['6'].' </div>
+                                    <div class="clearfix">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        ';
+                         if ($i==3) {
+                   echo '  </div>
+                </div>';
+                  }
+                   
+
+                     if ($i==7) {
+                    echo '  </div>
+                </div>';
+                  }
+
+
+                  }else{
+       echo '     <div class="col-sm-4" onclick="OpenProduct('.$row['4'].','.$row['5'].',1);">
+                            <div class="col-item">
+                                <div class="photo" item-data="'.$row['4'].'">
+                                    <img src="'.$row['3'].'"  width="350"  height="260" alt="a" />
+                                </div>
+                                <div class="info">
+                                    <div class="row">
+                                        <div class="product-price col-md-6" price-data="'.$row['1'].'" item-data="'.$row['4'].'">
+                                            <h5 class="titulo">
+                                                '.$row['0'].'</h5>
+                                            <h5 class="price-text-color">
+                                                ₡'.$row['1'].'.00</h5>
+
+                                        </div>
+                                        <div class="rating hidden-sm col-md-6">
+                                            <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
+                                            </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
+                                            </i><i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="descripcion hide" item-data="'.$row['4'].'"  >'.$row['2'].' </div>
+                                     <div class="visitas hide" item-data="'.$row['4'].'"  >'.$row['6'].' </div>
+                                    <div class="clearfix">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        ';
+                         if ($i==3) {
+                   echo '  </div>
+                </div>';
+                  }
+                   
+
+                     if ($i==7) {
+                    echo '  </div>
+                </div>';
+                  }
+    }
+    
+      $i++;
+    }
+    
+    }
+
+      ?>
+                  
+            </div>
+        </div>
+    </div>
        </div>
    </div>
 
@@ -451,6 +670,8 @@ while($row = $conexion->extraer_registro()){
     </div>
   </div>
 
+
+</div>
   <div class="container">
    <div class="row">
         <div class="col-lg-12">
@@ -501,6 +722,95 @@ $i++;
 </div>
 </div>
 </div>
+
+
+
+<div class="center"><button data-toggle="modal" data-target="#squarespaceModal" class="btn btn-primary center-block">Click Me</button></div>
+
+
+<!-- line modal -->
+<div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+      <h3 class="modal-title" id="lineModalLabel">Búsqueda avanzada</h3>
+    </div>
+    <div class="modal-body">
+      
+            <!-- content goes here -->
+      <form>
+              <div class="window-wrapper">
+  
+    <div class="window-area" >
+      <div class="conversation-list">
+        <ul class="">
+          
+          <li class="item active"><a href="#"><span>Marca</span></a></li>
+          <li><a href="#"></i><span>Color</span></a></li>
+          <li><a href="#"></i><span>Localizacion</span></a></li>
+          <li><a href="#"></i><span>Precio</span></i></a></li>
+          <li><a href="#"></i></i><span>Ioana Marcu</span></i></a></li>
+        </ul>
+      
+      </div>
+      <div class="chat-area">
+        <div class="title"><b>Característica</b></div>
+        <div class="chat-list">
+         
+  
+    
+    <div class="col-sm-12">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Samsung
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" checked>
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            LG
+          </label>
+        </div>
+        <div class="checkbox ">
+          <label>
+            <input type="checkbox" value="" disabled>
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Maybe
+          </label>
+        </div>
+    
+  </div>
+        </div>
+      
+      </div>
+    
+    </div>
+  </div>
+            </form>
+
+    </div>
+    <div class="modal-footer">
+      <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Cerrar</button>
+        </div>
+        <div class="btn-group btn-delete hidden" role="group">
+          <button type="button" id="delImage" class="btn btn-default btn-hover-red" data-dismiss="modal"  role="button">Delete</button>
+        </div>
+        <div class="btn-group" role="group">
+          <button type="button" id="saveImage" class="btn btn-default btn-hover-green" data-action="save" role="button">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+
 <footer id="final">
   <div class="container">
     <div class="row" >
@@ -741,19 +1051,24 @@ $('#search').val(word);
 </body>
 <script 
 <script >//Go Back
-function OpenProduct(i){
-  var img = $('.product-image[item-data="'+i+'"] img');
+function OpenProduct(i,vendedor,sesion){
+  var img = $('.photo[item-data="'+i+'"] img');
   var descripcion = $('.descripcion[item-data="'+i+'"]');
-   var titulo = $('.product-title[item-data="'+i+'"] ');
-    var precio = $('.product-price[item-data="'+i+'"] ');
+   var titulo = $('.product-price[item-data="'+i+'"] .titulo ');
   
+    var visitas = $('.visitas[item-data="'+i+'"] ');
+  $('.rating-count').text($(visitas).text());
   $('.product-right .product-description').text($(descripcion).text());
+ 
   $('.product-tit').text($(titulo).text());
-  $('.product-pri').text($(precio).text());
-  $('.product-checkout-actions a').attr('href','buy.php?product='+i+'');
-  var lbi = $('.lightbox-blanket .product-image img');
-  console.log($(i).attr("src"));
 
+  $('.product-checkout-actions  #boton1').attr('href','buy.php?product='+i+'');
+  var lbi = $('.lightbox-blanket .product-image img');
+  
+// $('.product-checkout-actions  #boton2').attr('href', window.location);
+  
+
+$('.product-checkout-actions #boton2').attr('onclick','agregarcarrito('+i+',0,'+sesion+', '+vendedor+')');
   $(lbi).attr("src", $(img).attr("src"));
  
 
@@ -767,10 +1082,13 @@ function OpenProduct(i){
   $(".lightbox-blanket").toggle();
   
   
-  $("#product-quantity-input").val("1");
+  $("#cantidadp").val("1");
   CalcPrice (1);
   
 }
+$(document).on("click", ".product-checkout-actions #boton2", function(e){
+  GoBack();
+});
 function GoBack(){
   $(".lightbox-blanket").toggle();
 }
@@ -784,43 +1102,31 @@ function CalcPrice (qty){
 
 //Reduce quantity by 1 if clicked
 $(document).on("click", ".product-quantity-subtract", function(e){
-  var value = $("#product-quantity-input").val();
+  var value = $("#cantidadp").val();
   //console.log(value);
   var newValue = parseInt(value) - 1;
   if(newValue < 0) newValue=0;
-  $("#product-quantity-input").val(newValue);
+  $("#cantidadp").val(newValue);
   CalcPrice(newValue);
 });
 
 //Increase quantity by 1 if clicked
 $(document).on("click", ".product-quantity-add", function(e){
-  var value = $("#product-quantity-input").val();
+  var value = $("#cantidadp").val();
   //console.log(value);
   var newValue = parseInt(value) + 1;
-  $("#product-quantity-input").val(newValue);
+  $("#cantidadp").val(newValue);
   CalcPrice(newValue);
 });
 
-$(document).on("blur", "#product-quantity-input", function(e){
-  var value = $("#product-quantity-input").val();
+$(document).on("blur", "#cantidadp", function(e){
+  var value = $("#cantidadp").val();
   //console.log(value);
   CalcPrice(value);
 });
 
 
-function AddToCart(e){
-  e.preventDefault();
-  var qty = $("#product-quantity-input").val();
-  if(qty === '0'){return;}
-  var toast = '<div class="toast toast-success">Added '+ qty +' to cart.</div>';  
-  $("body").append(toast);
-  setTimeout(function(){ 
-  $(".toast").addClass("toast-transition");
-    }, 100);
-  setTimeout(function(){      
-    $(".toast").remove();
-  }, 3500);
-}
+
 //# sourceURL=pen.js
 !function ($) {
     
@@ -935,7 +1241,7 @@ box-sizing: content-box;}
   color:#222;
   width: 0;
   height: 0;
-  border-top: 60px solid #CAE00D;
+  border-top: 60px solid #1ab188;
   border-right: 60px solid transparent;
 }
 
@@ -991,11 +1297,7 @@ box-sizing: content-box;}
    font-family: "arial", serif;
 }
 
-.product-price {
-  color:black;
-  font-size: 20px;
-  letter-spacing: 1px;
-}
+
 
 .product-price-cents {
   text-decoration: underline;
@@ -1047,7 +1349,7 @@ i.fa-star.rating{color: rgb(232, 217, 31);}
 .product-quantity-label{text-transform:uppercase;}
 .product-quantity *{display:inline-block;}
 
-#product-quantity-input{background-color: #eee;border: none; width:2.5em; text-align: center;}
+#cantidadp{background-color: #eee;border: none; width:2.5em; text-align: center;}
 .product-quantity-subtract, .product-quantity-add{margin-left: 20px; padding-left:5px; padding-right: 5px;}
 .product-quantity-subtract{margin-right:20px;}
 
@@ -1319,7 +1621,7 @@ all and (min-width: 992px) and (-webkit-transform-3d) {
     font-size: 12px;
     margin-top: 5px;
   }
-  .price{
+  .product-price{
     font-size: 30px;
       margin: 0 auto;
       color: #333;
@@ -1346,9 +1648,7 @@ all and (min-width: 992px) and (-webkit-transform-3d) {
       width: 100%;
     }
   }
-body{
-   overflow-x: hidden;
-}
+
 /* MENU-LEFT
 -------------------------- */
 /* layout */
@@ -1511,6 +1811,453 @@ body{
 #left ul.nav>li.item-22 li.current>a .lbl {
     background-color: #ef409c;
     color: #fff!important;
+}
+@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
+.col-item
+{
+    border: 1px solid #E1E1E1;
+    border-radius: 5px;
+    background: #FFF;
+}
+.col-item .photo img
+{
+    margin: 0 auto;
+    width: 100%;
+}
+
+.col-item .info
+{
+    padding: 10px;
+    border-radius: 0 0 5px 5px;
+    margin-top: 1px;
+}
+
+.col-item:hover .info {
+    background-color: #F5F5DC;
+}
+.col-item .product-price
+{
+    /*width: 50%;*/
+    float: left;
+    margin-top: 5px;
+}
+
+.col-item .product-price h5
+{
+    line-height: 20px;
+    margin: 0;
+}
+
+.price-text-color
+{
+    color: #219FD1;
+}
+
+.col-item .info .rating
+{
+    color: #777;
+}
+
+.col-item .rating
+{
+    /*width: 50%;*/
+    float: left;
+    font-size: 17px;
+    text-align: right;
+    line-height: 52px;
+    margin-bottom: 10px;
+    height: 52px;
+}
+
+.col-item .separator
+{
+    border-top: 1px solid #E1E1E1;
+}
+
+.clear-left
+{
+    clear: left;
+}
+
+.col-item .separator p
+{
+    line-height: 20px;
+    margin-bottom: 0;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.col-item .separator p i
+{
+    margin-right: 5px;
+}
+.col-item .btn-add
+{
+    width: 50%;
+    float: left;
+}
+
+.col-item .btn-add
+{
+    border-right: 1px solid #E1E1E1;
+}
+
+.col-item .btn-details
+{
+    width: 50%;
+    float: left;
+    padding-left: 10px;
+}
+.controls
+{
+    margin-top: 20px;
+}
+[data-slide="prev"]
+{
+    margin-right: 10px;
+}
+
+ul,
+li,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+
+
+
+
+
+
+
+
+.window-wrapper {
+  
+  
+ 
+  overflow: hidden;
+  min-height: 530px;
+  position: relative;
+}
+
+.window-title {
+  padding: 14px;
+  position: relative;
+}
+.window-title > .title {
+  overflow: hidden;
+  text-align: center;
+  font-weight: bold;
+}
+.window-title > .expand {
+  position: absolute;
+  right: 14px;
+  top: 12px;
+}
+
+.expand > i {
+  color: #cfd6e0;
+  font-size: 18px;
+  cursor: pointer;
+}
+.window-area {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-left: 176px;
+}
+.conversation-list {
+  width: 176px;
+  background: #505d71;
+  float: left;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+.conversation-list ul li.active a {
+  background: #445166;
+  color: #fff;
+}
+.conversation-list ul li a {
+  padding: 15px;
+  color: #bcc3d0;
+  text-decoration: none;
+  display: block;
+  position: relative;
+  border-bottom: 2px solid #586476;
+  transition: all 0.2s linear;
+}
+.conversation-list ul li a i {
+  color: #79889d;
+  font-size: 1.2em;
+}
+.conversation-list ul li a i.fa-times {
+  position: absolute;
+  top: 19px;
+  right: 21px;
+  font-size: 10px;
+}
+.conversation-list ul li a span {
+  display: inline-block;
+  margin-left: 14px;
+}
+.conversation-list ul li a:hover {
+  background: #445166;
+  color: #fff;
+}
+.conversation-list .online {
+  color: #82cf85;
+}
+.conversation-list .idle {
+  color: #ffac69;
+}
+.conversation-list .offline {
+  color: #f57e7d;
+}
+.chat-area {
+  border-top: 1px solid #cfdae1;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 176px;
+  right: 175px;
+  width:69%;
+  box-shadow: inset 0 1px 3px rgba(207, 218, 225, 0.42);
+}
+.chat-area .title {
+  padding: 10px;
+  overflow: hidden;
+  line-height: 15px;
+}
+.chat-area .title .fa-search {
+  font-size: 14px;
+  float: right;
+  color: #a8bbc6;
+  cursor: pointer;
+}
+.chat-area .chat-list {
+  border-top: 1px solid #cfdae1;
+  border-bottom: 1px solid #cfdae1;
+  position: absolute;
+  left: 0;
+  top: 35px;
+  right: 0;
+  bottom: 44px;
+  overflow-y: auto;
+  outline: none;
+}
+.chat-area .chat-list > div > .jspPane {
+  margin-left: 0 !important;
+}
+.chat-area ul {
+  margin-right: -4px;
+}
+.chat-area ul > li {
+  border-top: 1px solid #cfdae1;
+  overflow: hidden;
+  position: relative;
+}
+.chat-area ul > li.me {
+  background: #e4eaee;
+}
+.chat-area ul > li:first-child {
+  border-top: none;
+}
+.chat-area ul .name {
+  padding: 14px;
+  text-align: right;
+  width: 100px;
+  float: left;
+  color: #5d7185;
+  font-weight: bold;
+  line-height: 20px;
+}
+.chat-area ul .message {
+  padding: 14px;
+  border-left: 1px solid #cfdae1;
+  float: left;
+  color: #333f4d;
+  width: 214px;
+}
+.chat-area ul .message > p {
+  line-height: 20px;
+}
+.chat-area ul .message > p > .blue-label {
+  background: #6ea0ff;
+  color: #fff;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+.chat-area ul .message .msg-time {
+  position: absolute;
+  top: 16px;
+  right: 15px;
+  color: #738ba3;
+  font-size: 9px;
+}
+
+
+
+.input-area {
+  background: #e4eaee;
+  padding: 6px;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-top: 1px solid #cfdae1;
+}
+.input-area .input-wrapper {
+  background: #fff;
+  border: 1px solid #cfdae1;
+  border-radius: 5px;
+  overflow: hidden;
+  float: left;
+}
+.input-area .input-wrapper input {
+  height: 30px;
+  line-height: 30px;
+  border: 0;
+  margin: 0;
+  padding: 0 10px;
+  outline: none;
+  color: #5D7185;
+  min-width: 271px;
+}
+
+.right-tabs {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  border-left: 1px solid #cfdae1;
+  border-top: 1px solid #cfdae1;
+  width: 175px;
+}
+.right-tabs > ul.tabs {
+  overflow: hidden;
+}
+.right-tabs > ul.tabs > li {
+  float: left;
+  width: 33.3%;
+  text-align: center;
+  border-bottom: 1px solid #cfdae1;
+}
+.right-tabs > ul.tabs > li > a {
+  border-left: 1px solid #cfdae1;
+  color: #72a3ff;
+  display: block;
+  background: #eef2f8;
+  padding: 8px 0;
+  transition: background 0.2s linear;
+}
+.right-tabs > ul.tabs > li > a:hover {
+  background: #DDE5F1;
+}
+.right-tabs > ul.tabs > li.active {
+  border-bottom: none;
+}
+.right-tabs > ul.tabs > li.active > a {
+  background: #fff;
+  color: #c3ccd3;
+}
+.right-tabs > ul.tabs > li:first-child > a {
+  border-left: none;
+}
+.right-tabs > ul.tabs > li > a > i {
+  font-size: 18px;
+}
+ul.tabs-container {
+  padding: 10px;
+  color: #6e7f91;
+}
+.right-tabs > .fa-cog {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  color: #a0b4c0;
+  font-size: 18px;
+  cursor: pointer;
+}
+.checkbox label:after, 
+.radio label:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.checkbox .cr,
+.radio .cr {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #a9a9a9;
+    border-radius: .25em;
+    width: 1.3em;
+    height: 1.3em;
+    float: left;
+    margin-right: .5em;
+}
+
+.radio .cr {
+    border-radius: 50%;
+}
+
+.checkbox .cr .cr-icon,
+.radio .cr .cr-icon {
+    position: absolute;
+    font-size: .8em;
+    line-height: 0;
+    top: 50%;
+    left: 20%;
+}
+
+.radio .cr .cr-icon {
+    margin-left: 0.04em;
+}
+
+.checkbox label input[type="checkbox"],
+.radio label input[type="radio"] {
+    display: none;
+}
+
+.checkbox label input[type="checkbox"] + .cr > .cr-icon,
+.radio label input[type="radio"] + .cr > .cr-icon {
+    transform: scale(3) rotateZ(-20deg);
+    opacity: 0;
+    transition: all .3s ease-in;
+}
+
+.checkbox label input[type="checkbox"]:checked + .cr > .cr-icon,
+.radio label input[type="radio"]:checked + .cr > .cr-icon {
+    transform: scale(1) rotateZ(0deg);
+    opacity: 1;
+}
+
+.checkbox label input[type="checkbox"]:disabled + .cr,
+.radio label input[type="radio"]:disabled + .cr {
+    opacity: .5;
+}
+.modal-body{
+  padding: 0px;
+
+}
+.modal-header{
+  padding-bottom: 1px solid white;
+}
+.modal-content{
+  width: 900px;
 }
 </style>
 
