@@ -1,5 +1,31 @@
  $( document ).ready(function() {
 
+$('.children .nav-child li').click(function(e) {
+alert($(this).attr("data-id"));
+var tipo =$(this).text();
+$('.conversation-list ul li a').each(function(){
+    if ($(this).text()==tipo.trim()){
+
+ $('.lista li.active').removeClass('active');
+
+        var $parent = $(this).parent();
+        $parent.addClass('active');
+        e.preventDefault();
+  }
+})
+  
+   });
+  
+  
+
+ $('.conversation-list ul li a').click(function(e) {
+    alert($(this).text());
+        $('.lista li.active').removeClass('active');
+
+        var $parent = $(this).parent();
+        $parent.addClass('active');
+        e.preventDefault();
+    });
   
 $('#find').click(function() {
   search();
@@ -377,4 +403,27 @@ function eliminardelcarrito(id_producto)
   }).fail(function (jqXHR, textStatus, errorThrown){
    
   })
+}
+
+function searchfilter(tipofiltro)
+{
+  switch (tipofiltro) {
+  case Marca: 
+  $.ajax({
+    type: 'POST',
+    url: 'database.php',
+    data: {key: 'getbrands'}
+
+  }).done(function ( data ) {
+  
+  }).fail(function (jqXHR, textStatus, errorThrown){
+   
+  })
+  break;
+
+  case Color:
+  break;
+
+}
+ 
 }

@@ -352,36 +352,36 @@ while($row = $conexion->extraer_registro()){
 
     }else{
         echo '      <li class="item-'. $i.' deeper parent">
-                            <a class="" data-toggle="modal" data-target="#squarespaceModal">
+                            <a class=""  >
                                 <span data-toggle="collapse" data-parent="#menu-group-1" href="#sub-item-'. $i.'" class="sign"><i class="fa fa-plus"></i></span>
                                 <span class="lbl">'.$row['1'].'</span> 
                             </a>
                             <ul class="children nav-child unstyled small collapse" id="sub-item-'. $i.'">
-                                        <li class="item-'. $i++.'">
+                                        <li price-data="'.$row['1'].'" data-id="'.$row['0'].'" class="item-'. $i++.'" >
                                     <a class="" data-toggle="modal" data-target="#squarespaceModal">
                                         <span class="sign"><i class="icon-play"></i></span>
                                         <span class="lbl">Cualquiera</span>                                    
                                     </a>
                                 </li>
-                                <li class="item-'. $i++.'">
+                                <li data-id="'.$row['0'].'" class="item-'. $i++.'">
                                     <a class="" data-toggle="modal" data-target="#squarespaceModal">
                                         <span class="sign"><i class="icon-play"></i></span>
                                         <span class="lbl">Marca</span>                                    
                                     </a>
                                 </li>
-                                 <li class="item-'. $i++.'">
+                                 <li data-id="'.$row['0'].'" class="item-'. $i++.'">
                                     <a class="" data-toggle="modal" data-target="#squarespaceModal">
                                         <span class="sign"><i class="icon-play"></i></span>
                                         <span class="lbl">Color</span>                                    
                                     </a>
                                 </li>
-                                 <li class="item-'. $i++.'">
+                                 <li data-id="'.$row['0'].'" class="item-'. $i++.'">
                                     <a class=""data-toggle="modal" data-target="#squarespaceModal">
                                         <span class="sign"><i class="icon-play"></i></span>
                                         <span class="lbl">Localizacion</span>                                    
                                     </a>
                                 </li>
-                                 <li class="item-'. $i++.'">
+                                 <li data-id="'.$row['0'].'" class="item-'. $i++.'">
                                     <a class="" data-toggle="modal" data-target="#squarespaceModal">
                                         <span class="sign"><i class="icon-play"></i></span>
                                         <span class="lbl">Precio</span>                                    
@@ -725,7 +725,7 @@ $i++;
 
 
 
-<div class="center"><button data-toggle="modal" data-target="#squarespaceModal" class="btn btn-primary center-block">Click Me</button></div>
+
 
 
 <!-- line modal -->
@@ -744,13 +744,14 @@ $i++;
   
     <div class="window-area" >
       <div class="conversation-list">
-        <ul class="">
+        <ul class="lista">
           
-          <li class="item active"><a href="#"><span>Marca</span></a></li>
+          <li class="item active"><a ><span>Marca</span></a></li>
           <li><a href="#"></i><span>Color</span></a></li>
           <li><a href="#"></i><span>Localizacion</span></a></li>
           <li><a href="#"></i><span>Precio</span></i></a></li>
-          <li><a href="#"></i></i><span>Ioana Marcu</span></i></a></li>
+          <li><a href="#"></i></i><span>Vendedor</span></i></a></li>
+          <li><a href="#"></i></i><span>Envio Gratis</span></i></a></li>
         </ul>
       
       </div>
