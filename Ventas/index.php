@@ -13,7 +13,7 @@
 
 
       require_once("conexion.php"); $conexion = new Conexion();
-        require_once("conexion.php"); $con = new Conexion();
+        
 
   ?>
 <!DOCTYPE html>
@@ -49,9 +49,6 @@
                        <span class="fa fa-search"></span>
                     </button>
                      <div class="col-xs-1">
-
- 
-  
   <div class="collapse navbar-collapse js-navbar-collapse">
     <ul class="nav navbar-nav">
       <li class="dropdown dropdown-large">
@@ -61,8 +58,8 @@
         <div class="col-sm-6">
         <ul class="dropdown-menu dropdown-menu-large row">
           
-          <?php 
-
+            <?php 
+require_once("conexion.php"); $con = new Conexion();
  $conexion->consulta ("SELECT * FROM    tbl_categories Limit 8 ");
                 while($row = $conexion->extraer_registro()){
                  
@@ -80,6 +77,7 @@ while($row2 = $con->extraer_registro()){
            echo ' </ul>
           </li> ' ;
                }
+              
            ?>
             
           
@@ -181,75 +179,107 @@ $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estad
    else{echo '<a href="login.php" class="fa fa-shopping-cart" >&nbsp;<span id="cantidadcarrito" class="badge"></span></a>';}?></li>  
 </div>
 
- <div class="container " id="principal">
-<img id="baner" src="whatcher.png" class="img-responsive" alt="Cinque Terre" height: "500px" style="
-margin-top: -24px;">
     
-         
-          <div class="row">
-     <div class="col-lg-12">
-                <h3 id="titulo">&nbsp;&nbsp;Artículos en oferta</h3>
-            </div>
-        </div>
-  
-            <div class="col-md-12">
-
-                <div class="row ">
-
-                    <div class="col-md-12">
-                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-          
-                            </ol>
-
-                            <div class="row">
        
-                            <div class="carousel-inner">
 
-                             <?php 
+     <div class="col-lg-12">
+                <h2 id="titulo center">&nbsp;&nbsp;Artículos en oferta</h2>
+            </div>
+       
+  <div class="col-md-12">
+               <section class="section-feedback">
+    <div class="feedback-slider">
+     <?php 
 
    $conexion->consulta ("SELECT idtbl_productos,picture_code,titulo,precio,discount FROM `tbl_productos` INNER join tbl_photo on idtbl_productos=tbl_productos_idtbl_productos inner join tbl_discount on idtbl_productos=  tbl_discount.id_product GROUP by idtbl_productos ORDER BY  idtbl_productos DESC LIMIT 8 ");
    $i=0;
                 while($row = $conexion->extraer_registro()){
  if($i==0){
-       echo ' <div class="item active">
-                                    <a href="buy.php?product='.$row[0].'"><img class="slide-image center-block" src="'.$row[1].'" alt=""></a>
-                                    <div class="carousel-caption">
-        <h3 style=" text-shadow: black 0.1em 0.1em 0.2em;">'.$row['2'].'</h3>
-        <strike style=" text-shadow: black 0.1em 0.1em 0.2em">C'.$row[3].'</strike><p> -'.$row[4].'%   <h2>C'.($row[3]-($row[3]*$row[4]/100)).'</h2></p>
-        
-      </div>
-                                </div>
+       echo '<figure class="slide">
+        <div class="feedback-image-wrapper w-hidden-small w-hidden-tiny">
+        <a href="buy.php?product='.$row[0].'">
+          <div class="feedback-image-bg" ></div>
+         
+         <style>.feedback-image-bg { background-image: url("'.$row[1].'");} </style>
+        </div> </a>
+        <div class="feedback-image-wrapper-mobile w-hidden-main w-hidden-medium">
+          <div class="feedback-image-bg"></div>
+        </div>
+
+        <div class="slide-content-wrapper">
+          <div class="slide-text-wrapper">
+            <div class="w-embed">
+              <p class="feedback-text">Aprovecha las nuevas ofertas a solo un click &nbsp<i class="em em-dog"></i> <br> y estaran a la puerta de tu casa!</p>
+              <h3 style="color:white; text-shadow: black 0.1em 0.1em 0.2em;">'.$row['2'].'</h3>
+         <strike style="color:white; text-shadow: black 0.1em 0.1em 0.2em">C'.$row[3].'</strike><p  style="color:white;"> -'.$row[4].'%   <h2  style="color:white;">C'.($row[3]-($row[3]*$row[4]/100)).'</h2></p>
+            </div>
+            <div class="feedback-name"></div>
+            <div class="feedback-job"></div>
+          </div>
+        </div>
+      </figure>
                                 ';
 }else{
- echo ' <div class="item ">
-                                    <a href="buy.php?product='.$row[0].'"><img class="slide-image center-block" src="'.$row[1].'" alt=""></a>
-                                     <div class="carousel-caption">
-        <h3 style=" text-shadow: black 0.1em 0.1em 0.2em;">'.$row['2'].'</h3>
-        <strike style=" text-shadow: black 0.1em 0.1em 0.2em">C'.$row[3].'</strike><p> -'.$row[4].'%   <h2>C'.($row[3]-($row[3]*$row[4]/100)).'</h2></p>
-        
-      </div>
-                                </div>
+   echo '<figure class="slide">
+        <div class="feedback-image-wrapper w-hidden-small w-hidden-tiny">
+        <a href="buy.php?product='.$row[0].'">
+          <div class="feedback-image-bg-'.$i.'" ></div>
+         
+         <style>.feedback-image-bg-'.$i.' { background-image: url("'.$row[1].'");} </style>
+        </div> </a>
+        <div class="feedback-image-wrapper-mobile w-hidden-main w-hidden-medium">
+          <div class="feedback-image-bg-'.$i.'"></div>
+        </div>
+
+        <div class="slide-content-wrapper">
+          <div class="slide-text-wrapper">
+            <div class="w-embed">
+              <p class="feedback-text">Aprovecha las nuevas ofertas a solo un click &nbsp<i class="em em-dog"></i> <br> y estaran a la puerta de tu casa!</p>
+              <h3 style="color:white; text-shadow: black 0.1em 0.1em 0.2em;">'.$row['2'].'</h3>
+         <strike style="color:white; text-shadow: black 0.1em 0.1em 0.2em">C'.$row[3].'</strike><p  style="color:white;"> -'.$row[4].'%   <h2  style="color:white;">C'.($row[3]-($row[3]*$row[4]/100)).'</h2></p>
+            </div>
+            <div class="feedback-name"></div>
+            <div class="feedback-job"></div>
+          </div>
+        </div>
+      </figure>
                                 ';
 }
 $i++;
                               }
    ?>
-                               
-                               
-                            </div>
-                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </a>
-                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                        </div>
-                    </div>
+     
+    
+      <div class="feedback-slider-nav-wrapper">
+        <ul id="slider-dots" class="feedback-slider-nav w-list-unstyled">
+          <li class="feedback-slider-nav-dot-wrapper">
+            <div class="feedback-slider-nav-dot">
+              <div class="feedback-slider-nav-dot-anim"></div>
+            </div>
+          </li>
+          <li class="feedback-slider-nav-dot-wrapper">
+            <div class="feedback-slider-nav-dot">
+              <div class="feedback-slider-nav-dot-anim"></div>
+            </div>
+          </li>
+          <li class="feedback-slider-nav-dot-wrapper">
+            <div class="feedback-slider-nav-dot">
+              <div class="feedback-slider-nav-dot-anim"></div>
+            </div>
+          </li>
+          <li class="feedback-slider-nav-dot-wrapper">
+            <div class="feedback-slider-nav-dot">
+              <div class="feedback-slider-nav-dot-anim"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  </div>
+       
+ <div class="container " id="principal">
 
-                </div>
-             </div>
-          </div>
         <!-- Title -->
         <div class="row">
             <div class="col-lg-12">
@@ -561,4 +591,158 @@ Conflictos En caso de conflicto entre estas Condiciones de uso y cualquier otro 
 </div>
 
 </body>
+<style type="text/css">
+  .carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img{
+    max-height: 180px;
+</style>
+
+<script >//best viewed in google-chrome
+
+
+// carousel 
+
+var button = null;
+var count = 0;
+var counter;
+
+carousel ();
+
+function carousel (){
+  
+  var indexSlide = document.getElementsByClassName("slide");
+    for (var i = 0; i < indexSlide.length; i++ ){
+       indexSlide[i].classList.remove("active"); 
+    };
+  
+  count++;
+  
+  if (count > indexSlide.length) {
+    count = 1;
+    
+    indexSlide[count - 1].classList.add("active");
+    } else {
+    indexSlide[count - 1].classList.add("active");
+  };
+};
+
+function newCarousel(button){
+  
+  var indexSlide = document.getElementsByClassName("slide");
+    for (var i = 0; i < indexSlide.length; i++ ){
+       indexSlide[i].classList.remove("active"); 
+  };
+
+  if( button !== null ) {
+      indexSlide[button].classList.add("active");
+  }
+};
+
+
+// bar - duration
+
+var slideTime = 5; //seconds
+var length = slideTime * 1000;
+var progressTime = length / 100 ;
+
+
+
+//progress bar 
+
+  
+window.onload = progressBar;
+
+function progressBar(slideTime){ 
+
+  var start = Date.now();
+
+  var id =  window.setInterval(draw, progressTime);
+
+  var target = document.getElementsByClassName("feedback-slider-nav-dot-anim")[count - 1];
+
+
+  function draw() {
+    var delta = 100 * (Date.now() - start) / length;
+
+    if ( delta > 100 ){
+        delta = 100;   
+        target.style.width = 0 + "px";     
+        clearInterval(id); 
+    } else {        
+      target.style.width = (Math.round(delta) + "%");    
+    }
+  };    
+};
+
+
+var reId;
+
+function newProgressBar( slideTime, button){ 
+
+  start = Date.now();
+  
+  reId =  window.setTimeout(reDraw, progressTime);
+  
+
+  var newTarget = document.getElementsByClassName("feedback-slider-nav-dot-anim")[button];
+  var resetTarget = document.getElementsByClassName("feedback-slider-nav-dot-anim");
+
+  function reDraw() {
+    
+    delta = 100 * (Date.now() - start) / length;
+  
+    if ( delta > 100 ){
+      delta = 100;   
+        newTarget.style.width = 0 + "px";  
+        clearTimeout(reId); 
+      } else {           
+        for(var j = 0; j < resetTarget.length ; j++ ){          
+        resetTarget[j].style.width =  0 + "%";
+      }        
+      newTarget.style.width = (Math.round(delta) + "%");
+      requestAnimationFrame(reDraw);
+      }
+    };
+};
+
+// nav-dot click
+
+function click(e) {
+
+  if ( e.target && e.target.nodeName == 'LI' ) {
+      var click = document.getElementById('slider-dots');
+      for (var h = 0, len = click.children.length; h < len; h++){
+        (function(button){
+          click.children[h].onclick = function(){
+                count = button + 1;   
+                stopLoop();                          
+                newCarousel(button);                 
+                clearTimeout(reId);
+                newProgressBar(slideTime, button);          
+                loop();                     
+          };   
+        })(h);
+      }
+  };
+ 
+};
+window.document.querySelector('.feedback-slider-nav-wrapper').addEventListener( 'click', click, true);
+// window.document.querySelector('.feedback-slider-nav-wrapper').removeEventListener( 'click', click, true);
+
+var set;
+function loop(){
+  set = window.setTimeout( function ouy (){
+      carousel();
+      progressBar(slideTime);
+      set = setTimeout(ouy, length);       
+    },length);
+  };
+loop();
+
+function stopLoop() {
+    clearTimeout(set);
+};
+//  // get browser width
+ 
+//# sourceURL=pen.js
+</script>
 </html>

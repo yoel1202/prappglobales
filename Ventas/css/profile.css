@@ -9,17 +9,20 @@ background:#eee;
 
 .btn-primary {
     color: #fff;
-    background-color: #1ab188;
-    border-color: #1ab188;
+    background-color: #ad000f;
+    border-color: #ad000f;
     height: 38px;
     left: 5px;
 
 }
-
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    color: #fff;
+    background-color: #d73140;
+}
 
 .panel-teal .panel-heading {
-    background-color: #1ab188;
-    border: 1px solid #1ab188;
+    background-color: #ad000f;
+    border: 1px solid #ad000f;
     color: white;
 }
 

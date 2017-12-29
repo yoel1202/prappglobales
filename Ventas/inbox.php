@@ -816,7 +816,7 @@ ul.labels-info li a i {
     padding: 0 22px;
 }
 .inbox-head {
-    background: none repeat scroll 0 0 #1ab188;
+    background: none repeat scroll 0 0 rgba(19, 35, 47, 0.9);
     border-radius: 0 4px 0 0;
     color: #fff;
     min-height: 80px;
@@ -837,8 +837,13 @@ ul.labels-info li a i {
     height: 40px;
     padding: 0 10px;
 }
+.btn-success {
+    color: #fff;
+    background-color: rgba(19, 35, 47, 0.9);
+    border-color: rgba(19, 35, 47, 0.9);
+}
 .inbox-head .sr-btn {
-    background: none repeat scroll 0 0 #00a6b2;
+    background: none repeat scroll 0 0 #ad000f;
     border: medium none;
     border-radius: 0 4px 4px 0;
     color: #fff;
