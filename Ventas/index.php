@@ -211,7 +211,7 @@ $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estad
             <div class="w-embed">
               <p class="feedback-text">Aprovecha las nuevas ofertas a solo un click &nbsp<i class="em em-dog"></i> <br> y estaran a la puerta de tu casa!</p>
               <h3 style="color:white; text-shadow: black 0.1em 0.1em 0.2em;">'.$row['2'].'</h3>
-         <strike style="color:white; text-shadow: black 0.1em 0.1em 0.2em">C'.$row[3].'</strike><p  style="color:white;"> -'.$row[4].'%   <h2  style="color:white;">C'.($row[3]-($row[3]*$row[4]/100)).'</h2></p>
+         <strike style="color:white; text-shadow: black 0.1em 0.1em 0.2em">₡'.$row[3].'</strike><p  style="color:white;"> -'.$row[4].'%   <h2  style="color:white;">₡'.($row[3]-($row[3]*$row[4]/100)).'</h2></p>
             </div>
             <div class="feedback-name"></div>
             <div class="feedback-job"></div>
@@ -236,7 +236,7 @@ $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estad
             <div class="w-embed">
               <p class="feedback-text">Aprovecha las nuevas ofertas a solo un click &nbsp<i class="em em-dog"></i> <br> y estaran a la puerta de tu casa!</p>
               <h3 style="color:white; text-shadow: black 0.1em 0.1em 0.2em;">'.$row['2'].'</h3>
-         <strike style="color:white; text-shadow: black 0.1em 0.1em 0.2em">C'.$row[3].'</strike><p  style="color:white;"> -'.$row[4].'%   <h2  style="color:white;">C'.($row[3]-($row[3]*$row[4]/100)).'</h2></p>
+         <strike style="color:white; text-shadow: black 0.1em 0.1em 0.2em">₡'.$row[3].'</strike><p  style="color:white;"> -'.$row[4].'%   <h2  style="color:white;">₡'.($row[3]-($row[3]*$row[4]/100)).'</h2></p>
             </div>
             <div class="feedback-name"></div>
             <div class="feedback-job"></div>
