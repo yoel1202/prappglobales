@@ -1,8 +1,9 @@
  $( document ).ready(function() {
 
 $('.children .nav-child li').click(function(e) {
-alert($(this).attr("data-id"));
+var cate= $(this).attr("data-id");
 var tipo =$(this).text();
+searchfilter(cate,tipo);
 $('.conversation-list ul li a').each(function(){
     if ($(this).text()==tipo.trim()){
 
@@ -405,25 +406,20 @@ function eliminardelcarrito(id_producto)
   })
 }
 
-function searchfilter(tipofiltro)
+function searchfilter(categoria,tipofiltro)
 {
-  switch (tipofiltro) {
-  case Marca: 
-  $.ajax({
+
+
+
+$.ajax({
     type: 'POST',
     url: 'database.php',
-    data: {key: 'getbrands'}
+    data: {key: 'getfilter',cate:categoria,tipo:tipofiltro}
 
   }).done(function ( data ) {
   
   }).fail(function (jqXHR, textStatus, errorThrown){
    
   })
-  break;
-
-  case Color:
-  break;
-
-}
  
 }

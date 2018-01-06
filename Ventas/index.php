@@ -182,7 +182,10 @@ $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estad
     
        
 
-     <div class="col-lg-12">
+    
+       
+ <div class="container " id="principal">
+ <div class="col-lg-12">
                 <h2 id="titulo center">&nbsp;&nbsp;Artículos en oferta</h2>
             </div>
        
@@ -277,9 +280,6 @@ $i++;
     </div>
   </section>
   </div>
-       
- <div class="container " id="principal">
-
         <!-- Title -->
         <div class="row">
             <div class="col-lg-12">

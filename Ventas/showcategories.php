@@ -300,48 +300,10 @@ $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estad
                }  } ?></span>                      
                     </a>
                     <ul class="children nav-child unstyled small collapse" id="sub-item-1">
-                        <li class="item-2 deeper parent active">
-                            <a class="" href="#">
-                                <span data-toggle="collapse" data-parent="#menu-group-1" href="#sub-item-2" class="sign"><i class="fa fa-plus"></i></span>
-                                <span class="lbl"><?php if (isset($_GET['subcategories'])) {
-                echo $_GET['subcategories'];
-                }  ?></span> 
-                            </a>
-                            <ul class="children nav-child unstyled small collapse" id="sub-item-2">
-                                <li class="item-3 current active">
-                                    <a class="" href="#">
-                                        <span class="sign"><i class="icon-play"></i></span>
-                                        <span class="lbl">Cualquiera</span> 
-                                    </a>
-                                </li>
-                                <li class="item-4 ">
-                                    <a class="" data-toggle="modal" data-target="#squarespaceModal">
-                                        <span class="sign"><i class="icon-play"></i></span>
-                                        <span class="lbl">Marca</span> 
-                                    </a>
-                                </li>  
-                                  <li class="item-5 ">
-                                    <a class="" data-toggle="modal" data-target="#squarespaceModal">
-                                        <span class="sign"><i class="icon-play"></i></span>
-                                        <span class="lbl">Color</span> 
-                                    </a>
-                                </li>
-                                     <li class="item-6 ">
-                                    <a class="" data-toggle="modal" data-target="#squarespaceModal">
-                                        <span class="sign"><i class="icon-play"></i></span>
-                                        <span class="lbl">Localizacion</span> 
-                                    </a>
-                                </li>  
-                                     <li class="item-7 ">
-                                    <a class="" data-toggle="modal" data-target="#squarespaceModal">
-                                        <span class="sign"><i class="icon-play"></i></span>
-                                        <span class="lbl">Precio</span> 
-                                    </a>
-                                </li>                                
-                            </ul>
-                        </li>
+                    
 
                         <?php  
+                  
                         if(isset($_GET['subcategories'])){
  $conexion->consulta ("SELECT * FROM    tbl_subcategories WHERE tbl_categorias_idtbl_categorias= (SELECT idtbl_categorias from tbl_categories  INNER JOIN tbl_subcategories on tbl_categorias_idtbl_categorias=idtbl_categorias WHERE nombre_subcategoria='".$_GET['subcategories']."' ) ");
  $i=8;
@@ -349,6 +311,48 @@ while($row = $conexion->extraer_registro()){
 
   
     if($_GET['subcategories']==$row['1']){
+            echo '    <li class="item-2 deeper parent active">
+                            <a class="" href="#">
+                                <span data-toggle="collapse" data-parent="#menu-group-1" href="#sub-item-2" class="sign"><i class="fa fa-plus"></i></span>
+                                <span class="lbl">';
+                                 if (isset($_GET['subcategories'])) {
+                echo $_GET['subcategories'];
+                }  
+                echo '</span> 
+                            </a>
+                            <ul class="children nav-child unstyled small collapse" id="sub-item-2">
+                                <li class="item-3 current active" data-id="'.$row['0'].'">
+                                    <a class="" href="#">
+                                        <span class="sign"><i class="icon-play"></i></span>
+                                        <span class="lbl">Cualquiera</span> 
+                                    </a>
+                                </li>
+                                <li class="item-4  " data-id="'.$row['0'].'">
+                                    <a class="" data-toggle="modal" data-target="#squarespaceModal">
+                                        <span class="sign"><i class="icon-play"></i></span>
+                                        <span class="lbl">Marca</span> 
+                                    </a>
+                                </li>  
+                                  <li class="item-5 " data-id="'.$row['0'].'">
+                                    <a class="" data-toggle="modal" data-target="#squarespaceModal">
+                                        <span class="sign"><i class="icon-play"></i></span>
+                                        <span class="lbl">Color</span> 
+                                    </a>
+                                </li>
+                                     <li class="item-6 " data-id="'.$row['0'].'">
+                                    <a class="" data-toggle="modal" data-target="#squarespaceModal">
+                                        <span class="sign"><i class="icon-play"></i></span>
+                                        <span class="lbl">Localizacion</span> 
+                                    </a>
+                                </li>  
+                                     <li class="item-7 " data-id="'.$row['0'].'">
+                                    <a class="" data-toggle="modal" data-target="#squarespaceModal">
+                                        <span class="sign"><i class="icon-play"></i></span>
+                                        <span class="lbl">Precio</span> 
+                                    </a>
+                                </li>                                
+                            </ul>
+                        </li>';
 
     }else{
         echo '      <li class="item-'. $i.' deeper parent">
