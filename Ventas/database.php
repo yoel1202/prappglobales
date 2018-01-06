@@ -111,7 +111,42 @@ if ($_POST['key']=='registrar') {
         
       deletemsg($conexion,$data);
     }
+  if ($_POST['key']=='getfilter') {
+        
+            $cate = $_POST['cate'];
+              $tipo = $_POST['tipo'];
+      
+        switch (trim($tipo)) {
+          case 'Marca':
+             getfilter($conexion,"brands");
+            break;
+           case 'Color':
+        
+            getfilter($conexion,"SELECT distinct(color) from tbl_productos inner join tbl_subcategories on idtbl_subcategorias=tbl_subcategorias_idtbl_subcategorias
+ WHERE idtbl_subcategorias='".$cate."' ");
+            break;
+          default:
+echo "error";
+         
+            break;
+        }
+     
+    }
 
+
+    function getfilter($conexion,$sql){
+   
+$conexion->consulta($sql);
+$sqlarray= array();
+$i = 0;
+while($row = $conexion->extraer_registro()){
+      $sqlarray[$i] = $row;
+    
+$i++; 
+}
+echo json_encode($sqlarray);
+
+}
     function deletemsg($conexion,$data){
 if($conexion->consulta("DELETE FROM tbl_message WHERE idtbl_message='$data' ")){
 

@@ -765,28 +765,14 @@ $i++;
          
   
     
-    <div class="col-sm-12">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="">
-            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-            Samsung
-          </label>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="" checked>
-            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-            LG
-          </label>
-        </div>
-        <div class="checkbox ">
-          <label>
-            <input type="checkbox" value="" disabled>
-            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-            Maybe
-          </label>
-        </div>
+    <div class="col-sm-6 seleccion">
+
+
+    
+  </div>
+   <div class="col-sm-6 seleccion2">
+
+       
     
   </div>
         </div>

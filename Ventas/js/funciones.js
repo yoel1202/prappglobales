@@ -1,8 +1,10 @@
  $( document ).ready(function() {
 
 $('.children .nav-child li').click(function(e) {
+
 var cate= $(this).attr("data-id");
 var tipo =$(this).text();
+
 searchfilter(cate,tipo);
 $('.conversation-list ul li a').each(function(){
     if ($(this).text()==tipo.trim()){
@@ -409,7 +411,10 @@ function eliminardelcarrito(id_producto)
 function searchfilter(categoria,tipofiltro)
 {
 
+if (tipofiltro.trim()=='Localizacion') {
 
+ $('.seleccion').append('<div class="form-group has-success"> <label class="control-label" for="inputSuccess">Lugar</label><input class="form-control" id="inputSuccess" type="text"></div>');
+}else{
 
 $.ajax({
     type: 'POST',
@@ -417,9 +422,24 @@ $.ajax({
     data: {key: 'getfilter',cate:categoria,tipo:tipofiltro}
 
   }).done(function ( data ) {
+    var obj = JSON.parse(data);
+  var bool=true;
+     for (var i=0; i<obj.length; i++) { 
+
+      if (bool) {
+         $('.seleccion').append(' <div class="checkbox">  <label>    <input type="checkbox" value=""> <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span> '+obj[i][0]+' </label></div>');
+       bool=false;
+       }else{
+
+         $('.seleccion2').append(' <div class="checkbox">  <label>    <input type="checkbox" value=""> <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span> '+obj[i][0]+' </label></div>');
+      bool=true;
+       }
+     
+
+     }
   
   }).fail(function (jqXHR, textStatus, errorThrown){
    
   })
- 
+ }
 }
