@@ -224,7 +224,7 @@ echo json_encode($search);
     if($conexion->consulta("CALL insertar('$vendedor','$subcategoria','$peso','$color','$anchura','$altura','$estados','$envio','$cantidad','$tama','$precio','$titulo','$garantia','$descripcion')")){
       $conexion->consulta("SELECT idtbl_productos FROM tbl_productos order by idtbl_productos DESC LIMIT 1");
       $row= $conexion->extraer_registro();
-      if ($row>0) {
+      if ($row>0 && $descuento != '') {
        $conexion->consulta("INSERT INTO tbl_discount (id_product,discount) VALUES (".$row[0].",".$descuento.")");
       }
       

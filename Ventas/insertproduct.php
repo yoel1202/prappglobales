@@ -316,7 +316,7 @@ $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estad
       </div><label style="font-size: 15px; margin-top: 5px">% (Si desea poner este producto en oferta, sino dejar en blanco)</label>
     </div>
         <div class="col-lg-12 form-group">
-      <label class="col-lg-2"  for="RequiresTextField">Envio incluido</label>
+      <label class="col-lg-2"  for="RequiresTextField">Envío incluído</label>
       <div class="col-lg-4">
         <input id="opcion2" type="radio"  name="RequiresTextField" class="input-xlarge" <?php if (isset($_GET['id_producto'])) {if($precioenvio=='0'){echo "checked";}}?>><span>No</span>
          <input id="opcion" type="radio"  name="RequiresTextField"  class="input-xlarge" <?php if (isset($_GET['id_producto'])) {if($precioenvio!='0'){echo "checked";}}?>><span>Si</span>
@@ -325,7 +325,7 @@ $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estad
 
     </div>
       <div id="ocultar" class="col-lg-12 form-group  <?php if (isset($_GET['id_producto'])) {if($precioenvio=='0'){echo "hidden";}}else{echo "hidden";}?> ">
-      <label class="col-lg-2" for="ColorOptionPrompt">Precio de envio</label>
+      <label class="col-lg-2" for="ColorOptionPrompt">Precio de envío</label>
       <div class="col-lg-4">
         <input type="text" id="shipping" name="ColorOptionPrompt" placeholder="" class="form-control color-option-prompt" value="<?php if (isset($_GET['id_producto'])) {if($precioenvio!='0'){echo $precioenvio;}}?>">
       </div>
@@ -337,9 +337,9 @@ $conexion->consulta ("SELECT count(idtbl_message) FROM `tbl_message` WHERE estad
       </div>
     </div>
     <div class="col-lg-12 form-group">
-      <label class="col-lg-2" for="Dimentions">Dimensiones(ancho x alto en centímetros)</label>
+      <label class="col-lg-2" for="DimentionsWidth">Dimensiones(ancho x alto en centímetros)</label>
       <div class="col-lg-10">
-        <div class="col-lg-3"><input type="text" id="width" name="DimentionsWidth" placeholder="" class="form-control dimentions-width" value="<?php if (isset($_GET['id_producto'])) {echo $ancho;}?>">  Ancho</div>
+        <div class="col-lg-3"><input type="text" id="width" name="DimentionsWidth" placeholder="" class="ancho form-control dimentions-width" value="<?php if (isset($_GET['id_producto'])) {echo $ancho;}?>">  Ancho</div>
         <div class="col-lg-3"><input type="text" id="height" name="DimentionsHeight" placeholder="" class="form-control dimentions-height" value="<?php if (isset($_GET['id_producto'])) {echo $alto;}?>"> Altura</div>
        
       </div>

@@ -87,7 +87,7 @@ $.ajax({
     }
     else
     {
-      alert('Debes aceptar nuestros Términos y condiciones!');
+      alert('Debes aceptar nuestros Términos y condiciones para poder continuar!');
     }
   }else{
     alert("Las contraseñas no conciden, Por favor reintente!");

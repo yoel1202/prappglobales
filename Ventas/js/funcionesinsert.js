@@ -18,13 +18,15 @@ insertproduct();
 
 
 function insertproduct(){
+  if ($('#quantity').val()!="" && $('#size').val() !="" && $('#price').val() !="" && $('#weight').val() !="" &&
+   $('.ancho').val() !="" && $('#height').val() !="" && $('#title').val() !="" && $('#warranty').val() !="" && 
+   $('#description').val() !="" && $('#color').val() !="") {
 
-
-	$.ajax({
+      $.ajax({
     type: 'POST',
     url: 'database.php',
     data: {key: 'insertproduct',subcategoria:$('#subcategoria').find(':selected').data("id2"),vendedor:$('#vendedor').text(),cantidad:$('#quantity').val(),
-    tama:$('#size').val(),price:$('#price').val(),shipping:$('#shipping').val(),weight:$('#weight').val(),width:$('#width').val(),height:$('#height').val(),
+    tama:$('#size').val(),price:$('#price').val(),shipping:$('#shipping').val(),weight:$('#weight').val(),width:$('.ancho').val(),height:$('#height').val(),
     title:$('#title').val(),warranty:$('#warranty').val(),description:$('#description').val(),estado:'activo',color:$('#color').val(),idproduct:$('#idproducto').text(),descuento:$('#discount').val()
 }
 
@@ -52,6 +54,11 @@ function insertproduct(){
   }).fail(function (jqXHR, textStatus, errorThrown){
    
   })
+  }
+  else
+  {
+    alert("No puedes dejar ningun espacio en blanco, excepto el descuento si asi lo desea!");
+  }
 }
 
 function cargarsubcategorias(categoria,sub){

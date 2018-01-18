@@ -79,8 +79,8 @@
                                     <div class="form-group">
                                         <input type="email" name="email" id="email" class="form-control" placeholder="Correo electronico" value="">
                                     </div>
-                                     <div class="form-group">
-                                        <input  name="pass" id="nom" class="form-control" placeholder="Nombre">
+                                     <div class="form-group"> <input type="text" name="pass" id="nom" class="form-control" placeholder="Nombre">
+                                       
                                     </div>
                                      <div class="form-group">
                                         <input  name="email" id="ced" class="form-control" placeholder="Cedula" value="">
